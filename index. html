@@ -1,8 +1,182 @@
-your-username.github.io/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── main.js
-└── images/
-    └── (存放你的图片)
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="个人网站 - 展示我的作品和技能">
+<meta name="keywords" content="个人网站，作品集，简历，博客">
+<meta name="author" content="你的名字">
+<title>张三 | 个人网站</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<!-- 导航栏 -->
+<nav class="navbar">
+{d_placeholder_0}
+</div>
+</nav>
+<!-- 首页/英雄区域 -->
+<section id="home" class="hero">
+{d_placeholder_1}
+{d_placeholder_2}
+</div>
+{d_placeholder_3}
+</div>
+</div>
+{d_placeholder_4}
+</section>
+<!-- 关于我 -->
+<section id="about" class="about">
+{d_placeholder_5}
+{d_placeholder_6}
+</div>
+{d_placeholder_7}
+</div>
+{d_placeholder_8}
+</div>
+{d_placeholder_9}
+</div>
+</div>
+<a href="#" class="btn btn-primary">下载简历</a>
+</div>
+</div>
+</div>
+</section>
+<!-- 技能 -->
+<section id="skills" class="skills">
+{d_placeholder_10}</div>
+</div>
+{d_placeholder_11}</div>
+</div>
+{d_placeholder_12}</div>
+</div>
+{d_placeholder_13}</div>
+</div>
+</div>
+</div>
+{d_placeholder_14}</div>
+</div>
+{d_placeholder_15}</div>
+</div>
+{d_placeholder_16}</div>
+</div>
+{d_placeholder_17}</div>
+</div>
+</div>
+</div>
+{d_placeholder_18}</div>
+</div>
+{d_placeholder_19}</div>
+</div>
+{d_placeholder_20}</div>
+</div>
+{d_placeholder_21}</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 项目作品 -->
+<section id="projects" class="projects">
+{d_placeholder_22}
+{d_placeholder_23}
+</div>
+{d_placeholder_24}
+</div>
+</div>
+{d_placeholder_25}
+</div>
+{d_placeholder_26}
+</div>
+</div>
+{d_placeholder_27}
+</div>
+{d_placeholder_28}
+</div>
+</div>
+{d_placeholder_29}
+</div>
+{d_placeholder_30}
+</div>
+</div>
+{d_placeholder_31}
+</div>
+{d_placeholder_32}
+</div>
+</div>
+{d_placeholder_33}
+</div>
+{d_placeholder_34}
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 博客文章 -->
+<section id="blog" class="blog">
+{d_placeholder_35}
+{d_placeholder_36}
+<h3>React Hooks 最佳实践指南</h3>
+<p>深入探讨 React Hooks 的使用技巧，包括 useState、useEffect、自定义 Hooks 等...</p>
+<a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+</div>
+</article>
+<article class="blog-card">
+{d_placeholder_37}
+{d_placeholder_38}
+<h3>从零开始搭建 Node.js 项目</h3>
+<p>手把手教你搭建一个完整的 Node.js 后端项目，包含项目结构、依赖管理...</p>
+<a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+</div>
+</article>
+<article class="blog-card">
+{d_placeholder_39}
+{d_placeholder_40}
+<h3>程序员的职业发展规划</h3>
+<p>分享我对于程序员职业发展的思考，包括技术深度、广度、管理能力等方面...</p>
+<a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+</div>
+</article>
+</div>
+{d_placeholder_41}
+</div>
+</section>
+<!-- 联系方式 -->
+<section id="contact" class="contact">
+{d_placeholder_42}
+</div>
+{d_placeholder_43}
+</div>
+{d_placeholder_44}
+</div>
+</div>
+{d_placeholder_45}
+</div>
+{d_placeholder_46}
+{d_placeholder_47}
+{d_placeholder_48}
+{d_placeholder_49}
+<button type="submit" class="btn btn-primary">发送消息</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- 页脚 -->
+<footer class="footer">
+{d_placeholder_50}
+{d_placeholder_51}
+{d_placeholder_52}
+</div>
+{d_placeholder_53}
+</div>
+</footer>
+<!-- 回到顶部按钮 -->
+<a href="#home" class="back-to-top" id="backToTop">
+<i class="fas fa-arrow-up"></i>
+</a>
+<script src="js/main.js"></script>
+</body>
+</html>
