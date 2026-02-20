@@ -1,182 +1,1205 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="个人网站 - 展示我的作品和技能">
-<meta name="keywords" content="个人网站，作品集，简历，博客">
-<meta name="author" content="你的名字">
-<title>张三 | 个人网站</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>林逸尘 | 全栈开发者 & 创意设计师</title>
+    <meta name="description" content="林逸尘的个人作品集 - 专注于Web开发、UI设计和数字创意">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0f172a',
+                        accent: '#3b82f6',
+                        secondary: '#64748b',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7);
+        }
+        
+        /* Project Card Hover */
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Skill Bar Animation */
+        .skill-bar {
+            width: 0;
+            transition: width 1s ease-out;
+        }
+        .skill-bar.animate {
+            width: var(--width);
+        }
+        
+        /* Typing Cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Timeline */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+        }
+    </style>
 </head>
-<body>
-<!-- 导航栏 -->
-<nav class="navbar">
-{d_placeholder_0}
-</div>
-</nav>
-<!-- 首页/英雄区域 -->
-<section id="home" class="hero">
-{d_placeholder_1}
-{d_placeholder_2}
-</div>
-{d_placeholder_3}
-</div>
-</div>
-{d_placeholder_4}
-</section>
-<!-- 关于我 -->
-<section id="about" class="about">
-{d_placeholder_5}
-{d_placeholder_6}
-</div>
-{d_placeholder_7}
-</div>
-{d_placeholder_8}
-</div>
-{d_placeholder_9}
-</div>
-</div>
-<a href="#" class="btn btn-primary">下载简历</a>
-</div>
-</div>
-</div>
-</section>
-<!-- 技能 -->
-<section id="skills" class="skills">
-{d_placeholder_10}</div>
-</div>
-{d_placeholder_11}</div>
-</div>
-{d_placeholder_12}</div>
-</div>
-{d_placeholder_13}</div>
-</div>
-</div>
-</div>
-{d_placeholder_14}</div>
-</div>
-{d_placeholder_15}</div>
-</div>
-{d_placeholder_16}</div>
-</div>
-{d_placeholder_17}</div>
-</div>
-</div>
-</div>
-{d_placeholder_18}</div>
-</div>
-{d_placeholder_19}</div>
-</div>
-{d_placeholder_20}</div>
-</div>
-{d_placeholder_21}</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 项目作品 -->
-<section id="projects" class="projects">
-{d_placeholder_22}
-{d_placeholder_23}
-</div>
-{d_placeholder_24}
-</div>
-</div>
-{d_placeholder_25}
-</div>
-{d_placeholder_26}
-</div>
-</div>
-{d_placeholder_27}
-</div>
-{d_placeholder_28}
-</div>
-</div>
-{d_placeholder_29}
-</div>
-{d_placeholder_30}
-</div>
-</div>
-{d_placeholder_31}
-</div>
-{d_placeholder_32}
-</div>
-</div>
-{d_placeholder_33}
-</div>
-{d_placeholder_34}
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 博客文章 -->
-<section id="blog" class="blog">
-{d_placeholder_35}
-{d_placeholder_36}
-<h3>React Hooks 最佳实践指南</h3>
-<p>深入探讨 React Hooks 的使用技巧，包括 useState、useEffect、自定义 Hooks 等...</p>
-<a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
-</div>
-</article>
-<article class="blog-card">
-{d_placeholder_37}
-{d_placeholder_38}
-<h3>从零开始搭建 Node.js 项目</h3>
-<p>手把手教你搭建一个完整的 Node.js 后端项目，包含项目结构、依赖管理...</p>
-<a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
-</div>
-</article>
-<article class="blog-card">
-{d_placeholder_39}
-{d_placeholder_40}
-<h3>程序员的职业发展规划</h3>
-<p>分享我对于程序员职业发展的思考，包括技术深度、广度、管理能力等方面...</p>
-<a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
-</div>
-</article>
-</div>
-{d_placeholder_41}
-</div>
-</section>
-<!-- 联系方式 -->
-<section id="contact" class="contact">
-{d_placeholder_42}
-</div>
-{d_placeholder_43}
-</div>
-{d_placeholder_44}
-</div>
-</div>
-{d_placeholder_45}
-</div>
-{d_placeholder_46}
-{d_placeholder_47}
-{d_placeholder_48}
-{d_placeholder_49}
-<button type="submit" class="btn btn-primary">发送消息</button>
-</form>
-</div>
-</div>
-</div>
-</section>
-<!-- 页脚 -->
-<footer class="footer">
-{d_placeholder_50}
-{d_placeholder_51}
-{d_placeholder_52}
-</div>
-{d_placeholder_53}
-</div>
-</footer>
-<!-- 回到顶部按钮 -->
-<a href="#home" class="back-to-top" id="backToTop">
-<i class="fas fa-arrow-up"></i>
-</a>
-<script src="js/main.js"></script>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-display text-2xl font-bold gradient-text">LYC</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+                    <a href="#about" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">关于</a>
+                    <a href="#skills" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">技能</a>
+                    <a href="#projects" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">项目</a>
+                    <a href="#experience" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">经历</a>
+                    <a href="#blog" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">博客</a>
+                    <a href="#contact" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">联系</a>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                        <i data-lucide="sun" class="hidden dark:block w-5 h-5"></i>
+                        <i data-lucide="moon" class="block dark:hidden w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                        <i data-lucide="sun" class="hidden dark:block w-5 h-5"></i>
+                        <i data-lucide="moon" class="block dark:hidden w-5 h-5"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-slate-200 dark:border-slate-800">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">首页</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">关于</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">技能</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">项目</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">经历</a>
+                <a href="#blog" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">博客</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-bounce-slow"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-bounce-slow" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <div class="mb-6 inline-block">
+                    <span class="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium">
+                        👋 欢迎来到我的个人空间
+                    </span>
+                </div>
+                
+                <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                    我是 <span class="gradient-text typing-cursor" id="typing-text">林逸尘</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    全栈开发者 / UI设计师 / 开源贡献者<br>
+                    <span class="text-base md:text-lg opacity-80">用代码构建梦想，用设计诠释美学</span>
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#projects" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-all transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-600/30">
+                        <span>查看作品</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border-2 border-slate-300 dark:border-slate-700 hover:border-blue-600 dark:hover:border-blue-400 rounded-full font-medium transition-all flex items-center gap-2">
+                        <span>联系我</span>
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="mt-12 flex justify-center space-x-6">
+                    <a href="https://github.com" target="_blank" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="github" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="linkedin" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="twitter" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                    <a href="mailto:hello@linyichen.dev" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="mail" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-slate-400"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white dark:bg-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Image -->
+                <div class="relative">
+                    <div class="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 p-2">
+                        <div class="w-full h-full rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
+                            <i data-lucide="user" class="w-32 h-32 text-slate-400"></i>
+                        </div>
+                    </div>
+                    <!-- Floating Stats -->
+                    <div class="absolute -bottom-6 -right-6 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                                <i data-lucide="code-2" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold">5+</p>
+                                <p class="text-sm text-slate-500">年开发经验</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div>
+                    <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">
+                        关于<span class="gradient-text">我</span>
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                        我是林逸尘，一名热爱技术与设计的全栈开发者。目前居住在上海，专注于构建优雅、高性能的Web应用。
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                        我相信好的代码应该像诗一样优雅，好的设计应该像直觉一样自然。在过去的5年里，我参与了从初创公司到大型企业的多个项目，涉及电商、SaaS、人工智能等多个领域。
+                    </p>
+                    
+                    <!-- Quick Info -->
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-blue-600"></i>
+                            <span class="text-slate-700 dark:text-slate-300">中国，上海</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="briefcase" class="w-5 h-5 text-blue-600"></i>
+                            <span class="text-slate-700 dark:text-slate-300">高级前端工程师</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="graduation-cap" class="w-5 h-5 text-blue-600"></i>
+                            <span class="text-slate-700 dark:text-slate-300">计算机科学硕士</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="coffee" class="w-5 h-5 text-blue-600"></i>
+                            <span class="text-slate-700 dark:text-slate-300">咖啡爱好者</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium group">
+                        <span>下载简历</span>
+                        <i data-lucide="download" class="w-4 h-4 transform group-hover:translate-y-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">技术<span class="gradient-text">栈</span></h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    持续学习，不断进步。以下是我目前熟练掌握的技术和工具。
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Frontend -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+                            <i data-lucide="layout" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold">前端开发</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">React / Next.js</span>
+                                <span class="text-sm text-slate-500">95%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-blue-600 h-2 rounded-full" style="--width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">TypeScript</span>
+                                <span class="text-sm text-slate-500">90%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-blue-600 h-2 rounded-full" style="--width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Tailwind CSS</span>
+                                <span class="text-sm text-slate-500">95%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-blue-600 h-2 rounded-full" style="--width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Vue.js</span>
+                                <span class="text-sm text-slate-500">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-blue-600 h-2 rounded-full" style="--width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Backend -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+                            <i data-lucide="server" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold">后端开发</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Node.js</span>
+                                <span class="text-sm text-slate-500">90%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-purple-600 h-2 rounded-full" style="--width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Python / Django</span>
+                                <span class="text-sm text-slate-500">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-purple-600 h-2 rounded-full" style="--width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">PostgreSQL</span>
+                                <span class="text-sm text-slate-500">80%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-purple-600 h-2 rounded-full" style="--width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">GraphQL</span>
+                                <span class="text-sm text-slate-500">75%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-purple-600 h-2 rounded-full" style="--width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools & Others -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
+                            <i data-lucide="wrench" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold">工具与设计</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Figma</span>
+                                <span class="text-sm text-slate-500">90%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-green-600 h-2 rounded-full" style="--width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Docker</span>
+                                <span class="text-sm text-slate-500">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-green-600 h-2 rounded-full" style="--width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">AWS / Vercel</span>
+                                <span class="text-sm text-slate-500">80%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-green-600 h-2 rounded-full" style="--width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Git / CI/CD</span>
+                                <span class="text-sm text-slate-500">90%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                <div class="skill-bar bg-green-600 h-2 rounded-full" style="--width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white dark:bg-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">精选<span class="gradient-text">项目</span></h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    这里展示了我最近完成的一些项目，涵盖Web应用、移动应用和开源工具。
+                </p>
+            </div>
+            
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active px-6 py-2 rounded-full bg-blue-600 text-white font-medium transition-all" data-filter="all">全部</button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-all" data-filter="web">Web应用</button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-all" data-filter="mobile">移动应用</button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-all" data-filter="design">UI设计</button>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700" data-category="web">
+                    <div class="aspect-video bg-gradient-to-br from-blue-500 to-blue-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="shopping-bag" class="w-16 h-16 text-white/80"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">React</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">Node.js</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">E-Shop Pro</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+                            一个功能齐全的电商平台，支持实时库存管理、支付集成和数据分析仪表板。
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors" title="查看代码">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                </a>
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors" title="在线预览">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                            <span class="text-sm text-slate-500">2024</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700" data-category="mobile">
+                    <div class="aspect-video bg-gradient-to-br from-purple-500 to-pink-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="smartphone" class="w-16 h-16 text-white/80"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">React Native</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">Firebase</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold mb-2 group-hover:text-purple-600 transition-colors">HealthTrack</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+                            健康管理应用，集成步数追踪、饮食记录和AI健康建议功能。
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                </a>
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                            <span class="text-sm text-slate-500">2024</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700" data-category="design">
+                    <div class="aspect-video bg-gradient-to-br from-orange-400 to-red-500 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="palette" class="w-16 h-16 text-white/80"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">Figma</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">UI/UX</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold mb-2 group-hover:text-orange-600 transition-colors">Finance Dashboard</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+                            为金融科技公司设计的后台管理系统界面，注重数据可视化和用户体验。
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="figma" class="w-5 h-5"></i>
+                                </a>
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                            <span class="text-sm text-slate-500">2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700" data-category="web">
+                    <div class="aspect-video bg-gradient-to-br from-green-400 to-teal-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="message-circle" class="w-16 h-16 text-white/80"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">Next.js</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">Socket.io</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold mb-2 group-hover:text-green-600 transition-colors">ChatFlow</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+                            实时团队协作工具，支持视频会议、文件共享和项目管理功能。
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                </a>
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                            <span class="text-sm text-slate-500">2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700" data-category="web">
+                    <div class="aspect-video bg-gradient-to-br from-indigo-500 to-blue-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="brain" class="w-16 h-16 text-white/80"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">Python</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">TensorFlow</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold mb-2 group-hover:text-indigo-600 transition-colors">AI Content Gen</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+                            基于GPT-4的AI内容生成平台，支持文章写作、代码生成和图像创作。
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                </a>
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                            <span class="text-sm text-slate-500">2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700" data-category="design">
+                    <div class="aspect-video bg-gradient-to-br from-pink-400 to-rose-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="image" class="w-16 h-16 text-white/80"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">Adobe XD</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs">品牌</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold mb-2 group-hover:text-pink-600 transition-colors">Luxe Brand</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+                            奢侈品牌视觉识别系统设计，包括Logo、包装和数字媒体素材。
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <a href="#" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                            <span class="text-sm text-slate-500">2022</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://github.com" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-slate-300 dark:border-slate-700 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all">
+                    <span>查看更多项目</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">工作<span class="gradient-text">经历</span></h2>
+                <p class="text-slate-600 dark:text-slate-400">我的职业成长之路</p>
+            </div>
+            
+            <div class="relative">
+                <div class="timeline-line"></div>
+                
+                <!-- Experience 1 -->
+                <div class="relative mb-12 md:mb-0 md:h-48">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 md:text-right md:pr-8 mb-4 md:mb-0">
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 inline-block text-left md:text-right">
+                                <h3 class="font-display text-lg font-bold text-blue-600">高级前端工程师</h3>
+                                <p class="text-slate-900 dark:text-slate-100 font-medium">字节跳动</p>
+                                <p class="text-slate-500 text-sm mt-1">2022 - 至今</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">负责抖音电商前端架构，带领5人团队开发核心交易链路。</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white dark:border-slate-900 z-10 ml-0 md:ml-0"></div>
+                        <div class="md:w-5/12 md:pl-8 hidden md:block"></div>
+                    </div>
+                </div>
+                
+                <!-- Experience 2 -->
+                <div class="relative mb-12 md:mb-0 md:h-48">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 hidden md:block"></div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-purple-600 rounded-full border-4 border-white dark:border-slate-900 z-10 ml-0 md:ml-0"></div>
+                        <div class="md:w-5/12 md:pl-8 mb-4 md:mb-0">
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 inline-block">
+                                <h3 class="font-display text-lg font-bold text-purple-600">全栈开发工程师</h3>
+                                <p class="text-slate-900 dark:text-slate-100 font-medium">阿里巴巴</p>
+                                <p class="text-slate-500 text-sm mt-1">2020 - 2022</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">参与淘宝特价版开发，负责优惠券系统和用户增长模块。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience 3 -->
+                <div class="relative mb-12 md:mb-0 md:h-48">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 md:text-right md:pr-8 mb-4 md:mb-0">
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 inline-block text-left md:text-right">
+                                <h3 class="font-display text-lg font-bold text-green-600">前端开发工程师</h3>
+                                <p class="text-slate-900 dark:text-slate-100 font-medium">美团</p>
+                                <p class="text-slate-500 text-sm mt-1">2019 - 2020</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">负责美团外卖H5页面开发和性能优化，提升页面加载速度40%。</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-green-600 rounded-full border-4 border-white dark:border-slate-900 z-10 ml-0 md:ml-0"></div>
+                        <div class="md:w-5/12 md:pl-8 hidden md:block"></div>
+                    </div>
+                </div>
+                
+                <!-- Experience 4 -->
+                <div class="relative">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 hidden md:block"></div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-white dark:border-slate-900 z-10 ml-0 md:ml-0"></div>
+                        <div class="md:w-5/12 md:pl-8">
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 inline-block">
+                                <h3 class="font-display text-lg font-bold text-orange-600">前端实习生</h3>
+                                <p class="text-slate-900 dark:text-slate-100 font-medium">腾讯</p>
+                                <p class="text-slate-500 text-sm mt-1">2018 - 2019</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">参与QQ音乐Web版开发，学习大型项目开发流程。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-white dark:bg-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">最新<span class="gradient-text">文章</span></h2>
+                    <p class="text-slate-600 dark:text-slate-400">分享技术见解和学习心得</p>
+                </div>
+                <a href="#" class="hidden md:flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
+                    <span>查看全部</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <article class="group cursor-pointer">
+                    <div class="aspect-video bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="file-text" class="w-12 h-12 text-blue-600/50"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+                        <span>2024年1月15日</span>
+                        <span>•</span>
+                        <span>5分钟阅读</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">
+                        深入理解 React Server Components
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2">
+                        探讨RSC的工作原理，以及它如何改变我们构建React应用的方式...
+                    </p>
+                </article>
+                
+                <!-- Blog Post 2 -->
+                <article class="group cursor-pointer">
+                    <div class="aspect-video bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/20 dark:to-purple-800/20 rounded-2xl mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="file-text" class="w-12 h-12 text-purple-600/50"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+                        <span>2024年1月8日</span>
+                        <span>•</span>
+                        <span>8分钟阅读</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-2 group-hover:text-purple-600 transition-colors">
+                        TypeScript 高级类型编程指南
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2">
+                        从条件类型到模板字面量类型，掌握TypeScript类型系统的强大功能...
+                    </p>
+                </article>
+                
+                <!-- Blog Post 3 -->
+                <article class="group cursor-pointer">
+                    <div class="aspect-video bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/20 dark:to-green-800/20 rounded-2xl mb-4 overflow-hidden relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="file-text" class="w-12 h-12 text-green-600/50"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+                        <span>2023年12月20日</span>
+                        <span>•</span>
+                        <span>6分钟阅读</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-2 group-hover:text-green-600 transition-colors">
+                        构建高性能Web应用的10个技巧
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm line-clamp-2">
+                        从代码分割到缓存策略，全面提升你的Web应用性能...
+                    </p>
+                </article>
+            </div>
+            
+            <div class="mt-8 text-center md:hidden">
+                <a href="#" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
+                    <span>查看全部文章</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">联系<span class="gradient-text">我</span></h2>
+                <p class="text-slate-600 dark:text-slate-400">
+                    有项目想法或工作机会？欢迎随时联系我！
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+                            <i data-lucide="mail" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">邮箱</h3>
+                            <p class="text-slate-600 dark:text-slate-400">hello@linyichen.dev</p>
+                            <p class="text-slate-600 dark:text-slate-400">work@linyichen.dev</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+                            <i data-lucide="map-pin" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">位置</h3>
+                            <p class="text-slate-600 dark:text-slate-400">中国，上海市</p>
+                            <p class="text-slate-600 dark:text-slate-400">可接受远程工作</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
+                            <i data-lucide="clock" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">工作时间</h3>
+                            <p class="text-slate-600 dark:text-slate-400">周一至周五: 9:00 - 18:00</p>
+                            <p class="text-slate-600 dark:text-slate-400">周末: 仅紧急事务</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="pt-8 border-t border-slate-200 dark:border-slate-700">
+                        <h3 class="font-bold mb-4">关注我</h3>
+                        <div class="flex gap-4">
+                            <a href="https://github.com" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <i data-lucide="github" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <i data-lucide="linkedin" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <i data-lucide="twitter" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                            </a>
+                            <a href="#" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <i data-lucide="rss" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <form class="space-y-6" id="contact-form">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">姓名</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all" placeholder="你的名字">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">邮箱</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">主题</label>
+                        <select class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all">
+                            <option>项目合作</option>
+                            <option>工作机会</option>
+                            <option>技术咨询</option>
+                            <option>其他</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">消息</label>
+                        <textarea rows="4" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all resize-none" placeholder="请输入你的消息..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <span>发送消息</span>
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <span class="font-display text-2xl font-bold text-white">LYC</span>
+                    <p class="mt-2 text-sm">用代码构建梦想，用设计诠释美学</p>
+                </div>
+                
+                <div class="flex gap-8 text-sm">
+                    <a href="#home" class="hover:text-white transition-colors">首页</a>
+                    <a href="#about" class="hover:text-white transition-colors">关于</a>
+                    <a href="#projects" class="hover:text-white transition-colors">项目</a>
+                    <a href="#blog" class="hover:text-white transition-colors">博客</a>
+                    <a href="#contact" class="hover:text-white transition-colors">联系</a>
+                </div>
+                
+                <div class="flex gap-4">
+                    <a href="https://github.com" target="_blank" class="hover:text-white transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="hover:text-white transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="hover:text-white transition-colors">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-sm">
+                <p>&copy; 2024 林逸尘. All rights reserved. | 使用 HTML + Tailwind CSS 构建</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+        <span id="toast-message">操作成功！</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const html = document.documentElement;
+        
+        function toggleTheme() {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+        
+        // Check system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Active nav link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-600', 'dark:text-blue-400');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-blue-600', 'dark:text-blue-400');
+                }
+            });
+        });
+        
+        // Skill bars animation
+        const skillBars = document.querySelectorAll('.skill-bar');
+        const skillsSection = document.getElementById('skills');
+        
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    skillBars.forEach(bar => {
+                        bar.classList.add('animate');
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        observer.observe(skillsSection);
+        
+        // Project Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white');
+                    b.classList.add('bg-slate-200', 'dark:bg-slate-700', 'text-slate-700', 'dark:text-slate-300');
+                });
+                btn.classList.remove('bg-slate-200', 'dark:bg-slate-700', 'text-slate-700', 'dark:text-slate-300');
+                btn.classList.add('bg-blue-600', 'text-white');
+                
+                // Filter projects
+                const filter = btn.getAttribute('data-filter');
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Contact Form Handling
+        const contactForm = document.getElementById('contact-form');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulate form submission
+            showToast('消息已发送！我会尽快回复你。');
+            contactForm.reset();
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Typing effect
+        const typingText = document.getElementById('typing-text');
+        const texts = ['林逸尘', '开发者', '设计师', '创造者'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function type() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 100 : 200;
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+            
+            setTimeout(type, typeSpeed);
+        }
+        
+        // Start typing effect
+        setTimeout(type, 1000);
+        
+        // Re-initialize icons after dynamic content changes
+        setTimeout(() => {
+            lucide.createIcons();
+        }, 100);
+    </script>
 </body>
 </html>
