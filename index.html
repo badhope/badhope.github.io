@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熊泽城 | AI 时代的探索者 & 开发者</title>
+    <meta name="description" content="熊泽城的个人作品集 - 专注于 Web 开发、AI 应用探索和数字创意">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Particles.js: 动态粒子背景 -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <!-- Lunar.js: 农历 / 节气 / 星座 -->
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0f172a',
+                        accent: '#3b82f6',
+                        secondary: '#64748b',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* 粒子背景容器 */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* 主内容在粒子之上 */
+        main, nav, footer {
+            position: relative;
+            z-index: 10;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .skill-bar {
+            width: 0;
+            transition: width 1s ease-out;
+        }
+        .skill-bar.animate {
+            width: var(--width);
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .timeline-line { left: 20px; }
+        }
+
+        /* 加载骨架屏 */
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+<!-- 粒子背景容器 -->
+<div id="particles-js"></div>
+
+<!-- Navigation -->
+<nav class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800 transition-all duration-300" id="navbar">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                <span class="font-display text-2xl font-bold gradient-text">熊泽城</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">首页</a>
+                <a href="#today" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">今日</a>
+                <a href="#projects" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">项目</a>
+                <a href="#articles" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">文章</a>
+                <a href="#growth" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">经历</a>
+                <a href="#contact" class="nav-link text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">联系</a>
+
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="sun" class="hidden dark:block w-5 h-5"></i>
+                    <i data-lucide="moon" class="block dark:hidden w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center space-x-4">
+                <button id="theme-toggle-mobile" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="sun" class="hidden dark:block w-5 h-5"></i>
+                    <i data-lucide="moon" class="block dark:hidden w-5 h-5"></i>
+                </button>
+                <button id="mobile-menu-btn" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden glass border-t border-slate-200 dark:border-slate-800">
+        <div class="px-4 pt-2 pb-4 space-y-1">
+            <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">首页</a>
+            <a href="#today" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">今日</a>
+            <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">项目</a>
+            <a href="#articles" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">文章</a>
+            <a href="#growth" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">经历</a>
+            <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">联系</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <!-- 背景浮动图案（随机生成） -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <!-- 这里用 JS 在后面生成随机小图案，也可以未来替换为你的插图 -->
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <div class="mb-6 inline-block">
+                    <span class="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium">
+                        👋 欢迎来到我的数字空间
+                    </span>
+                </div>
+
+                <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                    我是 <span class="gradient-text typing-cursor" id="typing-text">熊泽城</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    大学生 / AI 时代的探索者 / 开源贡献者<br>
+                    <span class="text-base md:text-lg opacity-80">致力于用 AI 工具重塑开发流程，拥抱技术变革的浪潮</span>
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#projects" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-all transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-600/30">
+                        <span>查看开源项目</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border-2 border-slate-300 dark:border-slate-700 hover:border-blue-600 dark:hover:border-blue-400 rounded-full font-medium transition-all flex items-center gap-2">
+                        <span>与我联系</span>
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Social Links -->
+                <div class="mt-12 flex justify-center space-x-6">
+                    <a href="https://github.com/badhope" target="_blank" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="github" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                    <a href="https://blog.csdn.net/weixin_56622231?type=blog" target="_blank" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="rss" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                    <a href="https://www.zhihu.com/people/badhope" target="_blank" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="at-sign" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                    <a href="mailto:x18825407105@outlook.com" class="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                        <i data-lucide="mail" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-slate-400"></i>
+        </div>
+    </section>
+
+    <!-- 今日看板 -->
+    <section id="today" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">今日<span class="gradient-text">看板</span></h2>
+                <p class="text-slate-600 dark:text-slate-400">天气、农历、运势与灵感，一站式查看</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 天气卡片 -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 col-span-1 lg:col-span-2">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-display text-lg font-bold flex items-center gap-2">
+                            <i data-lucide="cloud-sun" class="w-5 h-5 text-blue-500"></i>
+                            <span id="weather-location">定位中...</span>
+                        </h3>
+                    </div>
+                    <div id="weather-content" class="grid grid-cols-2 gap-4">
+                        <div class="h-20 skeleton rounded-lg"></div>
+                        <div class="h-20 skeleton rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- 农历 / 节气 -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-5 h-5 text-green-500"></i>
+                        农历与黄历
+                    </h3>
+                    <div id="lunar-content" class="space-y-2 text-sm h-24">
+                        <div class="h-4 skeleton rounded w-3/4"></div>
+                        <div class="h-4 skeleton rounded w-1/2"></div>
+                    </div>
+                </div>
+
+                <!-- 每日名言 -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h3 class="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="quote" class="w-5 h-5 text-orange-500"></i>
+                        每日一言
+                    </h3>
+                    <div id="quote-content" class="text-sm h-24 flex items-center justify-center">
+                        <div class="h-12 skeleton rounded w-full"></div>
+                    </div>
+                </div>
+
+                <!-- 星座运势 -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 col-span-1 lg:col-span-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-display text-lg font-bold flex items-center gap-2">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-purple-500"></i>
+                            今日运势
+                        </h3>
+                        <select id="zodiac-select" class="text-sm rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-1">
+                            <option value="aries">白羊座</option><option value="taurus">金牛座</option>
+                            <option value="gemini">双子座</option><option value="cancer">巨蟹座</option>
+                            <option value="leo">狮子座</option><option value="virgo">处女座</option>
+                            <option value="libra">天秤座</option><option value="scorpio">天蝎座</option>
+                            <option value="sagittarius">射手座</option><option value="capricorn">摩羯座</option>
+                            <option value="aquarius">水瓶座</option><option value="pisces">双鱼座</option>
+                        </select>
+                    </div>
+                    <div id="horoscope-content" class="text-sm min-h-[100px]">
+                        <div class="h-20 skeleton rounded w-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub 项目 -->
+    <section id="projects" class="py-20 bg-slate-100/50 dark:bg-slate-800/20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">开源<span class="gradient-text">项目</span></h2>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    实时同步自我的 GitHub 仓库，展示我在不同技术领域的探索与实践。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700">
+                    <div class="aspect-video skeleton"></div>
+                    <div class="p-6 space-y-4">
+                        <div class="h-4 skeleton rounded w-3/4"></div>
+                        <div class="h-4 skeleton rounded w-full"></div>
+                        <div class="h-4 skeleton rounded w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="https://github.com/badhope?tab=repositories" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-slate-300 dark:border-slate-700 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all">
+                    <span>查看全部 GitHub 仓库</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文章聚合 -->
+    <section id="articles" class="py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">最新<span class="gradient-text">文章</span></h2>
+                <p class="text-slate-600 dark:text-slate-400">来自 CSDN 博客、知乎与 GitHub 项目更新</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- CSDN 最新文章 -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="rss" class="w-5 h-5 text-blue-500"></i>
+                        <h3 class="font-display text-lg font-bold">CSDN 博客</h3>
+                    </div>
+                    <div id="csdn-articles" class="space-y-2 text-sm max-h-64 overflow-y-auto">
+                        <div class="h-4 skeleton rounded w-full"></div>
+                        <div class="h-4 skeleton rounded w-3/4"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a href="https://blog.csdn.net/weixin_56622231?type=blog" target="_blank" class="text-xs text-blue-600 hover:underline">访问 CSDN 博客 →</a>
+                    </div>
+                </div>
+
+                <!-- 知乎动态 -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="at-sign" class="w-5 h-5 text-purple-500"></i>
+                        <h3 class="font-display text-lg font-bold">知乎动态</h3>
+                    </div>
+                    <div id="zhihu-articles" class="space-y-2 text-sm max-h-64 overflow-y-auto">
+                        <div class="h-4 skeleton rounded w-full"></div>
+                        <div class="h-4 skeleton rounded w-3/4"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a href="https://www.zhihu.com/people/badhope" target="_blank" class="text-xs text-blue-600 hover:underline">访问知乎主页 →</a>
+                    </div>
+                </div>
+
+                <!-- GitHub 项目更新 -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="github" class="w-5 h-5 text-slate-700 dark:text-slate-200"></i>
+                        <h3 class="font-display text-lg font-bold">GitHub 更新</h3>
+                    </div>
+                    <div id="github-articles" class="space-y-2 text-sm max-h-64 overflow-y-auto">
+                        <div class="h-4 skeleton rounded w-full"></div>
+                        <div class="h-4 skeleton rounded w-3/4"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a href="https://github.com/badhope" target="_blank" class="text-xs text-blue-600 hover:underline">访问 GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 成长经历 -->
+    <section id="growth" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">成长<span class="gradient-text">轨迹</span></h2>
+                <p class="text-slate-600 dark:text-slate-400">我的学习之路与未来规划</p>
+            </div>
+
+            <div class="relative">
+                <div class="timeline-line"></div>
+
+                <!-- 当前：大学 -->
+                <div class="relative mb-12 md:mb-0 md:h-48">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 md:text-right md:pr-8 mb-4 md:mb-0">
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 inline-block text-left md:text-right">
+                                <h3 class="font-display text-lg font-bold text-blue-600">大学 & AI 探索</h3>
+                                <p class="text-slate-900 dark:text-slate-100 font-medium">在校学习</p>
+                                <p class="text-slate-500 text-sm mt-1">进行中</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">
+                                    专注于计算机科学基础，积极探索 AI 编程工具，致力于成为新时代的全栈开发者。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white dark:border-slate-900 z-10 animate-pulse"></div>
+                        <div class="md:w-5/12 md:pl-8 hidden md:block"></div>
+                    </div>
+                </div>
+
+                <!-- 预留：实习经历 -->
+                <div class="relative mb-12 md:mb-0 md:h-48">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 hidden md:block"></div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-slate-300 dark:bg-slate-600 rounded-full border-4 border-white dark:border-slate-900 z-10"></div>
+                        <div class="md:w-5/12 md:pl-8 mb-4 md:mb-0">
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 inline-block opacity-75">
+                                <h3 class="font-display text-lg font-bold text-slate-400 dark:text-slate-500">实习经历（待解锁）</h3>
+                                <p class="text-slate-400 dark:text-slate-500 text-sm mt-2">
+                                    未来将在这里记录我的第一段正式工作经历，期待与优秀的团队共同成长。
+                                </p>
+                                <!-- 提示：未来可以在这里插入公司 Logo 或截图 -->
+                                <div class="mt-2 h-20 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-xs text-slate-400">
+                                    预留插图位置（公司 Logo / 工照截图）
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 预留：工作经历 -->
+                <div class="relative">
+                    <div class="md:flex items-center justify-between">
+                        <div class="md:w-5/12 md:text-right md:pr-8 mb-4 md:mb-0">
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 inline-block text-left md:text-right opacity-75">
+                                <h3 class="font-display text-lg font-bold text-slate-400 dark:text-slate-500">工作经历（待解锁）</h3>
+                                <p class="text-slate-400 dark:text-slate-500 text-sm mt-2">
+                                    持续积累项目经验，向高级工程师的目标迈进。
+                                </p>
+                                <!-- 提示：未来可以在这里插入团队照片或工作环境图 -->
+                                <div class="mt-2 h-20 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-xs text-slate-400">
+                                    预留插图位置（团队照片 / 工作环境）
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-slate-300 dark:bg-slate-600 rounded-full border-4 border-white dark:border-slate-900 z-10"></div>
+                        <div class="md:w-5/12 md:pl-8 hidden md:block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section id="contact" class="py-20 bg-white dark:bg-slate-800/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">联系<span class="gradient-text">我</span></h2>
+                <p class="text-slate-600 dark:text-slate-400">
+                    无论是技术探讨、项目合作还是学习交流，都欢迎随时联系！
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- 联系信息 -->
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+                            <i data-lucide="mail" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">邮箱</h3>
+                            <a href="mailto:x18825407105@outlook.com" class="text-slate-600 dark:text-slate-400 hover:text-blue-600">x18825407105@outlook.com</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+                            <i data-lucide="phone" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">电话</h3>
+                            <p class="text-slate-600 dark:text-slate-400">18825407105</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
+                            <i data-lucide="map-pin" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">位置</h3>
+                            <p class="text-slate-600 dark:text-slate-400">中国，广东</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
+                            <i data-lucide="message-circle" class="w-6 h-6 text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">社交账号</h3>
+                            <p class="text-slate-600 dark:text-slate-400">微信: WeixinNo_10001</p>
+                            <p class="text-slate-600 dark:text-slate-400">QQ: 1936871600</p>
+                        </div>
+                    </div>
+
+                    <!-- 社交链接 -->
+                    <div class="pt-8 border-t border-slate-200 dark:border-slate-700">
+                        <h3 class="font-bold mb-4">关注我的动态</h3>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/badhope" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <i data-lucide="github" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                            </a>
+                            <a href="https://blog.csdn.net/weixin_56622231?type=blog" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <i data-lucide="rss" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                            </a>
+                            <a href="https://www.zhihu.com/people/badhope" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <i data-lucide="at-sign" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-blue-600"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 下载简历预留 -->
+                    <div class="pt-8 border-t border-slate-200 dark:border-slate-700">
+                        <h3 class="font-bold mb-4">简历下载</h3>
+                        <button id="download-resume-btn" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
+                            <span>下载简历</span>
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                        <!-- 提示：你可以在这里把 a 标签指向你的简历文件，例如： -->
+                        <!-- <a href="/你的简历.pdf" download class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"> -->
+                        <!--     <span>下载简历</span> -->
+                        <!--     <i data-lucide="download" class="w-4 h-4"></i> -->
+                        <!-- </a> -->
+                    </div>
+                </div>
+
+                <!-- 联系表单 -->
+                <form class="space-y-6" id="contact-form">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">姓名</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all" placeholder="你的名字">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">邮箱</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">主题</label>
+                        <select class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all">
+                            <option>项目合作</option>
+                            <option>工作机会</option>
+                            <option>技术咨询</option>
+                            <option>其他</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">消息</label>
+                        <textarea rows="4" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 outline-none transition-all resize-none" placeholder="请输入你的消息..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <span>发送消息</span>
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="font-display text-2xl font-bold text-white">熊泽城</span>
+                <p class="mt-2 text-sm">以代码为笔，以 AI 为墨，书写未来。</p>
+            </div>
+
+            <div class="flex gap-8 text-sm">
+                <a href="https://github.com/badhope" class="hover:text-white transition-colors">GitHub</a>
+                <a href="https://blog.csdn.net/weixin_56622231?type=blog" class="hover:text-white transition-colors">CSDN 博客</a>
+                <a href="https://www.zhihu.com/people/badhope" class="hover:text-white transition-colors">知乎</a>
+                <a href="#contact" class="hover:text-white transition-colors">联系</a>
+            </div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-slate-800 text-center text-sm">
+            <p>&copy; 2024 熊泽城. All rights reserved. | Powered by AI & Passion</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+    <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+    <span id="toast-message">操作成功！</span>
+</div>
+
+<script>
+    // 初始化 Lucide 图标
+    lucide.createIcons();
+
+    // ==========================================
+    // 1. 粒子背景初始化
+    // ==========================================
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 60, density: { enable: true, value_area: 800 } },
+            color: { value: '#3b82f6' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.3, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#3b82f6',
+                opacity: 0.2,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: 'none',
+                random: true,
+                out_mode: 'out'
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: { enable: true, mode: 'grab' },
+                onclick: { enable: true, mode: 'push' },
+                resize: true
+            },
+            modes: {
+                grab: { distance: 140, line_linked: { opacity: 0.5 } },
+                push: { particles_nb: 4 }
+            }
+        },
+        retina_detect: true
+    });
+
+    // ==========================================
+    // 2. 主题切换
+    // ==========================================
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    const html = document.documentElement;
+
+    function toggleTheme() {
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            html.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+        const particleColor = html.classList.contains('dark') ? '#ffffff' : '#3b82f6';
+        if (window.pJSDom && window.pJSDom[0]) {
+            window.pJSDom[0].pJS.particles.color.value = particleColor;
+            window.pJSDom[0].pJS.particles.line_linked.color = particleColor;
+            window.pJSDom[0].pJS.fn.particlesRefresh();
+        }
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    themeToggleMobile.addEventListener('click', toggleTheme);
+
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+    }
+
+    // ==========================================
+    // 3. 移动端菜单 & 滚动效果
+    // ==========================================
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 100) navbar.classList.add('shadow-md');
+        else navbar.classList.remove('shadow-md');
+    });
+
+    // 高亮当前导航
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 200) current = section.getAttribute('id');
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('text-blue-600', 'dark:text-blue-400');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('text-blue-600', 'dark:text-blue-400');
+            }
+        });
+    });
+
+    // ==========================================
+    // 4. 今日看板 API
+    // ==========================================
+
+    // 4.1 天气（IP 定位 + Open-Meteo）
+    async function initWeather() {
+        const container = document.getElementById('weather-content');
+        try {
+            // 1. IP 定位
+            const ipRes = await fetch('https://ip-api.com/json/');
+            const ipData = await ipRes.json();
+            document.getElementById('weather-location').textContent = ipData.city || ipData.regionName || '广东';
+
+            // 2. Open-Meteo 天气
+            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${ipData.lat}&longitude=${ipData.lon}&current=temperature_2m,weather_code&timezone=auto`;
+            const wRes = await fetch(weatherUrl);
+            const wData = await wRes.json();
+            const current = wData.current;
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center p-4 bg-blue-50 dark:bg-slate-700 rounded-xl">
+                    <span class="text-3xl font-bold text-blue-600">${Math.round(current.temperature_2m)}°C</span>
+                    <span class="text-sm text-slate-500 mt-1">当前温度</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-purple-50 dark:bg-slate-700 rounded-xl">
+                    <i data-lucide="cloud" class="w-8 h-8 text-purple-600 mb-1"></i>
+                    <span class="text-sm text-slate-500">天气代码: ${current.weather_code}</span>
+                </div>
+            `;
+            lucide.createIcons();
+        } catch (e) {
+            container.innerHTML = `<div class="col-span-2 text-red-500 text-sm">天气加载失败，请刷新重试</div>`;
+        }
+    }
+
+    // 4.2 农历 / 节气（Lunar.js）
+    function initLunar() {
+        const container = document.getElementById('lunar-content');
+        try {
+            const solar = Solar.fromDate(new Date());
+            const lunar = solar.getLunar();
+
+            container.innerHTML = `
+                <div class="flex justify-between"><span class="text-slate-500">公历:</span> <span>${solar.toString()}</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">农历:</span> <span>${lunar.toString()}</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">生肖:</span> <span>${lunar.getYearShengXiao()}</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">节气:</span> <span>${lunar.getJieQi() || '无'}</span></div>
+            `;
+        } catch (e) {
+            container.innerHTML = `<div class="text-red-500 text-sm">农历加载失败</div>`;
+        }
+    }
+
+    // 4.3 每日名言（ZenQuotes）
+    async function initQuote() {
+        const container = document.getElementById('quote-content');
+        try {
+            const res = await fetch('https://zenquotes.io/api/today');
+            const data = await res.json();
+            if (!data || data.length === 0) throw new Error('无数据');
+            const quote = data[0].q;
+            const author = data[0].a;
+            container.innerHTML = `
+                <div class="mb-2 text-lg font-medium text-slate-800 dark:text-slate-100">"${quote}"</div>
+                <div class="text-right text-sm text-slate-500">—— ${author}</div>
+            `;
+        } catch (e) {
+            container.innerHTML = `<p class="text-slate-500">"Stay hungry, stay foolish."</p>`;
+        }
+    }
+
+    // 4.4 星座运势（API Ninjas，需要你自己去注册 key）
+    async function initHoroscope(sign = 'aries') {
+        const container = document.getElementById('horoscope-content');
+        container.innerHTML = '<div class="h-20 skeleton rounded w-full"></div>';
+        try {
+            // 注意：这里需要你替换为自己的 API key
+            const res = await fetch(`https://api.api-ninjas.com/v1/horoscope?zodiac=${sign}`, {
+                headers: { 'X-Api-Key': 'YOUR_API_KEY_HERE' }
+            });
+            const data = await res.json();
+            if (!data.horoscope) throw new Error('无运势数据');
+            container.innerHTML = `
+                <div class="mb-2 text-sm text-slate-700 dark:text-slate-200">${data.horoscope}</div>
+                <div class="flex gap-4 text-xs text-slate-500 mt-2">
+                    <span>日期: ${data.date}</span>
+                </div>
+            `;
+        } catch (e) {
+            container.innerHTML = `
+                <div class="text-slate-500">
+                    <p>示例运势：今日适合写代码与思考架构，注意劳逸结合。</p>
+                    <p class="text-xs mt-2">（运势接口需要配置 API Key）</p>
+                </div>
+            `;
+        }
+    }
+
+    document.getElementById('zodiac-select').addEventListener('change', (e) => initHoroscope(e.target.value));
+
+    // ==========================================
+    // 5. GitHub 项目
+    // ==========================================
+    async function initGitHubProjects() {
+        const container = document.getElementById('projects-grid');
+        try {
+            const res = await fetch('https://api.github.com/users/badhope/repos?sort=updated&per_page=6');
+            const repos = await res.json();
+            if (repos.message) throw new Error('API Limit');
+
+            container.innerHTML = repos.map(repo => `
+                <div class="project-card group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700">
+                    <div class="aspect-video bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 relative overflow-hidden flex items-center justify-center">
+                        <i data-lucide="folder-git-2" class="w-16 h-16 text-slate-300 dark:text-slate-600"></i>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-3 py-1 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-full text-xs font-medium text-slate-600 dark:text-slate-300">
+                                ${repo.language || 'Code'}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors truncate">${repo.name}</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2 h-10">
+                            ${repo.description || '暂无描述'}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <a href="${repo.html_url}" target="_blank" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors" title="查看代码">
+                                    <i data-lucide="github" class="w-5 h-5"></i>
+                                </a>
+                                ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors" title="在线预览"><i data-lucide="external-link" class="w-5 h-5"></i></a>` : ''}
+                            </div>
+                            <div class="flex items-center gap-4 text-xs text-slate-500">
+                                <span class="flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> ${repo.stargazers_count}</span>
+                                <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-3 h-3"></i> ${repo.forks_count}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        } catch (e) {
+            container.innerHTML = `
+                <div class="col-span-3 text-center py-10">
+                    <p class="text-slate-500">GitHub API 加载受限，请直接访问我的主页查看项目。</p>
+                    <a href="https://github.com/badhope" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">前往 GitHub</a>
+                </div>
+            `;
+        }
+    }
+
+    // ==========================================
+    // 6. 文章聚合（CSDN / 知乎 / GitHub）
+    // ==========================================
+
+    // 6.1 CSDN 文章（通过 RSS-to-JSON 代理）
+    async function initCsdnArticles() {
+        const container = document.getElementById('csdn-articles');
+        // 注意：这里用的是你 CSDN RSS 地址
+        const rssUrl = 'https://rss.csdn.net/weixin_56622231/rss/map';
+        // 为了跨域，这里用一个示例 RSS-to-JSON 代理，实际建议你自己在后端做
+        const proxyUrl = `https://api.istero.com/resource/v1/rss/to/json?url=${encodeURIComponent(rssUrl)}`;
+
+        try {
+            const res = await fetch(proxyUrl);
+            const data = await res.json();
+            const items = data.data.items.slice(0, 5);
+            container.innerHTML = items.map(item => `
+                <a href="${item.link}" target="_blank" class="block p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                    <div class="font-medium text-slate-800 dark:text-slate-200 truncate">${item.title}</div>
+                    <div class="text-xs text-slate-500 mt-1">${item.pubDate}</div>
+                </a>
+            `).join('');
+        } catch (e) {
+            container.innerHTML = `<div class="text-red-500 text-sm">CSDN 文章加载失败</div>`;
+        }
+    }
+
+    // 6.2 知乎动态（示例：使用第三方 RSS）
+    async function initZhihuArticles() {
+        const container = document.getElementById('zhihu-articles');
+        // 注意：这里需要你根据自己知乎 ID 替换 badhope
+        const rssUrl = 'https://rss.lilydjwg.me/zhihu/badhope';
+        const proxyUrl = `https://api.istero.com/resource/v1/rss/to/json?url=${encodeURIComponent(rssUrl)}`;
+
+        try {
+            const res = await fetch(proxyUrl);
+            const data = await res.json();
+            const items = data.data.items.slice(0, 5);
+            container.innerHTML = items.map(item => `
+                <a href="${item.link}" target="_blank" class="block p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                    <div class="font-medium text-slate-800 dark:text-slate-200 truncate">${item.title}</div>
+                    <div class="text-xs text-slate-500 mt-1">${item.pubDate}</div>
+                </a>
+            `).join('');
+        } catch (e) {
+            container.innerHTML = `<div class="text-red-500 text-sm">知乎动态加载失败</div>`;
+        }
+    }
+
+    // 6.3 GitHub 项目更新（直接用 GitHub API）
+    async function initGithubArticles() {
+        const container = document.getElementById('github-articles');
+        try {
+            const res = await fetch('https://api.github.com/users/badhope/repos?sort=updated&per_page=5');
+            const repos = await res.json();
+            container.innerHTML = repos.map(repo => `
+                <a href="${repo.html_url}" target="_blank" class="block p-2 rounded hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                    <div class="font-medium text-slate-800 dark:text-slate-200 truncate">${repo.name}</div>
+                    <div class="text-xs text-slate-500 mt-1">${repo.description || ''}</div>
+                </a>
+            `).join('');
+        } catch (e) {
+            container.innerHTML = `<div class="text-red-500 text-sm">GitHub 项目加载失败</div>`;
+        }
+    }
+
+    // ==========================================
+    // 7. 其他交互
+    // ==========================================
+
+    // Toast
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        toastMessage.textContent = message;
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+    }
+
+    // 联系表单
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        showToast('消息已发送！我会尽快回复你。');
+        e.target.reset();
+    });
+
+    // 简历下载按钮（示例）
+    document.getElementById('download-resume-btn').addEventListener('click', () => {
+        showToast('简历下载功能待接入，请先通过邮箱或微信联系我。');
+    });
+
+    // 打字机效果
+    const texts = ['熊泽城', 'AI 探索者', '大学生', '开发者'];
+    let textIndex = 0, charIndex = 0, isDeleting = false;
+
+    function type() {
+        const currentText = texts[textIndex];
+        const el = document.getElementById('typing-text');
+
+        if (isDeleting) {
+            el.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            el.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 100 : 200;
+        if (!isDeleting && charIndex === currentText.length) {
+            typeSpeed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+            typeSpeed = 500;
+        }
+
+        setTimeout(type, typeSpeed);
+    }
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // ==========================================
+    // 8. 初始化
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(type, 1000);
+        initWeather();
+        initLunar();
+        initQuote();
+        initHoroscope();
+        initGitHubProjects();
+        initCsdnArticles();
+        initZhihuArticles();
+        initGithubArticles();
+    });
+</script>
+</body>
+</html>
