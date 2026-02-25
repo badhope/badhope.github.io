@@ -24,7 +24,6 @@
     --shadow-card-hover: 0 20px 40px -15px rgba(14, 165, 233, 0.2);
 }
 
-/* 深色模式变量覆盖 */
 .dark {
     --bg-main: var(--bg-dark);
     --text-main: var(--text-dark);
@@ -78,7 +77,6 @@ body {
 /* ==========================================
    背景与动画
    ========================================== */
-/* 波浪背景 */
 .wave-bg {
     position: fixed;
     bottom: 0;
@@ -113,7 +111,6 @@ body {
     100% { transform: translateX(-50%); }
 }
 
-/* 浮动装饰球 */
 .floating-orbs {
     position: fixed;
     inset: 0;
@@ -229,7 +226,6 @@ body {
     border-radius: 0 3px 3px 0;
 }
 
-/* 徽章 */
 .badge-hot {
     font-size: 0.6rem;
     padding: 2px 6px;
@@ -248,7 +244,6 @@ body {
     font-weight: 600;
 }
 
-/* 状态指示器 */
 .status-dot {
     width: 8px;
     height: 8px;
@@ -271,7 +266,6 @@ body {
     100% { transform: scale(2); opacity: 0; }
 }
 
-/* 头像光环 */
 .avatar-ring {
     position: relative;
 }
@@ -436,15 +430,6 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
-.welcome-badge {
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
 }
 
 .stat-card {
@@ -857,48 +842,6 @@ body {
     background: #334155;
 }
 
-/* 扫雷 */
-.minesweeper-grid {
-    display: grid;
-    gap: 2px;
-    max-width: 360px;
-    margin: 0 auto;
-    background: #cbd5e1;
-    padding: 4px;
-    border-radius: 0.5rem;
-}
-
-.mine-cell {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #e2e8f0;
-    border: 1px solid #cbd5e1;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.dark .mine-cell {
-    background: #475569;
-    border-color: #334155;
-}
-
-.mine-cell.revealed {
-    background: white;
-    cursor: default;
-}
-
-.dark .mine-cell.revealed {
-    background: #1e293b;
-}
-
-.mine-cell.flagged { background: #fef3c7; }
-.mine-cell.mine { background: #fee2e2; }
-
 /* ==========================================
    热搜榜样式
    ========================================== */
@@ -1191,7 +1134,6 @@ body {
 .-translate-x-full { transform: translateX(-100%); }
 .translate-x-0 { transform: translateX(0); }
 
-/* 页面切换动画 */
 .page { 
     display: none; 
     opacity: 0;
@@ -1212,6 +1154,88 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* 筛选按钮 */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-btn,
+.source-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 2px solid var(--border-light);
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.dark .filter-btn,
+.dark .source-btn {
+    border-color: var(--border-dark);
+}
+
+.filter-btn.active,
+.source-btn.active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(14, 165, 233, 0.1);
+}
+
+/* 项目网格 */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* 博客网格 */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+/* 技能网格 */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* 搜索框 */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 2px solid var(--border-light);
+    border-radius: 0.75rem;
+    transition: var(--transition);
+}
+
+.dark .search-box {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: var(--border-dark);
+}
+
+.search-box:focus-within {
+    border-color: var(--primary);
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    outline: none;
+    color: inherit;
+}
+
 /* ==========================================
    响应式调整
    ========================================== */
@@ -1225,4 +1249,17 @@ body {
     .stat-value { font-size: 1.25rem; }
     .wheel-wrapper { width: 240px; height: 240px; }
     .wheel-center-btn { width: 60px; height: 60px; font-size: 0.9rem; }
+}
+
+/* 骨架屏 */
+.skeleton {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
