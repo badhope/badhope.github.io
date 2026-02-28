@@ -2,7 +2,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, FileText, Briefcase } from 'lucide-react';
+import { FileText, Briefcase } from 'lucide-react';
+// 导入自动生成的名言数据
+import quoteData from '@/data/quote.json';
 
 export default function HeroSection() {
   // 1. 动态标签逻辑
@@ -22,7 +24,6 @@ export default function HeroSection() {
         if (displayText.length < currentTag.length) {
           setDisplayText(currentTag.slice(0, displayText.length + 1));
         } else {
-          // 停顿一下开始删除
           setTimeout(() => setIsDeleting(true), 2000);
         }
       } else {
@@ -38,27 +39,11 @@ export default function HeroSection() {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, currentTagIndex, tags]);
 
-  // 2. 名人名言逻辑 (模拟 API 获取，实际部署可替换为真实 API)
-  const [quote, setQuote] = useState("加载中...");
-  
-  useEffect(() => {
-    // 这里模拟调用免费 API，为了演示稳定性，我们内置一些名言作为备用
-    const fallbackQuotes = [
-      "“未来的技术定会愈发先进。” — 熊泽城",
-      "“Stay hungry, stay foolish.” — Steve Jobs",
-      "“任何足够先进的技术，初看都与魔法无异。” — Arthur C. Clarke",
-      "“代码是写给人看的，顺便给机器执行。” — Donald Knuth"
-    ];
-    // 模拟刷新
-    const randomQuote = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
-    setQuote(randomQuote);
-    
-    // 实际 API 示例 (如果可用):
-    // fetch('https://api.quotable.io/random?tags=technology,famous-quotes')
-    //   .then(res => res.json())
-    //   .then(data => setQuote(`"${data.content}" — ${data.author}`))
-    //   .catch(() => setQuote(randomQuote));
-  }, []);
+  // 2. 名人名言逻辑
+  // 如果 json 数据存在则使用，否则使用备用
+  const quote = quoteData && quoteData.content 
+    ? `"${quoteData.content}" — ${quoteData.author}` 
+    : "“未来的技术定会愈发先进。” — 熊泽城";
 
   return (
     <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center">
