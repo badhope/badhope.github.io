@@ -5,34 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>熊泽城 | 数据科学 & 全栈开发者</title>
     <meta name="description" content="熊泽城的个人主页，专注于数据科学与全栈开发。展示项目经历、技术博客与学术成果。">
-    
-    <!-- 引入字体 (Inter & Noto Sans SC) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- 引入图标库 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- 主样式文件 -->
+    <!-- 样式文件将在后续提供，此处先引入占位 -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- 顶部导航栏 -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="/" class="logo">Badhope<span>.dev</span></a>
+            <a href="index.html" class="logo">Badhope<span>.dev</span></a>
             <ul class="nav-links">
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#experience">经历</a></li>
-                <li><a href="#projects">项目</a></li>
-                <li><a href="#skills">技能</a></li>
-                <li>
-                    <!-- 主题切换按钮 -->
-                    <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </li>
+                <li><a href="index.html#about">关于我</a></li>
+                <li><a href="index.html#dashboard">仪表盘</a></li>
+                <li><a href="index.html#experience">经历</a></li>
+                <li><a href="index.html#articles">文章</a></li>
+                <li><a href="uses.html">工具箱</a></li>
+                <li><a href="playground.html">游乐场</a></li>
+                <li><button class="theme-toggle" id="theme-toggle"><i class="fas fa-moon"></i></button></li>
             </ul>
         </div>
     </nav>
@@ -42,29 +34,21 @@
         <div class="container hero-container">
             <!-- 左侧：个人信息 -->
             <div class="hero-content">
-                <div class="hero-tag"> // 数据科学 & 全栈开发 </div>
-                <h1 class="hero-title">
-                    你好，我是 <span class="highlight">熊泽城</span>
-                </h1>
+                <div class="hero-tag">数据科学 & 全栈开发</div>
+                <h1 class="hero-title">你好，我是 <span class="highlight">熊泽城</span></h1>
                 <p class="hero-desc">
-                    一名热衷于用代码解决实际问题的大数据专业本科生。我有数据处理与分析的硬核实力，也有独立完成全栈项目的开发经验。致力于在数据中挖掘价值，在代码中构建未来。
+                    大数据专业本科生，热衷于用代码解决实际问题。拥有数据处理与分析的硬核实力，也具备独立完成全栈项目的开发经验。致力于在数据中挖掘价值，在代码中构建未来。
                 </p>
-                
-                <!-- 核心行动点 -->
                 <div class="hero-actions">
-                    <a href="#projects" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> 查看项目
-                    </a>
+                    <a href="#experience" class="btn btn-primary">查看经历</a>
                     <a href="assets/files/熊泽城-简历-中_20260228_004040.pdf" class="btn btn-secondary" download>
                         <i class="fas fa-download"></i> 下载简历
                     </a>
                 </div>
-
-                <!-- 社交平台聚合区 (重点需求) -->
+                <!-- 社交平台聚合区 -->
                 <div class="social-platforms">
                     <h3 class="social-title">我在这里活跃</h3>
                     <div class="social-grid">
-                        <!-- GitHub -->
                         <a href="https://github.com/badhope" target="_blank" class="social-card github">
                             <div class="social-icon"><i class="fab fa-github"></i></div>
                             <div class="social-info">
@@ -73,8 +57,7 @@
                             </div>
                             <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
                         </a>
-                        <!-- 掘金 -->
-                        <a href="https://juejin.cn/user/你的ID" target="_blank" class="social-card juejin">
+                        <a href="https://juejin.cn/user/2350111542479753" target="_blank" class="social-card juejin">
                             <div class="social-icon"><i class="fas fa-gem"></i></div>
                             <div class="social-info">
                                 <span class="name">掘金</span>
@@ -82,8 +65,7 @@
                             </div>
                             <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
                         </a>
-                        <!-- CSDN -->
-                        <a href="https://blog.csdn.net/你的ID" target="_blank" class="social-card csdn">
+                        <a href="https://blog.csdn.net/weixin_56622231" target="_blank" class="social-card csdn">
                             <div class="social-icon"><i class="fas fa-blog"></i></div>
                             <div class="social-info">
                                 <span class="name">CSDN</span>
@@ -91,19 +73,9 @@
                             </div>
                             <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
                         </a>
-                        <!-- 知乎 -->
-                        <a href="https://www.zhihu.com/people/你的ID" target="_blank" class="social-card zhihu">
-                            <div class="social-icon"><i class="fab fa-zhihu"></i></div>
-                            <div class="social-info">
-                                <span class="name">知乎</span>
-                                <span class="desc">思考与行业见解</span>
-                            </div>
-                            <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
-                        </a>
                     </div>
                 </div>
             </div>
-
             <!-- 右侧：数据可视化 & 头像 -->
             <div class="hero-visual">
                 <div class="profile-card glass-card">
@@ -123,8 +95,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- 装饰性浮动标签 -->
                 <div class="floating-tags">
                     <span class="tag tag-python">Python</span>
                     <span class="tag tag-vue">Java</span>
@@ -135,256 +105,159 @@
         </div>
     </section>
 
-    <!-- 主要内容区域将在这里后续添加 -->
-        <!-- 第二板块：教育背景与技能 -->
-    <section id="education-skills" class="section-padding">
+    <!-- 新板块：实时数据仪表盘 -->
+    <section id="dashboard" class="section-padding bg-light">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">教育背景 & 核心技能</h2>
-                <p class="section-subtitle">扎实的理论基础与持续精进的技术栈</p>
+                <h2 class="section-title">实时数据仪表盘</h2>
+                <p class="section-subtitle">数据在流动，生命在燃烧</p>
             </div>
-
-            <div class="es-grid">
-                <!-- 左侧：教育背景 -->
-                <div class="education-wrapper">
-                    <div class="edu-card glass-card">
-                        <div class="edu-header">
-                            <div class="edu-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="edu-info">
-                                <h3 class="edu-school">韩山师范学院</h3>
-                                <p class="edu-major">数据科学与大数据技术 | 本科</p>
-                            </div>
+            <div class="dashboard-grid">
+                <!-- 组件 1：生命倒计时 -->
+                <div class="dash-card life-clock">
+                    <div class="dash-header"><i class="fas fa-heartbeat"></i> 实时年龄</div>
+                    <div class="dash-body">
+                        <div class="age-display">
+                            <span id="age-years">00</span>.<span id="age-decimal">00000000</span><span class="unit">岁</span>
                         </div>
-                        
-                        <div class="edu-meta">
-                            <span><i class="far fa-calendar-alt"></i> 2024.07 - 2028.07</span>
-                            <span><i class="fas fa-map-marker-alt"></i> 广东潮州</span>
-                        </div>
-
-                        <div class="edu-stats">
-                            <div class="edu-stat-item">
-                                <span class="stat-value">3.5</span>
-                                <span class="stat-name">GPA</span>
-                            </div>
-                            <div class="edu-stat-item highlight-bg">
-                                <span class="stat-value">Top 10%</span>
-                                <span class="stat-name">专业排名</span>
-                            </div>
-                        </div>
-
-                        <div class="courses-section">
-                            <h4>主修课程</h4>
-                            <div class="course-tags">
-                                <span class="course-tag">概率论</span>
-                                <span class="course-tag">算法分析</span>
-                                <span class="course-tag">Python程序设计</span>
-                                <span class="course-tag">C语言</span>
-                                <span class="course-tag">大数据原理</span>
-                                <span class="course-tag">数据结构</span>
-                            </div>
+                        <div class="life-stats">
+                            <div class="stat-row"><span>生存天数</span><span id="days-lived">0</span></div>
+                            <div class="stat-row"><span>心跳次数</span><span id="heartbeats">0</span></div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 右侧：技能图谱 -->
-                <div class="skills-wrapper">
-                    <!-- 技能分类：编程语言 -->
-                    <div class="skill-category">
-                        <h3 class="skill-cat-title">
-                            <i class="fas fa-code"></i> 编程语言
-                        </h3>
-                        <div class="skill-bars">
-                            <div class="skill-item" data-percent="90%">
-                                <div class="skill-info">
-                                    <span>Python</span>
-                                    <span>熟练</span>
-                                </div>
-                                <div class="progress-bar"><span class="progress-fill"></span></div>
-                            </div>
-                            <div class="skill-item" data-percent="85%">
-                                <div class="skill-info">
-                                    <span>Java</span>
-                                    <span>熟练</span>
-                                </div>
-                                <div class="progress-bar"><span class="progress-fill"></span></div>
-                            </div>
-                            <div class="skill-item" data-percent="85%">
-                                <div class="skill-info">
-                                    <span>JavaScript / HTML5</span>
-                                    <span>熟练</span>
-                                </div>
-                                <div class="progress-bar"><span class="progress-fill"></span></div>
-                            </div>
-                            <div class="skill-item" data-percent="75%">
-                                <div class="skill-info">
-                                    <span>C / C++</span>
-                                    <span>良好</span>
-                                </div>
-                                <div class="progress-bar"><span class="progress-fill"></span></div>
-                            </div>
+                <!-- 组件 2：年度进度 -->
+                <div class="dash-card year-progress">
+                    <div class="dash-header"><i class="fas fa-calendar-alt"></i> <span id="current-year">2026</span> 年进度</div>
+                    <div class="dash-body">
+                        <div class="progress-ring">
+                            <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="45"></circle><circle id="year-ring" class="progress" cx="50" cy="50" r="45"></circle></svg>
+                            <div class="percentage"><span id="year-percent">0</span>%</div>
                         </div>
                     </div>
-
-                    <!-- 技能分类：数据相关 -->
-                    <div class="skill-category">
-                        <h3 class="skill-cat-title">
-                            <i class="fas fa-database"></i> 数据科学与工具
-                        </h3>
-                        <div class="skill-bars">
-                            <div class="skill-item" data-percent="85%">
-                                <div class="skill-info">
-                                    <span>MySQL / SQL</span>
-                                    <span>良好</span>
-                                </div>
-                                <div class="progress-bar"><span class="progress-fill"></span></div>
-                            </div>
-                            <div class="skill-item" data-percent="80%">
-                                <div class="skill-info">
-                                    <span>数据分析 (Pandas)</span>
-                                    <span>良好</span>
-                                </div>
-                                <div class="progress-bar"><span class="progress-fill"></span></div>
-                            </div>
-                            <div class="skill-item" data-percent="75%">
-                                <div class="skill-info">
-                                    <span>数据挖掘</span>
-                                    <span>良好</span>
-                                </div>
-                                <div class="progress-bar"><span class="progress-fill"></span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 技能标签云 -->
-                    <div class="tech-stack-cloud">
-                        <span class="tech-tag">Git</span>
-                        <span class="tech-tag">Linux</span>
-                        <span class="tech-tag">Office</span>
-                        <span class="tech-tag">AI Tools</span>
-                        <span class="tech-tag">VS Code</span>
-                        <span class="tech-tag">PyCharm</span>
+                </div>
+                <!-- 组件 3：GitHub 活跃度 (模拟) -->
+                <div class="dash-card github-activity">
+                    <div class="dash-header"><i class="fab fa-github"></i> 最近贡献</div>
+                    <div class="dash-body">
+                        <ul class="activity-list">
+                            <li><span class="repo">badhope.github.io</span> <span class="time">2小时前</span></li>
+                            <li><span class="repo">Mibt-Test</span> <span class="time">昨天</span></li>
+                            <li><span class="repo">data-analysis-tools</span> <span class="time">3天前</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- 第三板块：经历时间轴 -->
+
+    <!-- 教育背景与技能 (简洁展示) -->
+    <section id="education-skills" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">教育背景 & 核心技能</h2>
+            </div>
+            <div class="es-grid">
+                <!-- 左侧：教育背景 -->
+                <div class="education-wrapper">
+                    <div class="edu-card glass-card">
+                        <div class="edu-header">
+                            <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="edu-info">
+                                <h3 class="edu-school">韩山师范学院</h3>
+                                <p class="edu-major">数据科学与大数据技术 | 本科</p>
+                            </div>
+                        </div>
+                        <div class="edu-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2024.07 - 2028.07</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 广东潮州</span>
+                        </div>
+                        <div class="edu-stats">
+                            <div class="edu-stat-item"><span class="stat-value">3.5</span><span class="stat-name">GPA</span></div>
+                            <div class="edu-stat-item highlight-bg"><span class="stat-value">Top 10%</span><span class="stat-name">专业排名</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右侧：技能图谱 -->
+                <div class="skills-wrapper">
+                    <div class="skill-category">
+                        <h3 class="skill-cat-title"><i class="fas fa-code"></i> 编程语言</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag high">Python</span>
+                            <span class="skill-tag high">Java</span>
+                            <span class="skill-tag high">JavaScript</span>
+                            <span class="skill-tag mid">C/C++</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="skill-cat-title"><i class="fas fa-database"></i> 数据科学</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag high">MySQL</span>
+                            <span class="skill-tag high">数据分析</span>
+                            <span class="skill-tag mid">数据挖掘</span>
+                            <span class="skill-tag high">SQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 经历时间轴 -->
     <section id="experience" class="section-padding bg-light">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">成长足迹与职业经历</h2>
-                <p class="section-subtitle">每一段经历都是成长的基石，用数据记录价值</p>
             </div>
-
             <div class="timeline">
-                <!-- 经历 1：最新实习 -->
+                <!-- 经历 1：实习 -->
                 <div class="timeline-item left">
-                    <div class="timeline-icon bg-primary">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
+                    <div class="timeline-icon bg-primary"><i class="fas fa-laptop-code"></i></div>
                     <div class="timeline-content glass-card">
                         <div class="timeline-header">
-                            <span class="timeline-date"><i class="far fa-clock"></i> 2026.01 - 2026.02</span>
+                            <span class="timeline-date">2026.01 - 2026.02</span>
                             <h3 class="timeline-title">技术助理实习生</h3>
                             <h4 class="timeline-company">贵州弘康药业有限公司</h4>
                         </div>
                         <div class="timeline-body">
                             <ul class="work-list">
-                                <li>主导业务系统基础数据治理，累计完成 <span class="highlight-num">5000+条</span> 数据标准化处理，保障数据一致性。</li>
-                                <li>基于 Python Pandas 构建自动化数据分析流程，输出 <span class="highlight-num">6份</span> 多维度可视化报表，辅助管理层决策。</li>
-                                <li>参与官网迭代开发，配合技术团队完成 <span class="highlight-num">3个</span> 功能模块的优化升级与验收测试。</li>
+                                <li>主导业务系统基础数据治理，累计完成 <span class="highlight-num">5000+条</span> 数据标准化处理。</li>
+                                <li>基于 Python Pandas 构建自动化数据分析流程，输出 <span class="highlight-num">6份</span> 多维度可视化报表。</li>
+                                <li>参与官网迭代开发，配合技术团队完成 <span class="highlight-num">3个</span> 功能模块的优化升级。</li>
                             </ul>
-                            <div class="tech-stack-badges">
-                                <span>Python</span><span>Pandas</span><span>Web Development</span>
-                            </div>
+                            <div class="tech-stack-badges"><span>Python</span><span>Pandas</span><span>Web Dev</span></div>
                         </div>
                     </div>
                 </div>
-
-                <!-- 经历 2：运营实习 -->
+                <!-- 经历 2：科研 -->
                 <div class="timeline-item right">
-                    <div class="timeline-icon bg-secondary">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <span class="timeline-date"><i class="far fa-clock"></i> 2025.07 - 2025.09</span>
-                            <h3 class="timeline-title">运营助理实习生</h3>
-                            <h4 class="timeline-company">贵州弘康药业有限公司</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <ul class="work-list">
-                                <li>负责经营数据全生命周期管理，处理 <span class="highlight-num">3000+条</span> 业务数据，实现零差错交付。</li>
-                                <li>执行市场调研全流程，利用 AI 工具与 Python 进行数据可视化，产出 <span class="highlight-num">4份</span> 关键汇报图表。</li>
-                                <li>主动探索技术提效，落地 <span class="highlight-num">2项</span> 办公自动化小工具，提升团队协作效率。</li>
-                            </ul>
-                            <div class="tech-stack-badges">
-                                <span>Office</span><span>Python</span><span>AI Tools</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 经历 3：人事实习 -->
-                <div class="timeline-item left">
-                    <div class="timeline-icon bg-accent">
-                        <i class="fas fa-users-cog"></i>
-                    </div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <span class="timeline-date"><i class="far fa-clock"></i> 2025.02 - 2025.03</span>
-                            <h3 class="timeline-title">人事助理实习生</h3>
-                            <h4 class="timeline-company">重庆科瑞东和制药有限责任公司</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <ul class="work-list">
-                                <li>规范化管理员工档案，完成 <span class="highlight-num">200+份</span> 档案梳理，确保合规可追溯。</li>
-                                <li>辅助招聘流程，利用 AI 工具高效完成 <span class="highlight-num">1000+份</span> 简历初筛与信息统计。</li>
-                                <li>优化汇报材料逻辑，制作 <span class="highlight-num">8份</span> 高质量工作汇报与宣讲 PPT。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 经历 4：学术研究 (重点亮点) -->
-                <div class="timeline-item right">
-                    <div class="timeline-icon bg-dark">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
+                    <div class="timeline-icon bg-dark"><i class="fas fa-graduation-cap"></i></div>
                     <div class="timeline-content glass-card highlight-border">
                         <div class="timeline-header">
-                            <span class="timeline-date"><i class="far fa-clock"></i> 2024.12 - 2025.02</span>
+                            <span class="timeline-date">2024.12 - 2025.02</span>
                             <h3 class="timeline-title">本科生研究助理</h3>
                             <h4 class="timeline-company">SCI 论文课题组</h4>
                             <span class="badge-achievement">SCI 四作发表</span>
                         </div>
                         <div class="timeline-body">
-                            <p class="research-title">
-                                《Evaluation of Crisis Learning in Universities Based on Grey Relational Analysis》
-                            </p>
-                            <p>深度参与课题研究，负责数据处理、文献综述及模型分析。成果发表于 SCI 收录国际学术期刊，系统掌握实证研究流程。</p>
+                            <p class="research-title">《Evaluation of Crisis Learning in Universities Based on Grey Relational Analysis》</p>
+                            <p>深度参与课题研究，负责数据处理、文献综述及模型分析。成果发表于 SCI 收录国际学术期刊。</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- 经历 5：校园经历 -->
+                <!-- 经历 3：校园 -->
                 <div class="timeline-item left">
-                    <div class="timeline-icon bg-campus">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
+                    <div class="timeline-icon bg-campus"><i class="fas fa-user-tie"></i></div>
                     <div class="timeline-content glass-card">
                         <div class="timeline-header">
-                            <span class="timeline-date"><i class="far fa-clock"></i> 2024.10 - 2025.07</span>
+                            <span class="timeline-date">2024.10 - 2025.07</span>
                             <h3 class="timeline-title">学生会 · 组织部部长</h3>
                             <h4 class="timeline-company">韩山师范学院</h4>
                         </div>
                         <div class="timeline-body">
                             <ul class="work-list">
                                 <li>搭建活动管理信息系统，整合 <span class="highlight-num">20+场</span> 档案，推动审批效率提升 <span class="highlight-num">60%</span>。</li>
-                                <li>统筹 <span class="highlight-num">200+人次</span> 参与的主题班会与社会实践，保障信息高效传达。</li>
-                                <li>制作数据可视化看板，辅助部门进行活动成效分析与决策。</li>
+                                <li>统筹 <span class="highlight-num">200+人次</span> 参与的主题班会与社会实践。</li>
                             </ul>
                         </div>
                     </div>
@@ -392,134 +265,22 @@
             </div>
         </div>
     </section>
-    <!-- 第四板块：项目作品展示 -->
-    <section id="projects" class="section-padding">
+
+    <!-- 文章聚合板块 -->
+    <section id="articles" class="section-padding">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">精选项目与作品</h2>
-                <p class="section-subtitle">从想法到落地，每一个像素都凝聚着思考</p>
+                <h2 class="section-title">技术文章与分享</h2>
+                <p class="section-subtitle">思考与沉淀，来自掘金与CSDN</p>
             </div>
-
-            <div class="projects-grid">
-                <!-- 项目 1：核心项目 (MIBT) -->
-                <div class="project-card featured">
-                    <div class="project-image">
-                        <!-- 这里放置项目截图，可以用占位图或实际链接 -->
-                        <img src="assets/images/projects/mibt-preview.png" alt="MIBT专业人格评测系统">
-                        <div class="project-overlay">
-                            <a href="https://badhope.github.io/Mibt-Test/" target="_blank" class="btn btn-light btn-sm">
-                                <i class="fas fa-external-link-alt"></i> 在线演示
-                            </a>
-                            <a href="https://github.com/badhope/Mibt-Test" target="_blank" class="btn btn-outline-light btn-sm">
-                                <i class="fab fa-github"></i> 源码
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
-                        </div>
-                        <h3 class="project-title">MIBT 专业人格评测系统</h3>
-                        <p class="project-desc">
-                            基于专业心理学框架构建的静态评测网站。实现了完整的测评逻辑与维度分析算法，用户可在线完成测试并获取可视化分析报告。项目采用纯原生开发，注重性能与用户体验。
-                        </p>
-                        <div class="project-metrics">
-                            <span><i class="fas fa-star"></i> 100% 原生实现</span>
-                            <span><i class="fas fa-code-branch"></i> 独立开发</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 项目 2：办公流程优化工具 (来自实习经历) -->
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span>Python</span><span>Automation</span>
-                        </div>
-                        <h3 class="project-title">办公流程自动化工具集</h3>
-                        <p class="project-desc">
-                            在实习期间开发的小工具集，用于解决繁琐的数据录入与整理工作。实现了Excel数据自动合并、格式标准化校验等功能，显著提升了团队工作效率。
-                        </p>
-                        <div class="project-stats">
-                            <div class="stat">
-                                <span class="num">2项</span>
-                                <span class="label">落地工具</span>
-                            </div>
-                            <div class="stat">
-                                <span class="num">50%</span>
-                                <span class="label">效率提升</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 项目 3：数据分析可视化 (来自实习经历) -->
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span>Pandas</span><span>Matplotlib</span><span>数据分析</span>
-                        </div>
-                        <h3 class="project-title">多维度业务数据报表</h3>
-                        <p class="project-desc">
-                            基于Python Pandas的数据分析项目。对公司5000+条业务数据进行清洗、整合与多维度统计分析，输出了6份标准化可视化报表，为管理层决策提供了有力数据支撑。
-                        </p>
-                        <div class="project-stats">
-                            <div class="stat">
-                                <span class="num">5000+</span>
-                                <span class="label">数据条数</span>
-                            </div>
-                            <div class="stat">
-                                <span class="num">6份</span>
-                                <span class="label">输出报表</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- 这里将通过 JavaScript 动态加载文章列表 -->
+            <div class="articles-grid" id="articles-container">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- 荣誉奖项专区 -->
-    <section id="awards" class="section-padding bg-light">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">荣誉奖项</h2>
-                <p class="section-subtitle">每一次认可，都是前行的动力</p>
-            </div>
-            
-            <div class="awards-container">
-                <div class="award-item">
-                    <div class="award-year">2026.01</div>
-                    <div class="award-content">
-                        <h4>全国大学生机器人与算法大赛</h4>
-                        <p>国家级一等奖</p>
-                    </div>
-                    <div class="award-icon gold"><i class="fas fa-trophy"></i></div>
-                </div>
-                <div class="award-item">
-                    <div class="award-year">2026.01</div>
-                    <div class="award-content">
-                        <h4>《英语世界》杯全国大学生翻译大赛</h4>
-                        <p>全国三等奖</p>
-                    </div>
-                    <div class="award-icon bronze"><i class="fas fa-award"></i></div>
-                </div>
-                <div class="award-item">
-                    <div class="award-year">2025</div>
-                    <div class="award-content">
-                        <h4>“挑战杯”全国大学生创业计划竞赛</h4>
-                        <p>校级二等奖</p>
-                    </div>
-                    <div class="award-icon silver"><i class="fas fa-medal"></i></div>
-                </div>
-                <div class="award-item">
-                    <div class="award-year">2025</div>
-                    <div class="award-content">
-                        <h4>计算机能力竞赛暨城市联赛</h4>
-                        <p>优秀奖</p>
-                    </div>
-                    <div class="award-icon"><i class="fas fa-certificate"></i></div>
-                </div>
+            <div class="view-all-btn">
+                <a href="https://juejin.cn/user/2350111542479753" target="_blank" class="btn btn-outline">查看全部文章</a>
             </div>
         </div>
     </section>
@@ -533,48 +294,26 @@
                     <p>数据科学 & 全栈开发者</p>
                     <div class="footer-contact">
                         <a href="mailto:3383432254@qq.com"><i class="fas fa-envelope"></i> 3383432254@qq.com</a>
-                        <a href="tel:+8618825407105"><i class="fas fa-phone"></i> +86 18825407105</a>
                     </div>
                 </div>
-                
                 <div class="footer-links">
                     <h4>快速导航</h4>
                     <ul>
-                        <li><a href="#about">关于我</a></li>
-                        <li><a href="#education-skills">技能</a></li>
-                        <li><a href="#experience">经历</a></li>
-                        <li><a href="#projects">项目</a></li>
+                        <li><a href="index.html">主页</a></li>
+                        <li><a href="uses.html">工具箱</a></li>
+                        <li><a href="playground.html">游乐场</a></li>
                     </ul>
                 </div>
-
-                <div class="footer-social">
-                    <h4>社交平台</h4>
-                    <div class="social-icons">
-                        <a href="https://github.com/badhope" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://juejin.cn/user/你的ID" target="_blank" title="掘金"><i class="fas fa-gem"></i></a>
-                        <a href="https://blog.csdn.net/你的ID" target="_blank" title="CSDN"><i class="fas fa-blog"></i></a>
-                        <a href="https://www.zhihu.com/people/你的ID" target="_blank" title="知乎"><i class="fab fa-zhihu"></i></a>
-                    </div>
-                </div>
             </div>
-            
             <div class="footer-bottom">
                 <p>&copy; 2026 Xiong Zecheng. All Rights Reserved.</p>
-                <p>Designed with <i class="fas fa-heart" style="color: #ef4444;"></i> by Badhope</p>
             </div>
         </div>
     </footer>
 
-    <main>
-        <!-- 经历、项目等板块... -->
-    </main>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <!-- 页脚内容... -->
-    </footer>
-
-    <!-- JavaScript -->
+    <!-- 脚本文件将在后续提供 -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/life-clock.js"></script>
+    <script src="assets/js/articles.js"></script>
 </body>
 </html>
