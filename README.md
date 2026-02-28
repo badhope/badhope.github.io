@@ -1,84 +1,64 @@
-# badhope.github.io - 个人数字空间
-## 项目概述
-本项目是部署于 GitHub Pages 的**个人全栈开发者数字门户**，作为个人技术沉淀、开源作品展示、数据看板一体化的静态站点，核心定位是个人技术品牌的线上载体，全程基于 AI 工具重塑开发流程，采用原生前端技术栈构建，无强框架依赖，极致轻量化、易维护。
+<div align="center">
 
-## 核心技术栈
-| 技术维度 | 具体实现 | 说明 |
-| :--- | :--- | :--- |
-| 核心语言 | HTML5、CSS3、JavaScript (ES6+) | 原生技术栈开发，无第三方强框架耦合，降低维护成本，提升加载性能 |
-| 布局方案 | Flex + Grid 双布局模式 | 全响应式设计，完美适配 375px 移动端至桌面端全尺寸屏幕 |
-| 样式管理 | 原生 CSS 变量 + 模块化样式拆分 | 全局样式与分模块样式解耦，支持快速主题定制与迭代 |
-| 数据处理 | Fetch API + LocalStorage | 对接 GitHub Open API 实现数据自动同步，本地缓存用户配置与静态数据 |
-| 可视化能力 | 原生 Canvas + CSS 动画 | 实现技能图谱、数据看板的轻量化可视化渲染，无额外图表库依赖 |
-| 部署方案 | GitHub Pages 静态托管 | 零成本部署，天然支持 HTTPS，后续可扩展 GitHub Actions 自动化部署 |
-| 开发辅助 | Git 版本管理 + VS Code + AI 工具链 | 全流程 AI 辅助开发，规范提交记录，保障代码可追溯性 |
+# 🚀 熊泽城 | AI时代的探索者
 
-## 已实现功能模块
-1.  **个人门户主模块**：核心身份（大学生/AI探索者/全栈开发者）展示、个人成就数据看板（25个开源项目、20+技术文章、1000+ GitHub Stars、代码时长统计）
-2.  **实时系统信息看板**：设备屏幕参数、浏览器环境、网络状态、时区位置、DPR 等信息实时获取与渲染
-3.  **时间与农历模块**：公历/农历实时转换、生肖、节气、当日基础信息展示
-4.  **GitHub 数据同步模块**：对接 Open API 实时拉取仓库数、关注者、Gists 等核心数据，自动更新
-5.  **开源项目展示区**：卡片式统一呈现个人全量开源项目，包含项目简介、核心定位、跳转入口，支持快速扩展新增项目
-6.  **技能图谱可视化模块**：分前端开发、后端开发、AI与工具三大维度，进度条可视化展示技术熟练度
-7.  **个人信息与联系方式模块**：完整的个人简介、地理位置、邮箱、电话、微信等联系方式统一收口
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=28&duration=3000&pause=1000&color=64FFDA&center=true&vCenter=true&width=600&lines=Welcome+to+my+Digital+Galaxy;Exploring+the+Future+of+AI" alt="Typing SVG" />
 
-## 项目目录结构
-```
-badhope.github.io/
-├── index.html              # 站点主入口，页面整体DOM结构
-├── README.md               # 项目维护文档（本文件）
-├── CNAME                   # 自定义域名配置（预留）
-├── .gitignore              # Git忽略规则配置
-├── assets/                 # 静态资源总目录
-│   ├── css/
-│   │   ├── main.css        # 全局主样式与CSS变量
-│   │   ├── reset.css       # 浏览器默认样式重置
-│   │   └── modules/        # 分模块样式文件（各功能页、响应式）
-│   ├── js/
-│   │   ├── main.js         # 主入口脚本，页面初始化
-│   │   ├── components/     # 模块化组件脚本（各功能模块独立封装）
-│   │   ├── utils/          # 通用工具函数（日期处理、数据格式化、API请求封装）
-│   │   └── api/            # 第三方API对接配置（GitHub Open API等）
-│   ├── images/             # 静态图片资源（头像、项目封面、背景图）
-│   └── icons/              # SVG图标资源库
-├── data/                   # 静态配置数据（零代码修改内容）
-│   ├── profile.json        # 个人基础信息配置
-│   ├── projects.json       # 开源项目列表配置
-│   └── skills.json         # 技能图谱数据配置
-└── pages/                  # 子页面目录（预留扩展）
-    ├── project-detail/     # 项目详情页（预留）
-    └── blog/               # 博客文章页（预留）
-```
+<p>
+  <img src="https://img.shields.io/github/stars/badhope/badhope.github.io?style=for-the-badge&logo=github&logoColor=white&label=Stars&color=64ffda" alt="stars">
+  <img src="https://img.shields.io/github/forks/badhope/badhope.github.io?style=for-the-badge&logo=github&logoColor=white&label=Forks&color=64ffda" alt="forks">
+  <img src="https://img.shields.io/github/issues/badhope/badhope.github.io?style=for-the-badge&logo=github&logoColor=white&label=Issues&color=64ffda" alt="issues">
+  <img src="https://img.shields.io/github/last-commit/badhope/badhope.github.io?style=for-the-badge&logo=github&logoColor=white&label=Last%20Commit&color=64ffda" alt="last commit">
+  <img src="https://img.shields.io/github/license/badhope/badhope.github.io?style=for-the-badge&logo=github&logoColor=white&label=License&color=64ffda" alt="license">
+</p>
 
-## 版本迭代记录
-- **v1.0.0**：项目正式上线，完成首页基础框架、个人信息展示、项目作品模块、全尺寸响应式布局适配，实现PC/移动端流畅访问
-- **v1.1.0**：新增核心数据看板、实时系统信息模块、农历节气模块，完成基础数据可视化能力落地
-- **v1.2.0**：对接GitHub Open API实现数据自动同步，完善技能图谱可视化、关于我&联系方式模块，完成核心功能全闭环
+</div>
 
-## 未来扩展规划
-### 近期迭代（1-3个月，高优先级）
-1.  全量内容配置化：将个人信息、项目列表、技能数据完全抽离至JSON配置文件，实现内容更新零代码改动，大幅降低维护成本
-2.  项目详情页开发：为每个开源项目新增独立详情页，展示技术细节、迭代日志、使用文档、效果演示
-3.  博客文章聚合模块：新增博客专区，对接GitHub Issues/掘金平台，实现技术文章自动拉取、分类展示、阅读量统计
-4.  主题切换能力：新增暗黑/浅色模式一键切换，适配不同浏览场景，优化夜间阅读体验
-5.  性能优化：落地图片懒加载、代码压缩、资源缓存策略，优化首屏加载速度，提升Lighthouse核心性能指标
+---
 
-### 中期规划（3-6个月，中优先级）
-1.  自动化部署流程：接入GitHub Actions，实现代码提交后自动构建、压缩、部署，简化发布流程
-2.  轻量访客统计：自研极简访客统计、页面访问量分析功能，无第三方冗余脚本，实现本地数据统计与可视化
-3.  留言板模块：基于GitHub Issues实现轻量留言板功能，支持访客留言交流，无需额外后端服务
-4.  SEO全量优化：完善页面语义化标签、TDK配置、sitemap自动生成，提升搜索引擎收录与排名
-5.  个人知识库专区：新增技术沉淀模块，分类整理学习笔记、Prompt工程技巧、AI工具应用心得，形成个人知识体系
+### 🌌 项目初衷 | The Vision
 
-### 长期规划（6-12个月，探索性需求）
-1.  个人AI助手集成：嵌入专属AI对话助手，对接大模型API，实现个人知识库问答、项目咨询、技术问题解答能力
-2.  技术实验室专区：新增实验性项目、创意Demo展示区，实时更新技术探索成果，打造个人技术试验场
-3.  多语言适配：实现中英文双语切换，适配海外访客访问，拓展个人技术影响力
-4.  全平台数据聚合：统一对接GitHub、掘金、知乎等个人技术平台，实现全平台内容与数据一站式聚合展示
-5.  动态简历生成：基于站点内个人信息、技能、项目数据，一键生成可导出的PDF简历，实现站点与简历内容实时同步
+这不仅仅是一个**个人网站**，它是我在 AI 浪潮中航行的**星际飞船驾驶舱**。
 
-## 维护规范
-1.  代码规范：遵循原生前端最佳实践，模块化拆分功能，核心逻辑补充清晰注释，保障可维护性
-2.  版本管理：main分支仅保留稳定上线版本，功能迭代基于feature分支开发，测试通过后合并
-3.  数据备份：定期备份静态配置数据、图片资源，重要版本更新前打Tag标记，避免数据丢失
-4.  更新频率：项目信息、技术文章每月同步更新，核心功能迭代按需推进，保持站点内容时效性
+在这个数字化生存的时代，我选择用代码构建自己的数字名片。无论是展示**简历**、分享**作品**，还是沉淀**技术资源**，这个站点都是我探索技术边界的实验场。它见证了我从一名大数据学生成长为全栈探索者的每一步脚印。
+
+**我的目标很简单：用技术让未来触手可及。**
+
+---
+
+### 🛠️ 技术栈 | Tech Stack
+
+这个项目完全由我亲手构建，拒绝模板化，追求极致的交互体验与视觉美感。
+
+*   **前端核心**: `HTML5` + `CSS3` + `Vanilla JavaScript` (无框架，纯原生，极致性能)
+*   **视觉设计**: 自研双主题切换系统 (`深空蓝` ⬅➡ `极简白`)，Canvas 绘制的流星雨与星空背景。
+*   **交互体验**: CSS3 动画引擎、Intersection Observer API 实现的沉浸式滚动视差。
+*   **架构理念**: 模块化开发，响应式布局，适配从手机到 4K 屏幕的所有设备。
+
+---
+
+### ✨ 核心功能 | Features
+
+*   🔮 **炫酷双主题**: 一键切换“流星雨穿越模式”与“深空星空模式”，背景随鼠标移动产生视差。
+*   📜 **沉浸式简历**: 告别枯燥的纸张，用滚动动画讲述我的成长故事，技能条动态生长。
+*   🚀 **海量资源库**: 自建的 AI 工具与开发者导航站，收录了 Kimi、DeepSeek、萌娘百科等数十个宝藏站点。
+*   📡 **社交矩阵**: GitHub、知乎、CSDN、掘金一键触达，构建个人品牌影响力。
+
+---
+
+### 📜 名言共勉 | Motivation
+
+> *"未来的技术定会愈发先进，而我们唯一能做的，就是保持好奇，永不止步。"*  
+> — **熊泽城**
+
+**致自己：**
+
+每一行代码都是通往未来的船票，每一次 commit 都是对梦想的致敬。不要害怕犯错，因为那是成长的勋章。在这条通往 AI 时代的航道上，愿你永远保持那份“笨拙”的热爱，去探索那些未知的星辰大海。
+
+<div align="center">
+
+**🛸 既然来了，就留下一个 Star 吧，这将是对我最大的鼓励！**
+
+<img src="https://komarev.com/ghpvc/?username=badhope&label=Profile%20views&color=64ffda&style=flat-square" alt="访问量统计" />
+
+</div>
