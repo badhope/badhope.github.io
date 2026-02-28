@@ -98,3 +98,32 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.opacity = '1';
     }, 100);
 });
+// 5. 技能进度条滚动动画 {
+    const skillSection = document.getElementById('education-skills');
+    const skillBars = document.querySelectorAll('.skill-item');
+
+    const showSkills = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                skillBars.forEach(item => {
+                    const percent = item.getAttribute('data-percent');
+                    const fill = item.querySelector('.progress-fill');
+                    // 设置自定义属性作为过渡后的宽度
+                    setTimeout(() => {
+                        fill.style.width = percent;
+                    }, 200); // 稍微延迟一下，让效果更明显
+                });
+                observer.unobserve(entry.target); // 只触发一次
+            }
+        });
+    };
+
+    const skillObserver = new IntersectionObserver(showSkills, {
+        threshold: 0.3 // 当30%的区域可见时触发
+    });
+
+    if (skillSection) {
+        skillObserver.observe(skillSection);
+    }
+})();
+
