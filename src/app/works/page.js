@@ -1,9 +1,15 @@
 'use client';
 import { motion } from 'framer-motion';
-import { projectsData, articlesData } from '@/data/worksData';
+// 导入 JSON 数据 (由自动化脚本生成)
+import projectsData from '@/data/worksData.json'; 
+import { articlesData } from '@/data/worksData'; 
 import { ExternalLink, Github, Star, GitFork, BookOpen } from 'lucide-react';
 
 export default function WorksPage() {
+  // 防止数据为空报错
+  const projects = projectsData || [];
+  const articles = articlesData || [];
+
   return (
     <div className="min-h-screen bg-space-bg text-text-main py-24 px-4 md:px-8 lg:px-16">
       <div className="max-w-6xl mx-auto">
@@ -12,6 +18,7 @@ export default function WorksPage() {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">作品集</h1>
           <p className="text-text-light text-lg">造物工坊：代码与思想的结晶</p>
+          <p className="text-xs text-text-light mt-2 opacity-50">数据每日自动同步更新</p>
         </div>
 
         {/* 第一板块：GitHub 项目 */}
@@ -21,7 +28,7 @@ export default function WorksPage() {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projectsData.map((project, index) => (
+            {projects.length > 0 ? projects.map((project, index) => (
               <motion.a
                 key={index}
                 href={project.github}
@@ -32,7 +39,6 @@ export default function WorksPage() {
                 transition={{ delay: index * 0.1 }}
                 className="group block bg-space-card p-6 rounded-lg border border-space-border hover:border-neon-cyan transition-all duration-300 hover:shadow-[0_0_15px_rgba(100,255,218,0.05)] relative overflow-hidden"
               >
-                {/* 顶部角标 */}
                 <div className="absolute top-0 right-0 bg-space-bg text-xs text-text-light px-2 py-1 rounded-bl border-l border-b border-space-border">
                   Open Source
                 </div>
@@ -48,7 +54,7 @@ export default function WorksPage() {
                 <p className="text-text-light text-sm mb-4 line-clamp-2">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag, i) => (
+                  {project.tags && project.tags.map((tag, i) => (
                     <span key={i} className="px-2 py-1 text-xs bg-space-bg text-neon-cyan rounded border border-space-border">
                       {tag}
                     </span>
@@ -66,7 +72,9 @@ export default function WorksPage() {
                   )}
                 </div>
               </motion.a>
-            ))}
+            )) : (
+              <p className="text-text-light col-span-2 text-center py-10">正在抓取 GitHub 数据...</p>
+            )}
           </div>
         </section>
 
@@ -77,7 +85,7 @@ export default function WorksPage() {
           </h2>
 
           <div className="space-y-4">
-            {articlesData.map((article, index) => (
+            {articles.map((article, index) => (
               <motion.a
                 key={index}
                 href={article.link}
