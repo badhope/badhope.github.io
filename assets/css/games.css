@@ -1,1 +1,251 @@
+/* =========================================
+   games.css
+   游乐场页面与游戏组件专用样式
+   ========================================= */
+
+/* 1. 游乐场页面头部 */
+.playground-hero {
+    padding: 8rem 0 4rem;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.page-desc {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* 2. 游戏容器布局 */
+.game-section {
+    display: flex;
+    justify-content: center;
+}
+
+.game-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    transition: var(--transition);
+    max-width: 500px;
+    width: 100%;
+}
+
+.game-container:hover {
+    border-color: transparent;
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* 3. 游戏头部信息 */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.score-board {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.score-board span {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-family: 'Inter', monospace;
+    min-width: 40px;
+    display: inline-block;
+}
+
+/* 4. 游戏画布 */
+#game-canvas {
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    display: block;
+    margin: 0 auto 1.5rem;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] #game-canvas {
+    border-color: var(--border-color);
+    background-color: #0f172a;
+}
+
+/* 5. 游戏控制说明 */
+.game-controls {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.game-controls i {
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+/* 6. 移动端控制按钮 (可选增强) */
+.mobile-controls {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.control-btn {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.control-btn:active {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: grid;
+    }
+    
+    .game-controls {
+        display: none;
+    }
+}
+
+/* 7. 游戏结束覆盖层 */
+.game-over-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    border-radius: var(--radius-md);
+}
+
+.game-over-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.game-over-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.final-score {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    margin-bottom: 2rem;
+}
+
+/* 8. 游戏状态指示器 */
+.game-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.game-status.playing {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.game-status.paused {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+/* 9. 高分榜 (可选) */
+.high-scores {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.high-scores h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.score-list {
+    list-style: none;
+}
+
+.score-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--border-color);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.score-list li:last-child {
+    border-bottom: none;
+}
+
+.score-rank {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* 10. 响应式调整 */
+@media (max-width: 640px) {
+    .page-title {
+        font-size: 2.25rem;
+    }
+    
+    .game-container {
+        padding: 1.5rem;
+    }
+    
+    #game-canvas {
+        max-width: 100%;
+        height: auto;
+    }
+}
 
