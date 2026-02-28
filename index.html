@@ -1,112 +1,151 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="scroll-smooth">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊泽城 | AI时代的探索者</title>
-    <meta name="description" content="熊泽城的个人作品集 - 专注于Web开发、AI应用探索">
+    <title>熊泽城 | 数据科学 & 全栈开发者</title>
+    <meta name="description" content="熊泽城的个人主页，专注于数据科学与全栈开发。展示项目经历、技术博客与学术成果。">
     
-    <!-- 字体引入 -->
+    <!-- 引入字体 (Inter & Noto Sans SC) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- TailwindCSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 自定义样式 -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <!-- Tailwind配置 -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Noto Sans SC', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- 主样式文件 -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
-<body class="bg-gradient-to-br from-slate-50 via-white to-sky-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-500">
-    
-    <!-- 动态背景层 -->
-    <div id="bg-layer" class="fixed inset-0 pointer-events-none z-0">
-        <div id="particles-container"></div>
-        <div class="wave-bg"></div>
-        <div class="floating-orbs"></div>
-    </div>
-    
-    <!-- 桌面端侧边栏 -->
-    <aside id="desktop-sidebar" class="hidden lg:flex fixed left-0 top-0 h-full w-72 glass border-r border-slate-200/50 dark:border-slate-700/50 z-50 flex-col">
-        <div class="p-6 border-b border-slate-200/50 dark:border-slate-700/50">
-            <div class="flex items-center gap-4">
-                <div class="avatar-ring">
-                    <div class="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center text-white text-xl font-bold">熊</div>
-                </div>
-                <div>
-                    <h1 class="font-display text-xl font-bold gradient-text">熊泽城</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">AI 探索者</p>
-                </div>
-            </div>
-            <div class="mt-4 flex items-center gap-2">
-                <span class="status-dot"></span>
-                <span class="text-xs text-slate-500">在线协作中</span>
-            </div>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="/" class="logo">Badhope<span>.dev</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#experience">经历</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li>
+                    <!-- 主题切换按钮 -->
+                    <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
         </div>
-        
-        <nav class="flex-1 p-4 overflow-y-auto custom-scrollbar">
-            <div class="space-y-1">
-                <div class="nav-section">
-                    <span class="nav-section-title">主菜单</span>
-                    <button data-page="home" class="nav-item active">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                        <span>首页</span>
-                    </button>
-                    <button data-page="projects" class="nav-item">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                        <span>项目作品</span>
-                    </button>
-                    <button data-page="blog" class="nav-item">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        <span>博客文章</span>
-                    </button>
-                    <button data-page="about" class="nav-item">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        <span>关于我</span>
-                    </button>
-                </div>
-            </div>
-        </nav>
-        
-        <div class="p-4 border-t border-slate-200/50 dark:border-slate-700/50">
-            <div class="flex items-center justify-between mb-3">
-                <button id="theme-toggle-desktop" class="theme-toggle-btn">
-                    <svg class="sun-icon w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <svg class="moon-icon w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                </button>
-                <div class="flex gap-2">
-                    <a href="https://github.com/badhope" target="_blank" class="icon-btn">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path></svg>
+    </nav>
+
+    <!-- Hero 首屏区域 -->
+    <section id="about" class="hero-section">
+        <div class="container hero-container">
+            <!-- 左侧：个人信息 -->
+            <div class="hero-content">
+                <div class="hero-tag"> // 数据科学 & 全栈开发 </div>
+                <h1 class="hero-title">
+                    你好，我是 <span class="highlight">熊泽城</span>
+                </h1>
+                <p class="hero-desc">
+                    一名热衷于用代码解决实际问题的大数据专业本科生。我有数据处理与分析的硬核实力，也有独立完成全栈项目的开发经验。致力于在数据中挖掘价值，在代码中构建未来。
+                </p>
+                
+                <!-- 核心行动点 -->
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> 查看项目
+                    </a>
+                    <a href="assets/files/熊泽城-简历-中_20260228_004040.pdf" class="btn btn-secondary" download>
+                        <i class="fas fa-download"></i> 下载简历
                     </a>
                 </div>
+
+                <!-- 社交平台聚合区 (重点需求) -->
+                <div class="social-platforms">
+                    <h3 class="social-title">我在这里活跃</h3>
+                    <div class="social-grid">
+                        <!-- GitHub -->
+                        <a href="https://github.com/badhope" target="_blank" class="social-card github">
+                            <div class="social-icon"><i class="fab fa-github"></i></div>
+                            <div class="social-info">
+                                <span class="name">GitHub</span>
+                                <span class="desc">开源项目与代码贡献</span>
+                            </div>
+                            <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
+                        </a>
+                        <!-- 掘金 -->
+                        <a href="https://juejin.cn/user/你的ID" target="_blank" class="social-card juejin">
+                            <div class="social-icon"><i class="fas fa-gem"></i></div>
+                            <div class="social-info">
+                                <span class="name">掘金</span>
+                                <span class="desc">技术文章与深度分享</span>
+                            </div>
+                            <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
+                        </a>
+                        <!-- CSDN -->
+                        <a href="https://blog.csdn.net/你的ID" target="_blank" class="social-card csdn">
+                            <div class="social-icon"><i class="fas fa-blog"></i></div>
+                            <div class="social-info">
+                                <span class="name">CSDN</span>
+                                <span class="desc">技术成长记录</span>
+                            </div>
+                            <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
+                        </a>
+                        <!-- 知乎 -->
+                        <a href="https://www.zhihu.com/people/你的ID" target="_blank" class="social-card zhihu">
+                            <div class="social-icon"><i class="fab fa-zhihu"></i></div>
+                            <div class="social-info">
+                                <span class="name">知乎</span>
+                                <span class="desc">思考与行业见解</span>
+                            </div>
+                            <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="text-center text-xs text-slate-400">Made with <span class="text-red-400">♥</span> by 熊泽城</div>
+
+            <!-- 右侧：数据可视化 & 头像 -->
+            <div class="hero-visual">
+                <div class="profile-card glass-card">
+                    <img src="assets/images/avatar.jpg" alt="熊泽城头像" class="profile-avatar">
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-num" id="github-stars">100+</span>
+                            <span class="stat-label">GitHub Stars</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num" id="article-views">5W+</span>
+                            <span class="stat-label">文章阅读量</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num" id="project-count">10+</span>
+                            <span class="stat-label">项目实践</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 装饰性浮动标签 -->
+                <div class="floating-tags">
+                    <span class="tag tag-python">Python</span>
+                    <span class="tag tag-vue">Java</span>
+                    <span class="tag tag-sql">MySQL</span>
+                    <span class="tag tag-data">Data Analysis</span>
+                </div>
+            </div>
         </div>
-    </aside>
-    
-    <!-- 移动端导航结构（此处省略，可在后续部分获取） -->
-    
-    <!-- 主内容区域 -->
-    <main id="main-content" class="lg:ml-72 pt-16 lg:pt-0 pb-20 lg:pb-0 min-h-screen relative z-10">
-        <!-- 页面内容将在后续部分详细展开 -->
+    </section>
+
+    <!-- 主要内容区域将在这里后续添加 -->
+    <main>
+        <!-- 经历、项目等板块... -->
     </main>
-    
-    <script src="app.js"></script>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <!-- 页脚内容... -->
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
