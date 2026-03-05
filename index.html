@@ -353,6 +353,106 @@
             font-weight: 600;
         }
         
+        .auth-link {
+            background: var(--current-accent-soft);
+            border: 1px solid var(--current-border);
+        }
+        
+        .user-menu {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 22px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            background: var(--current-accent-soft);
+        }
+        
+        .user-menu:hover {
+            background: var(--current-accent);
+            color: #fff;
+        }
+        
+        .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--current-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .user-menu:hover .user-avatar {
+            background: #fff;
+            color: var(--current-accent);
+        }
+        
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--current-card);
+            border: 1px solid var(--current-border);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px var(--current-shadow);
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s var(--ease-smooth);
+            z-index: 100;
+        }
+        
+        .user-menu:hover .user-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .user-dropdown a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--current-text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .user-dropdown a:hover {
+            background: var(--current-accent-soft);
+            color: var(--current-accent);
+        }
+        
+        .user-dropdown a:first-child {
+            border-radius: 11px 11px 0 0;
+        }
+        
+        .user-dropdown a:last-child {
+            border-radius: 0 0 11px 11px;
+            border-top: 1px solid var(--current-border);
+            color: var(--error-color);
+        }
+        
+        .user-dropdown a:last-child:hover {
+            background: rgba(220, 53, 69, 0.1);
+        }
+        
         .theme-toggle {
             width: 60px;
             height: 30px;
@@ -1022,6 +1122,9 @@
             <li><a href="works.html">作品集</a></li>
             <li><a href="tools.html">工具站</a></li>
             <li><a href="contact.html">联系方式</a></li>
+            <li id="authNav">
+                <a href="login.html" class="auth-link" id="authLink">登录</a>
+            </li>
             <li>
                 <div class="theme-toggle" id="themeToggle">
                     <span class="theme-toggle-icon moon">🌙</span>
@@ -1106,6 +1209,7 @@
         </div>
     </div>
     
+    <script src="js/auth.js"></script>
     <script>
         window.addEventListener('load', function() {
             const loader = document.getElementById('pageLoader');
@@ -1113,6 +1217,26 @@
                 loader.classList.add('hidden');
             }, 400);
         });
+        
+        function updateAuthNav() {
+            const authNav = document.getElementById('authNav');
+            const authLink = document.getElementById('authLink');
+            
+            if (typeof Auth !== 'undefined' && Auth.isAuthenticated()) {
+                const user = Auth.getCurrentUser();
+                authNav.innerHTML = `
+                    <div class="user-menu">
+                        <div class="user-avatar">${user.username.charAt(0).toUpperCase()}</div>
+                        <span class="user-name">${user.username}</span>
+                        <div class="user-dropdown">
+                            <a href="#" onclick="Auth.logout(); location.reload(); return false;">退出登录</a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        updateAuthNav();
         
         const themeToggle = document.getElementById('themeToggle');
         

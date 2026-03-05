@@ -198,6 +198,131 @@
             border-radius: 4px;
         }
         
+        /* ========== 访问控制样式 ========== */
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--ease-smooth);
+        }
+        
+        .auth-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .auth-modal {
+            background: var(--current-card);
+            border: 1px solid var(--current-border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.4s var(--ease-smooth);
+        }
+        
+        .auth-overlay.show .auth-modal {
+            transform: scale(1);
+        }
+        
+        .auth-modal-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .auth-modal h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            color: var(--current-text);
+            margin-bottom: 12px;
+        }
+        
+        .auth-modal p {
+            color: var(--current-text-sec);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .auth-modal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            background: var(--current-accent);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            text-decoration: none;
+        }
+        
+        .auth-modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--current-glow);
+        }
+        
+        .content-blur {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .locked-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(220, 53, 69, 0.15);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #dc3545;
+            margin-left: 10px;
+        }
+        
+        .summary-only {
+            position: relative;
+        }
+        
+        .summary-only::after {
+            content: '🔒 登录查看详情';
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 25px;
+            background: var(--current-accent);
+            color: #fff;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .summary-only:hover::after {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 5px 20px var(--current-glow);
+        }
+        
         ::-webkit-scrollbar-thumb:hover {
             background: var(--current-accent-hover);
         }
@@ -1099,6 +1224,19 @@
     <!-- 背景 -->
     <div id="bg-container"></div>
     
+    <!-- 访问控制遮罩 -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal">
+            <div class="auth-modal-icon">🔒</div>
+            <h3>需要登录</h3>
+            <p>请登录后查看完整简历详情<br>未登录用户仅可查看基本信息</p>
+            <a href="login.html?redirect=resume.html" class="auth-modal-btn">
+                <span>🔐</span>
+                <span>立即登录</span>
+            </a>
+        </div>
+    </div>
+    
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1127,6 +1265,9 @@
             <li><a href="works.html">作品集</a></li>
             <li><a href="tools.html">工具站</a></li>
             <li><a href="contact.html">联系方式</a></li>
+            <li id="authNav">
+                <a href="login.html" class="auth-link" id="authLink">登录</a>
+            </li>
             <li>
                 <div class="theme-toggle" id="themeToggle">
                     <div class="theme-toggle-ball"></div>
@@ -1487,8 +1628,51 @@
     </section>
     
     <!-- JavaScript -->
+    <script src="js/auth.js"></script>
     <script>
-        // ========== 0. 页面加载动画 ==========
+        // ========== 0. 访问控制检查 ==========
+        function checkAuthAccess() {
+            const isAuthenticated = typeof Auth !== 'undefined' && Auth.isAuthenticated();
+            const authOverlay = document.getElementById('authOverlay');
+            const detailedSections = document.querySelectorAll('#experience, #skills, #awards');
+            
+            if (!isAuthenticated) {
+                authOverlay.classList.add('show');
+                detailedSections.forEach(section => {
+                    section.classList.add('content-blur');
+                });
+            } else {
+                authOverlay.classList.remove('show');
+                detailedSections.forEach(section => {
+                    section.classList.remove('content-blur');
+                });
+            }
+        }
+        
+        // 页面加载时检查认证状态
+        checkAuthAccess();
+        
+        // ========== 更新认证导航状态 ==========
+        function updateAuthNav() {
+            const authNav = document.getElementById('authNav');
+            
+            if (typeof Auth !== 'undefined' && Auth.isAuthenticated()) {
+                const user = Auth.getCurrentUser();
+                authNav.innerHTML = `
+                    <div class="user-menu" style="position: relative; display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 22px; cursor: pointer; background: var(--current-accent-soft);">
+                        <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--current-accent); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff;">${user.username.charAt(0).toUpperCase()}</div>
+                        <span style="font-size: 13px; font-weight: 600;">${user.username}</span>
+                        <div class="user-dropdown" style="position: absolute; top: 100%; right: 0; margin-top: 8px; background: var(--current-card); border: 1px solid var(--current-border); border-radius: 12px; min-width: 120px; opacity: 0; visibility: hidden; transition: all 0.3s;">
+                            <a href="#" onclick="Auth.logout(); location.reload(); return false;" style="display: block; padding: 12px 16px; color: var(--current-text); text-decoration: none;">退出登录</a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        updateAuthNav();
+        
+        // ========== 1. 页面加载动画 ==========
         window.addEventListener('load', function() {
             const loader = document.getElementById('pageLoader');
             setTimeout(() => {

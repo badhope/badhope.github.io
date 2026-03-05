@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 | 熊泽城</title>
+    <meta name="description" content="登录查看完整内容">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-light: linear-gradient(135deg, #ffffff 0%, #f0f8ff 50%, #e6f3ff 100%);
+            --text-light-primary: #1a365d;
+            --text-light-secondary: #2c5282;
+            --accent-light: #0078d4;
+            --accent-light-hover: #106ebe;
+            --accent-light-soft: rgba(0, 120, 212, 0.15);
+            --glow-light: rgba(0, 120, 212, 0.4);
+            --card-light: rgba(255, 255, 255, 0.95);
+            --shadow-light: rgba(0, 120, 212, 0.12);
+            --border-light: rgba(0, 120, 212, 0.2);
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            
+            --bg-dark: #0d1117;
+            --text-dark-primary: #e6edf3;
+            --text-dark-secondary: #8b949e;
+            --accent-dark: #58a6ff;
+            --accent-dark-hover: #79c0ff;
+            --accent-dark-soft: rgba(88, 166, 255, 0.15);
+            --glow-dark: rgba(88, 166, 255, 0.35);
+            --card-dark: rgba(22, 27, 34, 0.95);
+            --shadow-dark: rgba(88, 166, 255, 0.1);
+            --border-dark: rgba(88, 166, 255, 0.2);
+            
+            --current-bg: var(--bg-light);
+            --current-text: var(--text-light-primary);
+            --current-text-sec: var(--text-light-secondary);
+            --current-accent: var(--accent-light);
+            --current-accent-hover: var(--accent-light-hover);
+            --current-accent-soft: var(--accent-light-soft);
+            --current-glow: var(--glow-light);
+            --current-card: var(--card-light);
+            --current-shadow: var(--shadow-light);
+            --current-border: var(--border-light);
+            
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        body.dark-mode {
+            --current-bg: var(--bg-dark);
+            --current-text: var(--text-dark-primary);
+            --current-text-sec: var(--text-dark-secondary);
+            --current-accent: var(--accent-dark);
+            --current-accent-hover: var(--accent-dark-hover);
+            --current-accent-soft: var(--accent-dark-soft);
+            --current-glow: var(--glow-dark);
+            --current-card: var(--card-dark);
+            --current-shadow: var(--shadow-dark);
+            --current-border: var(--border-dark);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--current-bg);
+            color: var(--current-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background 0.5s var(--ease-smooth), color 0.5s var(--ease-smooth);
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+        }
+        
+        .auth-card {
+            background: var(--current-card);
+            border: 1px solid var(--current-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px var(--current-shadow);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s var(--ease-smooth);
+        }
+        
+        .auth-card:hover {
+            box-shadow: 0 15px 50px var(--current-glow);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .auth-logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+        }
+        
+        .auth-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 15px var(--current-glow));
+        }
+        
+        .auth-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--current-text);
+            margin-bottom: 8px;
+        }
+        
+        .auth-subtitle {
+            font-size: 14px;
+            color: var(--current-text-sec);
+            opacity: 0.8;
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 30px;
+            background: var(--current-accent-soft);
+            border-radius: 12px;
+            padding: 4px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: var(--current-text-sec);
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s var(--ease-smooth);
+        }
+        
+        .tab-btn.active {
+            background: var(--current-accent);
+            color: #fff;
+            box-shadow: 0 4px 15px var(--current-glow);
+        }
+        
+        .tab-btn:hover:not(.active) {
+            color: var(--current-accent);
+        }
+        
+        .form-container {
+            position: relative;
+            min-height: 280px;
+        }
+        
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.3s var(--ease-smooth);
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--current-text-sec);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--current-border);
+            border-radius: 12px;
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 15px;
+            color: var(--current-text);
+            background: transparent;
+            transition: all 0.3s var(--ease-smooth);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--current-accent);
+            box-shadow: 0 0 0 4px var(--current-accent-soft);
+        }
+        
+        .form-input::placeholder {
+            color: var(--current-text-sec);
+            opacity: 0.5;
+        }
+        
+        .form-input.error {
+            border-color: var(--error-color);
+        }
+        
+        .error-message {
+            font-size: 12px;
+            color: var(--error-color);
+            margin-top: 6px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--current-text-sec);
+        }
+        
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--current-accent);
+        }
+        
+        .forgot-link {
+            color: var(--current-accent);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .forgot-link:hover {
+            opacity: 0.8;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--current-accent);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            background: var(--current-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--current-glow);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .submit-btn .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
+        }
+        
+        .submit-btn.loading .spinner {
+            display: inline-block;
+        }
+        
+        .submit-btn.loading .btn-text {
+            opacity: 0.7;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: var(--current-text-sec);
+            font-size: 13px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--current-border);
+        }
+        
+        .divider span {
+            padding: 0 15px;
+        }
+        
+        .demo-info {
+            background: var(--current-accent-soft);
+            border: 1px solid var(--current-border);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 13px;
+            color: var(--current-text-sec);
+            line-height: 1.6;
+        }
+        
+        .demo-info strong {
+            color: var(--current-accent);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        .back-link a {
+            color: var(--current-text-sec);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .back-link a:hover {
+            color: var(--current-accent);
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            transform: translateX(120%);
+            transition: transform 0.4s var(--ease-smooth);
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast.success {
+            background: var(--success-color);
+        }
+        
+        .toast.error {
+            background: var(--error-color);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 26px;
+            background: var(--current-accent-soft);
+            border-radius: 13px;
+            cursor: pointer;
+            border: 2px solid var(--current-border);
+            transition: all 0.3s var(--ease-smooth);
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--current-accent);
+        }
+        
+        .theme-toggle-ball {
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #fff 0%, #e8f4ff 100%);
+            border-radius: 50%;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            transition: all 0.3s var(--ease-bounce);
+        }
+        
+        body.dark-mode .theme-toggle-ball {
+            left: calc(100% - 20px);
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+        }
+        
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 30px 25px;
+            }
+            
+            .auth-title {
+                font-size: 20px;
+            }
+            
+            .form-input {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle">
+        <div class="theme-toggle-ball"></div>
+    </div>
+    
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <svg viewBox="0 0 100 100">
+                        <polygon points="50,10 61,35 90,35 67,55 78,90 50,70 22,90 33,55 10,35 39,35" 
+                                 fill="none" 
+                                 stroke="currentColor" 
+                                 stroke-width="2"
+                                 style="color: var(--current-accent)">
+                        </polygon>
+                    </svg>
+                </div>
+                <h1 class="auth-title">用户认证</h1>
+                <p class="auth-subtitle">登录后查看完整内容</p>
+            </div>
+            
+            <div class="tab-container">
+                <button class="tab-btn active" data-tab="login">登录</button>
+                <button class="tab-btn" data-tab="register">注册</button>
+            </div>
+            
+            <div class="form-container">
+                <form class="auth-form active" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">邮箱地址</label>
+                        <input type="email" class="form-input" id="loginEmail" placeholder="请输入邮箱" required>
+                        <div class="error-message" id="loginEmailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <input type="password" class="form-input" id="loginPassword" placeholder="请输入密码" required>
+                        <div class="error-message" id="loginPasswordError"></div>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span>记住我</span>
+                        </label>
+                        <a href="#" class="forgot-link">忘记密码？</a>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <span class="spinner"></span>
+                        <span class="btn-text">登 录</span>
+                    </button>
+                </form>
+                
+                <form class="auth-form" id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">用户名</label>
+                        <input type="text" class="form-input" id="registerUsername" placeholder="请输入用户名" required>
+                        <div class="error-message" id="registerUsernameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">邮箱地址</label>
+                        <input type="email" class="form-input" id="registerEmail" placeholder="请输入邮箱" required>
+                        <div class="error-message" id="registerEmailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <input type="password" class="form-input" id="registerPassword" placeholder="请输入密码（至少6位）" required>
+                        <div class="error-message" id="registerPasswordError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">确认密码</label>
+                        <input type="password" class="form-input" id="registerConfirmPassword" placeholder="请再次输入密码" required>
+                        <div class="error-message" id="registerConfirmPasswordError"></div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <span class="spinner"></span>
+                        <span class="btn-text">注 册</span>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="divider"><span>演示账号</span></div>
+            
+            <div class="demo-info">
+                <strong>演示账号：</strong>demo@example.com<br>
+                <strong>演示密码：</strong>demo123<br>
+                <small style="opacity: 0.7;">或注册新账号体验完整功能</small>
+            </div>
+            
+            <div class="back-link">
+                <a href="index.html">← 返回首页</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+    
+    <script src="js/auth.js"></script>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+        
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const tab = this.dataset.tab;
+                if (tab === 'login') {
+                    loginForm.classList.add('active');
+                    registerForm.classList.remove('active');
+                } else {
+                    loginForm.classList.remove('active');
+                    registerForm.classList.add('active');
+                }
+            });
+        });
+        
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            let hasError = false;
+            
+            if (!email) {
+                document.getElementById('loginEmailError').textContent = '请输入邮箱';
+                document.getElementById('loginEmailError').classList.add('show');
+                document.getElementById('loginEmail').classList.add('error');
+                hasError = true;
+            } else if (!validateEmail(email)) {
+                document.getElementById('loginEmailError').textContent = '请输入有效的邮箱地址';
+                document.getElementById('loginEmailError').classList.add('show');
+                document.getElementById('loginEmail').classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('loginEmailError').classList.remove('show');
+                document.getElementById('loginEmail').classList.remove('error');
+            }
+            
+            if (!password) {
+                document.getElementById('loginPasswordError').textContent = '请输入密码';
+                document.getElementById('loginPasswordError').classList.add('show');
+                document.getElementById('loginPassword').classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('loginPasswordError').classList.remove('show');
+                document.getElementById('loginPassword').classList.remove('error');
+            }
+            
+            if (hasError) return;
+            
+            const submitBtn = loginForm.querySelector('.submit-btn');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            const result = Auth.login(email, password, rememberMe);
+            
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            
+            if (result.success) {
+                showToast('登录成功！正在跳转...', 'success');
+                setTimeout(() => {
+                    const redirect = new URLSearchParams(window.location.search).get('redirect');
+                    window.location.href = redirect || 'index.html';
+                }, 1000);
+            } else {
+                showToast(result.message, 'error');
+            }
+        });
+        
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('registerUsername').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            let hasError = false;
+            
+            if (!username || username.length < 2) {
+                document.getElementById('registerUsernameError').textContent = '用户名至少2个字符';
+                document.getElementById('registerUsernameError').classList.add('show');
+                document.getElementById('registerUsername').classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('registerUsernameError').classList.remove('show');
+                document.getElementById('registerUsername').classList.remove('error');
+            }
+            
+            if (!email) {
+                document.getElementById('registerEmailError').textContent = '请输入邮箱';
+                document.getElementById('registerEmailError').classList.add('show');
+                document.getElementById('registerEmail').classList.add('error');
+                hasError = true;
+            } else if (!validateEmail(email)) {
+                document.getElementById('registerEmailError').textContent = '请输入有效的邮箱地址';
+                document.getElementById('registerEmailError').classList.add('show');
+                document.getElementById('registerEmail').classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('registerEmailError').classList.remove('show');
+                document.getElementById('registerEmail').classList.remove('error');
+            }
+            
+            if (!password || password.length < 6) {
+                document.getElementById('registerPasswordError').textContent = '密码至少6个字符';
+                document.getElementById('registerPasswordError').classList.add('show');
+                document.getElementById('registerPassword').classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('registerPasswordError').classList.remove('show');
+                document.getElementById('registerPassword').classList.remove('error');
+            }
+            
+            if (password !== confirmPassword) {
+                document.getElementById('registerConfirmPasswordError').textContent = '两次密码不一致';
+                document.getElementById('registerConfirmPasswordError').classList.add('show');
+                document.getElementById('registerConfirmPassword').classList.add('error');
+                hasError = true;
+            } else {
+                document.getElementById('registerConfirmPasswordError').classList.remove('show');
+                document.getElementById('registerConfirmPassword').classList.remove('error');
+            }
+            
+            if (hasError) return;
+            
+            const submitBtn = registerForm.querySelector('.submit-btn');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            const result = Auth.register(username, email, password);
+            
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            
+            if (result.success) {
+                showToast('注册成功！请登录', 'success');
+                setTimeout(() => {
+                    tabBtns[0].click();
+                    document.getElementById('loginEmail').value = email;
+                }, 1000);
+            } else {
+                showToast(result.message, 'error');
+            }
+        });
+        
+        if (Auth.isAuthenticated()) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
