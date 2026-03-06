@@ -362,21 +362,7 @@
             font-weight: 600;
         }
         
-        .auth-link {
-            background: var(--current-accent-soft);
-            border: 1px solid var(--current-border);
-        }
-        
-        .user-menu {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border-radius: 22px;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-smooth);
-            background: var(--current-accent-soft);
+
         }
         
         .user-menu:hover {
@@ -1178,9 +1164,6 @@
             <li><a href="works.html">作品集</a></li>
             <li><a href="tools.html">工具站</a></li>
             <li><a href="contact.html">联系方式</a></li>
-            <li id="authNav">
-                <a href="login.html" class="auth-link" id="authLink">登录</a>
-            </li>
             <li>
                 <div class="theme-toggle" id="themeToggle">
                     <span class="theme-toggle-icon moon">🌙</span>
@@ -1296,7 +1279,6 @@
         </div>
     </div>
     
-    <script src="js/auth.js"></script>
     <script>
         window.addEventListener('load', function() {
             const loader = document.getElementById('pageLoader');
@@ -1304,26 +1286,6 @@
                 loader.classList.add('hidden');
             }, 400);
         });
-        
-        function updateAuthNav() {
-            const authNav = document.getElementById('authNav');
-            const authLink = document.getElementById('authLink');
-            
-            if (typeof Auth !== 'undefined' && Auth.isAuthenticated()) {
-                const user = Auth.getCurrentUser();
-                authNav.innerHTML = `
-                    <div class="user-menu">
-                        <div class="user-avatar">${user.username.charAt(0).toUpperCase()}</div>
-                        <span class="user-name">${user.username}</span>
-                        <div class="user-dropdown">
-                            <a href="#" onclick="Auth.logout(); location.reload(); return false;">退出登录</a>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-        
-        updateAuthNav();
         
         const themeToggle = document.getElementById('themeToggle');
         
