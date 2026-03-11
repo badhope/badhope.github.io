@@ -1,41 +1,9 @@
 /**
  * 熊泽城个人网站 - 主 JavaScript 文件
- * 版本：2.0
- * 最后更新：2026-03-06
+ * 版本：3.0
+ * 最后更新：2026-03-11
+ * 依赖：utils.js (公共工具模块)
  */
-
-// ========== 工具函数 ==========
-const Utils = {
-    // 防抖函数
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-    
-    // 节流函数
-    throttle(func, limit) {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    },
-    
-    // 随机数生成
-    random(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-};
 
 // ========== 页面加载器 ==========
 const PageLoader = {
@@ -390,7 +358,6 @@ const ProjectCards = {
 
 // ========== 页面初始化 ==========
 document.addEventListener('DOMContentLoaded', () => {
-    // 初始化所有模块
     PageLoader.init();
     ScrollProgress.init();
     BackToTop.init();
@@ -405,6 +372,6 @@ document.addEventListener('DOMContentLoaded', () => {
     SkillCards.init();
     ProjectCards.init();
     
-    console.log('%c🚀 熊泽城个人网站 v2.0', 'color: #0097a7; font-size: 16px; font-weight: bold;');
+    console.log('%c🚀 熊泽城个人网站 v3.0', 'color: #0097a7; font-size: 16px; font-weight: bold;');
     console.log('%c探索技术的无限可能', 'color: #888; font-size: 12px;');
 });

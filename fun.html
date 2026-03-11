@@ -890,6 +890,125 @@
                 </div>
                 <button class="action-button" id="timerBtn" aria-label="开始随机计时">⏱️ 开始计时</button>
             </article>
+
+            <article class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon" aria-hidden="true">📅</span>
+                    <h2 class="feature-title">倒数日计算</h2>
+                </div>
+                <p class="feature-desc">计算距离重要日期还有多少天，记录生活中的重要时刻</p>
+                <div style="margin-bottom: 15px;">
+                    <label for="targetDate" class="sr-only">目标日期</label>
+                    <input type="date" class="input-field" id="targetDate" style="margin-bottom: 10px;" aria-label="选择目标日期">
+                    <label for="eventName" class="sr-only">事件名称</label>
+                    <input type="text" class="input-field" id="eventName" placeholder="事件名称（可选）" maxlength="50" aria-label="事件名称">
+                </div>
+                <div class="result-display" id="countdownDisplay" aria-live="polite" aria-atomic="true">
+                    <div class="result-emoji" aria-hidden="true">📅</div>
+                    <div class="result-title" id="countdownDays">--</div>
+                    <div class="result-text" id="countdownText">选择日期开始计算</div>
+                </div>
+                <button class="action-button" id="countdownBtn" aria-label="计算倒数日">📅 计算天数</button>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon" aria-hidden="true">📊</span>
+                    <h2 class="feature-title">BMI计算器</h2>
+                </div>
+                <p class="feature-desc">计算身体质量指数，了解你的健康状况</p>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <label for="heightInput" class="sr-only">身高</label>
+                        <input type="number" class="input-field" id="heightInput" placeholder="身高(cm)" min="50" max="250" style="margin-bottom: 0;" aria-label="身高">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="weightInput" class="sr-only">体重</label>
+                        <input type="number" class="input-field" id="weightInput" placeholder="体重(kg)" min="20" max="300" style="margin-bottom: 0;" aria-label="体重">
+                    </div>
+                </div>
+                <div class="result-display" id="bmiDisplay" aria-live="polite" aria-atomic="true">
+                    <div class="result-emoji" aria-hidden="true">⚖️</div>
+                    <div class="result-title" id="bmiValue">--</div>
+                    <div class="result-text" id="bmiStatus">输入身高体重开始计算</div>
+                </div>
+                <button class="action-button" id="bmiBtn" aria-label="计算BMI">📊 计算BMI</button>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon" aria-hidden="true">📝</span>
+                    <h2 class="feature-title">文本统计</h2>
+                </div>
+                <p class="feature-desc">统计文本的字符数、单词数、行数等信息</p>
+                <label for="textInput" class="sr-only">输入文本</label>
+                <textarea class="input-field" id="textInput" placeholder="在此输入或粘贴文本..." rows="4" style="resize: vertical; min-height: 80px;" aria-label="文本输入"></textarea>
+                <div class="result-display" id="textStatsDisplay" aria-live="polite" aria-atomic="true" style="text-align: left; padding: 15px;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 13px;">
+                        <div>字符数：<span id="charCount" style="color: var(--current-accent); font-weight: 600;">0</span></div>
+                        <div>单词数：<span id="wordCount" style="color: var(--current-accent); font-weight: 600;">0</span></div>
+                        <div>行数：<span id="lineCount" style="color: var(--current-accent); font-weight: 600;">0</span></div>
+                        <div>段落数：<span id="paraCount" style="color: var(--current-accent); font-weight: 600;">0</span></div>
+                    </div>
+                </div>
+                <button class="action-button" id="clearTextBtn" aria-label="清空文本">🗑️ 清空文本</button>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon" aria-hidden="true">🔄</span>
+                    <h2 class="feature-title">单位转换</h2>
+                </div>
+                <p class="feature-desc">常用单位快速转换，支持长度、重量、温度等</p>
+                <div style="margin-bottom: 15px;">
+                    <select class="input-field" id="unitType" style="margin-bottom: 10px;" aria-label="选择转换类型">
+                        <option value="length">长度</option>
+                        <option value="weight">重量</option>
+                        <option value="temperature">温度</option>
+                    </select>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="number" class="input-field" id="unitValue" placeholder="数值" style="flex: 1; margin-bottom: 0;" aria-label="输入数值">
+                        <select class="input-field" id="unitFrom" style="flex: 1; margin-bottom: 0;" aria-label="源单位"></select>
+                        <span style="color: var(--current-accent);">→</span>
+                        <select class="input-field" id="unitTo" style="flex: 1; margin-bottom: 0;" aria-label="目标单位"></select>
+                    </div>
+                </div>
+                <div class="result-display" id="unitResult" aria-live="polite" aria-atomic="true">
+                    <div class="result-title" id="convertedValue">--</div>
+                    <div class="result-text" id="convertedUnit">选择类型开始转换</div>
+                </div>
+                <button class="action-button" id="convertBtn" aria-label="转换单位">🔄 转换</button>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon" aria-hidden="true">🔢</span>
+                    <h2 class="feature-title">进制转换</h2>
+                </div>
+                <p class="feature-desc">数字进制转换工具，支持二进制、八进制、十进制、十六进制</p>
+                <div style="margin-bottom: 15px;">
+                    <input type="text" class="input-field" id="numberInput" placeholder="输入数字" style="margin-bottom: 10px;" aria-label="输入数字">
+                    <div style="display: flex; gap: 10px;">
+                        <select class="input-field" id="fromBase" style="flex: 1; margin-bottom: 0;" aria-label="源进制">
+                            <option value="2">二进制</option>
+                            <option value="8">八进制</option>
+                            <option value="10" selected>十进制</option>
+                            <option value="16">十六进制</option>
+                        </select>
+                        <select class="input-field" id="toBase" style="flex: 1; margin-bottom: 0;" aria-label="目标进制">
+                            <option value="2">二进制</option>
+                            <option value="8">八进制</option>
+                            <option value="10">十进制</option>
+                            <option value="16" selected>十六进制</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="result-display" id="baseResult" aria-live="polite" aria-atomic="true">
+                    <div class="result-title" id="convertedNumber">--</div>
+                    <div class="result-text" id="baseInfo">输入数字开始转换</div>
+                </div>
+                <button class="action-button" id="baseConvertBtn" aria-label="转换进制">🔢 转换</button>
+            </article>
         </div>
     </main>
 
@@ -907,48 +1026,30 @@
         </svg>
     </button>
 
+    <script src="js/utils.js"></script>
     <script>
         'use strict';
         
         const FunLab = {
-            version: '3.0.0',
+            version: '3.1.0',
             results: { fortune: null, omikuji: null },
             luckyHistory: [],
             currentColor: null,
             timerInterval: null,
-            isOnline: navigator.onLine,
-            animationsEnabled: true,
-            
-            escapeHtml(text) {
-                if (typeof text !== 'string') return '';
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            },
-            
-            sanitizeInput(input) {
-                if (typeof input !== 'string') return '';
-                return input.trim().slice(0, 500);
-            },
             
             showToast(message, type = 'info', duration = 2500) {
-                const toast = document.getElementById('toast');
-                toast.textContent = message;
-                toast.className = 'toast show';
-                if (type) toast.classList.add(type);
-                
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, duration);
+                Toast.show(message, type, duration);
+            },
+            
+            sanitizeInput(input, maxLength = 500) {
+                if (typeof input !== 'string') return '';
+                return input.trim().slice(0, maxLength);
             },
             
             validateInput(input, minLength = 2, maxLength = 500) {
-                const sanitized = this.sanitizeInput(input);
+                const sanitized = this.sanitizeInput(input, maxLength);
                 if (sanitized.length < minLength) {
                     return { valid: false, error: `至少需要${minLength}个字符` };
-                }
-                if (sanitized.length > maxLength) {
-                    return { valid: false, error: `最多允许${maxLength}个字符` };
                 }
                 return { valid: true, value: sanitized };
             },
@@ -960,15 +1061,11 @@
             init() {
                 try {
                     this.loadHistory();
-                    this.initLoader();
                     this.initTheme();
                     this.initNavbar();
                     this.initMobileMenu();
                     this.initBackground();
-                    this.initNetworkDetection();
                     this.initKeyboardNav();
-                    this.initScrollProgress();
-                    this.initAnimationToggle();
                     this.bindEvents();
                     
                     console.log(`%c🎉 趣味功能实验室 v${this.version}`, 'color: #0097a7; font-size: 14px; font-weight: bold;');
@@ -979,42 +1076,12 @@
             },
             
             loadHistory() {
-                try {
-                    const saved = localStorage.getItem('luckyHistory');
-                    this.luckyHistory = saved ? JSON.parse(saved) : [];
-                    this.renderLuckyHistory();
-                } catch (e) {
-                    this.luckyHistory = [];
-                }
+                this.luckyHistory = Utils.storage.get('luckyHistory', []);
+                this.renderLuckyHistory();
             },
             
             saveHistory() {
-                try {
-                    localStorage.setItem('luckyHistory', JSON.stringify(this.luckyHistory));
-                } catch (e) {
-                    console.warn('无法保存历史记录');
-                }
-            },
-            
-            initLoader() {
-                const loader = document.getElementById('pageLoader');
-                const startTime = Date.now();
-                const minLoadTime = 800;
-                
-                const hideLoader = () => {
-                    const elapsed = Date.now() - startTime;
-                    const remaining = Math.max(0, minLoadTime - elapsed);
-                    
-                    setTimeout(() => {
-                        loader.classList.add('hidden');
-                    }, remaining);
-                };
-                
-                if (document.readyState === 'complete') {
-                    hideLoader();
-                } else {
-                    window.addEventListener('load', hideLoader);
-                }
+                Utils.storage.set('luckyHistory', this.luckyHistory);
             },
             
             initTheme() {
@@ -1092,27 +1159,6 @@
                 }
             },
             
-            initNetworkDetection() {
-                const banner = document.getElementById('offlineBanner');
-                
-                const updateOnlineStatus = () => {
-                    this.isOnline = navigator.onLine;
-                    if (!this.isOnline) {
-                        banner.classList.add('show');
-                    } else {
-                        banner.classList.remove('show');
-                        this.showToast('网络已恢复连接', 'success');
-                    }
-                };
-                
-                window.addEventListener('online', updateOnlineStatus);
-                window.addEventListener('offline', updateOnlineStatus);
-                
-                if (!navigator.onLine) {
-                    banner.classList.add('show');
-                }
-            },
-            
             initKeyboardNav() {
                 document.getElementById('backHomeBtn').addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -1126,38 +1172,6 @@
                         e.preventDefault();
                         window.location.href = 'index.html';
                     }
-                });
-            },
-            
-            initScrollProgress() {
-                const progressBar = document.getElementById('scrollProgress');
-                
-                window.addEventListener('scroll', () => {
-                    const scrollTop = window.scrollY;
-                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    const progress = (scrollTop / docHeight) * 100;
-                    progressBar.style.width = progress + '%';
-                }, { passive: true });
-            },
-            
-            initAnimationToggle() {
-                const toggle = document.getElementById('animationToggle');
-                const savedPref = localStorage.getItem('animationsEnabled');
-                
-                if (savedPref !== null) {
-                    this.animationsEnabled = savedPref === 'true';
-                    toggle.checked = this.animationsEnabled;
-                }
-                
-                if (!this.animationsEnabled) {
-                    document.body.classList.add('reduce-motion');
-                }
-                
-                toggle.addEventListener('change', () => {
-                    this.animationsEnabled = toggle.checked;
-                    localStorage.setItem('animationsEnabled', this.animationsEnabled);
-                    document.body.classList.toggle('reduce-motion', !this.animationsEnabled);
-                    this.showToast(this.animationsEnabled ? '动画效果已开启' : '动画效果已关闭', 'success');
                 });
             },
             
@@ -1195,6 +1209,16 @@
                         maxInput.value = min + 1;
                     }
                 });
+                
+                document.getElementById('countdownBtn').addEventListener('click', () => this.calculateCountdown());
+                document.getElementById('bmiBtn').addEventListener('click', () => this.calculateBMI());
+                document.getElementById('textInput').addEventListener('input', () => this.analyzeText());
+                document.getElementById('clearTextBtn').addEventListener('click', () => this.clearText());
+                document.getElementById('unitType').addEventListener('change', () => this.updateUnitOptions());
+                document.getElementById('convertBtn').addEventListener('click', () => this.convertUnit());
+                document.getElementById('baseConvertBtn').addEventListener('click', () => this.convertBase());
+                
+                this.updateUnitOptions();
             },
             
             createParticleExplosion(element) {
@@ -1722,9 +1746,211 @@
             },
             
             copyToClipboard(text) {
-                navigator.clipboard.writeText(text)
+                Utils.copyToClipboard(text)
                     .then(() => this.showToast('已复制到剪贴板！', 'success'))
                     .catch(() => this.showToast('复制失败，请手动复制', 'error'));
+            },
+            
+            calculateCountdown() {
+                const dateInput = document.getElementById('targetDate');
+                const nameInput = document.getElementById('eventName');
+                const daysEl = document.getElementById('countdownDays');
+                const textEl = document.getElementById('countdownText');
+                
+                if (!dateInput.value) {
+                    this.showToast('请选择目标日期', 'error');
+                    return;
+                }
+                
+                const targetDate = new Date(dateInput.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                targetDate.setHours(0, 0, 0, 0);
+                
+                const diffTime = targetDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const eventName = nameInput.value.trim() || '目标日期';
+                
+                if (diffDays > 0) {
+                    daysEl.textContent = `${diffDays} 天`;
+                    textEl.textContent = `距离${eventName}还有`;
+                } else if (diffDays === 0) {
+                    daysEl.textContent = '今天！';
+                    textEl.textContent = `${eventName}就在今天`;
+                } else {
+                    daysEl.textContent = `${Math.abs(diffDays)} 天`;
+                    textEl.textContent = `${eventName}已经过去`;
+                }
+                
+                this.createParticleExplosion(document.getElementById('countdownDisplay'));
+            },
+            
+            calculateBMI() {
+                const height = parseFloat(document.getElementById('heightInput').value);
+                const weight = parseFloat(document.getElementById('weightInput').value);
+                const bmiValue = document.getElementById('bmiValue');
+                const bmiStatus = document.getElementById('bmiStatus');
+                
+                if (!height || !weight || height < 50 || weight < 20) {
+                    this.showToast('请输入有效的身高和体重', 'error');
+                    return;
+                }
+                
+                const heightM = height / 100;
+                const bmi = (weight / (heightM * heightM)).toFixed(1);
+                bmiValue.textContent = bmi;
+                
+                let status, emoji;
+                if (bmi < 18.5) {
+                    status = '偏瘦';
+                    emoji = '🥬';
+                } else if (bmi < 24) {
+                    status = '正常';
+                    emoji = '💪';
+                } else if (bmi < 28) {
+                    status = '偏胖';
+                    emoji = '🍎';
+                } else {
+                    status = '肥胖';
+                    emoji = '⚠️';
+                }
+                
+                bmiStatus.textContent = `${emoji} ${status}`;
+                this.createParticleExplosion(document.getElementById('bmiDisplay'));
+            },
+            
+            analyzeText() {
+                const text = document.getElementById('textInput').value;
+                
+                const charCount = text.length;
+                const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+                const lineCount = text ? text.split('\n').length : 0;
+                const paraCount = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+                
+                document.getElementById('charCount').textContent = charCount;
+                document.getElementById('wordCount').textContent = wordCount;
+                document.getElementById('lineCount').textContent = lineCount;
+                document.getElementById('paraCount').textContent = paraCount;
+            },
+            
+            clearText() {
+                document.getElementById('textInput').value = '';
+                this.analyzeText();
+                this.showToast('文本已清空', 'success');
+            },
+            
+            unitOptions: {
+                length: [
+                    { value: 'm', label: '米' },
+                    { value: 'km', label: '千米' },
+                    { value: 'cm', label: '厘米' },
+                    { value: 'mm', label: '毫米' },
+                    { value: 'in', label: '英寸' },
+                    { value: 'ft', label: '英尺' },
+                    { value: 'yd', label: '码' },
+                    { value: 'mi', label: '英里' }
+                ],
+                weight: [
+                    { value: 'kg', label: '千克' },
+                    { value: 'g', label: '克' },
+                    { value: 'mg', label: '毫克' },
+                    { value: 'lb', label: '磅' },
+                    { value: 'oz', label: '盎司' },
+                    { value: 'jin', label: '斤' }
+                ],
+                temperature: [
+                    { value: 'c', label: '摄氏度' },
+                    { value: 'f', label: '华氏度' },
+                    { value: 'k', label: '开尔文' }
+                ]
+            },
+            
+            updateUnitOptions() {
+                const type = document.getElementById('unitType').value;
+                const fromSelect = document.getElementById('unitFrom');
+                const toSelect = document.getElementById('unitTo');
+                const options = this.unitOptions[type];
+                
+                fromSelect.innerHTML = '';
+                toSelect.innerHTML = '';
+                
+                options.forEach((opt, i) => {
+                    fromSelect.innerHTML += `<option value="${opt.value}">${opt.label}</option>`;
+                    toSelect.innerHTML += `<option value="${opt.value}" ${i === 1 ? 'selected' : ''}>${opt.label}</option>`;
+                });
+            },
+            
+            convertUnit() {
+                const type = document.getElementById('unitType').value;
+                const value = parseFloat(document.getElementById('unitValue').value);
+                const from = document.getElementById('unitFrom').value;
+                const to = document.getElementById('unitTo').value;
+                
+                if (isNaN(value)) {
+                    this.showToast('请输入数值', 'error');
+                    return;
+                }
+                
+                let result;
+                
+                if (type === 'temperature') {
+                    result = this.convertTemperature(value, from, to);
+                } else {
+                    const toBase = this.getConversionFactor(type, from);
+                    const fromBase = this.getConversionFactor(type, to);
+                    result = value * toBase / fromBase;
+                }
+                
+                const formatted = result < 0.01 || result > 10000 ? result.toExponential(4) : result.toFixed(4);
+                document.getElementById('convertedValue').textContent = formatted;
+                
+                const toLabel = this.unitOptions[type].find(u => u.value === to)?.label || to;
+                document.getElementById('convertedUnit').textContent = toLabel;
+            },
+            
+            convertTemperature(value, from, to) {
+                let celsius;
+                if (from === 'c') celsius = value;
+                else if (from === 'f') celsius = (value - 32) * 5 / 9;
+                else celsius = value - 273.15;
+                
+                if (to === 'c') return celsius;
+                if (to === 'f') return celsius * 9 / 5 + 32;
+                return celsius + 273.15;
+            },
+            
+            getConversionFactor(type, unit) {
+                const factors = {
+                    length: { m: 1, km: 1000, cm: 0.01, mm: 0.001, in: 0.0254, ft: 0.3048, yd: 0.9144, mi: 1609.344 },
+                    weight: { kg: 1, g: 0.001, mg: 0.000001, lb: 0.453592, oz: 0.0283495, jin: 0.5 }
+                };
+                return factors[type]?.[unit] || 1;
+            },
+            
+            convertBase() {
+                const input = document.getElementById('numberInput').value.trim();
+                const fromBase = parseInt(document.getElementById('fromBase').value);
+                const toBase = parseInt(document.getElementById('toBase').value);
+                
+                if (!input) {
+                    this.showToast('请输入数字', 'error');
+                    return;
+                }
+                
+                try {
+                    const decimal = parseInt(input, fromBase);
+                    if (isNaN(decimal)) throw new Error('Invalid number');
+                    
+                    const result = decimal.toString(toBase).toUpperCase();
+                    const baseNames = { 2: '二进制', 8: '八进制', 10: '十进制', 16: '十六进制' };
+                    
+                    document.getElementById('convertedNumber').textContent = result;
+                    document.getElementById('baseInfo').textContent = `${baseNames[fromBase]} → ${baseNames[toBase]}`;
+                    
+                    this.createParticleExplosion(document.getElementById('baseResult'));
+                } catch (e) {
+                    this.showToast('输入的数字与所选进制不匹配', 'error');
+                }
             }
         };
 
