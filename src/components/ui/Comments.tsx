@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Comments.module.css';
 
 interface CommentsProps {
@@ -9,9 +9,18 @@ interface CommentsProps {
 
 export default function Comments({ className }: CommentsProps) {
   const commentsRef = useRef<HTMLDivElement>(null);
+  const [loadError, setLoadError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!commentsRef.current || commentsRef.current.hasAttribute('data-giscus')) return;
+
+    const timeout = setTimeout(() => {
+      if (isLoading) {
+        setLoadError(true);
+        setIsLoading(false);
+      }
+    }, 10000);
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
@@ -30,8 +39,23 @@ export default function Comments({ className }: CommentsProps) {
     script.crossOrigin = 'anonymous';
     script.async = true;
 
+    script.onload = () => {
+      clearTimeout(timeout);
+      setIsLoading(false);
+    };
+
+    script.onerror = () => {
+      clearTimeout(timeout);
+      setLoadError(true);
+      setIsLoading(false);
+    };
+
     commentsRef.current.appendChild(script);
-  }, []);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isLoading]);
 
   return (
     <div className={`${styles.container} ${className || ''}`}>
@@ -44,7 +68,22 @@ export default function Comments({ className }: CommentsProps) {
           使用 GitHub 账号登录后发表评论
         </p>
       </div>
-      <div ref={commentsRef} className={styles.giscus} data-giscus />
+
+      {loadError ? (
+        <div className={styles.fallback}>
+          <p>评论服务暂时不可用</p>
+          <a
+            href="https://github.com/badhope/github.io/discussions"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.fallbackLink}
+          >
+            前往 GitHub Discussions 评论
+          </a>
+        </div>
+      ) : (
+        <div ref={commentsRef} className={styles.giscus} data-giscus />
+      )}
     </div>
   );
 }

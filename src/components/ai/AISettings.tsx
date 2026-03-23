@@ -38,29 +38,69 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
   };
 
   const handleTest = async () => {
+    if (!config.apiKey) {
+      setTestStatus('error');
+      setTestMessage('请先输入API密钥');
+      return;
+    }
+
     setTestStatus('testing');
     setTestMessage('正在测试连接...');
 
     try {
-      const response = await fetch('https://api.openai.com/v1/models', {
-        headers: {
-          'Authorization': `Bearer ${config.apiKey}`,
-        },
+      let testUrl = '';
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      switch (config.provider) {
+        case 'openai':
+          testUrl = 'https://api.openai.com/v1/models';
+          headers['Authorization'] = `Bearer ${config.apiKey}`;
+          break;
+        case 'claude':
+          testUrl = 'https://api.anthropic.com/v1/messages';
+          headers['x-api-key'] = config.apiKey || '';
+          headers['anthropic-version'] = '2023-06-01';
+          break;
+        case 'zhipu':
+          const zhipuBase = config.baseUrl || 'https://open.bigmodel.cn/api/paas/v4';
+          testUrl = `${zhipuBase}/models`;
+          headers['Authorization'] = `Bearer ${config.apiKey}`;
+          break;
+        case 'ernie':
+          testUrl = 'https://qianfan.baidubce.com/v2/chat/completions';
+          headers['Authorization'] = `Bearer ${config.apiKey}`;
+          break;
+        case 'dashscope':
+          testUrl = 'https://dashscope.aliyuncs.com/api/v1/models';
+          headers['Authorization'] = `Bearer ${config.apiKey}`;
+          break;
+        default:
+          setTestStatus('error');
+          setTestMessage('请先选择AI提供商');
+          return;
+      }
+
+      const response = await fetch(testUrl, {
+        method: 'GET',
+        headers,
       });
 
-      if (response.ok) {
+      if (response.ok || response.status === 405) {
         setTestStatus('success');
         setTestMessage('连接成功！AI功能已启用。');
       } else {
+        const errorData = await response.json().catch(() => ({}));
         setTestStatus('error');
-        setTestMessage('API密钥无效或已过期');
+        setTestMessage(errorData.error?.message || `连接失败 (${response.status})`);
       }
-    } catch {
+    } catch (err) {
       setTestStatus('error');
       setTestMessage('连接失败，请检查网络和API配置');
     }
 
-    setTimeout(() => setTestStatus('idle'), 3000);
+    setTimeout(() => setTestStatus('idle'), 5000);
   };
 
   const currentProvider = config.provider !== 'none' ? AI_PROVIDERS[config.provider] : null;
