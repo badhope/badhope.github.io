@@ -8,10 +8,34 @@
   background: radial-gradient(ellipse at center, #12121a 0%, #0a0a0f 100%);
 }
 
-.canvas {
+.threeContainer {
   position: absolute;
   inset: 0;
   z-index: 0;
+}
+
+.threeLoader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.loaderSpinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(0, 212, 255, 0.1);
+  border-top-color: #00d4ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .content {
@@ -38,6 +62,7 @@
   box-shadow:
     0 0 40px rgba(191, 90, 242, 0.2),
     inset 0 0 40px rgba(191, 90, 242, 0.05);
+  cursor: pointer;
 }
 
 .symbolText {
@@ -48,11 +73,10 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 30px rgba(191, 90, 242, 0.5);
 }
 
 .name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Grotesk', 'JetBrains Mono', monospace;
   font-size: clamp(3rem, 10vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -61,10 +85,31 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
+  position: relative;
+}
+
+.name::after {
+  content: 'badhope';
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(90deg, #00d4ff, #bf5af2, #00d4ff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerText 3s ease-in-out infinite;
+  opacity: 0.3;
+  filter: blur(8px);
+}
+
+@keyframes shimmerText {
+  0%, 100% { background-position: -200% 0; }
+  50% { background-position: 200% 0; }
 }
 
 .titleContainer {
-  height: 2rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,9 +117,31 @@
 
 .title {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 500;
   color: #00d4ff;
-  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+  letter-spacing: 0.05em;
+}
+
+.cursor {
+  display: inline-block;
+  color: #00d4ff;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.1s;
+  margin-left: 2px;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+}
+
+.cursorVisible {
+  opacity: 1;
+  animation: blink 0.53s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .tagline {
@@ -103,9 +170,9 @@
 .codeSymbol {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.9rem;
-  color: #667EEA;
+  color: rgba(255, 255, 255, 0.4);
   cursor: default;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .cta {
@@ -115,35 +182,43 @@
 }
 
 .ctaPrimary {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
+  padding: 0.875rem 1.75rem;
   background: linear-gradient(135deg, #00d4ff, #bf5af2);
-  color: #fff;
+  color: white;
   font-weight: 600;
+  font-size: 0.95rem;
   border-radius: 12px;
-  transition: all 0.3s ease;
+  text-decoration: none;
   box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  transition: all 0.3s ease;
 }
 
-.ctaPrimary svg {
-  transform: rotate(90deg);
+.ctaPrimary:hover {
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
 }
 
 .ctaSecondary {
-  padding: 0.875rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #e0e0e0;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
   border-radius: 12px;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
 
 .ctaSecondary:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(191, 90, 242, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .scrollIndicator {
@@ -160,35 +235,32 @@
 .scrollLine {
   width: 1px;
   height: 40px;
-  background: linear-gradient(to bottom, #00d4ff, transparent);
+  background: linear-gradient(to bottom, rgba(0, 212, 255, 0.8), transparent);
 }
 
 .scrollText {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.3);
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
+  .name {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
   .symbol {
-    width: 90px;
-    height: 90px;
-    border-radius: 18px;
+    width: 100px;
+    height: 100px;
   }
 
   .symbolText {
-    font-size: 2.2rem;
-  }
-
-  .tagline {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .dot {
-    display: none;
+    font-size: 2.5rem;
   }
 
   .codeSymbols {

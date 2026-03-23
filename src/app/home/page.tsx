@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Loader from '@/components/animations/Loader';
 import Navigation from '@/components/ui/Navigation';
+import BackToTop from '@/components/ui/BackToTop';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Skills from '@/components/sections/Skills';
@@ -23,6 +24,7 @@ export default function HomePage() {
         }}
       >
         <Navigation />
+        <BackToTop />
         <main>
           <Hero />
           <About />

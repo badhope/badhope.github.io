@@ -2,7 +2,17 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import styles from './Hero.module.css';
+
+const ThreeScene = dynamic(() => import('@/components/3d/ThreeScene'), {
+  ssr: false,
+  loading: () => (
+    <div className={styles.threeLoader}>
+      <div className={styles.loaderSpinner} />
+    </div>
+  ),
+});
 
 const titles = [
   '全栈开发者',
@@ -14,111 +24,60 @@ const titles = [
 const symbols = ['< >', '{ }', '[ ]', '( )', '/ *', '=>', '&&', '||'];
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [titleIndex, setTitleIndex] = useState(0);
-  const [showTitle, setShowTitle] = useState(true);
+  const [displayedText, setDisplayedText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
+  const [cursorVisible, setCursorVisible] = useState(true);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationId: number;
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      color: string;
-      alpha: number;
-    }> = [];
-
-    const colors = ['#00d4ff', '#bf5af2', '#ff375f', '#667EEA'];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    const createParticle = () => {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2 + 0.5,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.5 + 0.2,
-      };
-    };
-
-    for (let i = 0; i < 100; i++) {
-      particles.push(createParticle());
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
-
-        particles.forEach((p2, j) => {
-          if (i === j) return;
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = (1 - dist / 120) * 0.15;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        });
-      });
-
-      ctx.globalAlpha = 1;
-      animationId = requestAnimationFrame(animate);
-    };
-
-    resize();
-    animate();
-    window.addEventListener('resize', resize);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', resize);
-    };
+    const cursorInterval = setInterval(() => {
+      setCursorVisible(prev => !prev);
+    }, 530);
+    return () => clearInterval(cursorInterval);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setShowTitle(false);
-      setTimeout(() => {
+    const currentText = titles[titleIndex];
+    setDisplayedText('');
+    setIsTyping(true);
+
+    let charIndex = 0;
+    const typeSpeed = 100;
+    const eraseSpeed = 50;
+    const pauseDuration = 2000;
+
+    const type = () => {
+      if (charIndex < currentText.length) {
+        setDisplayedText(currentText.substring(0, charIndex + 1));
+        charIndex++;
+        setTimeout(type, typeSpeed);
+      } else {
+        setIsTyping(false);
+        setTimeout(() => {
+          erase();
+        }, pauseDuration);
+      }
+    };
+
+    const erase = () => {
+      if (charIndex > 0) {
+        setDisplayedText(currentText.substring(0, charIndex - 1));
+        charIndex--;
+        setTimeout(erase, eraseSpeed);
+      } else {
         setTitleIndex((prev) => (prev + 1) % titles.length);
-        setShowTitle(true);
-      }, 300);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+      }
+    };
+
+    const timeout = setTimeout(type, 500);
+    return () => clearTimeout(timeout);
+  }, [titleIndex]);
 
   return (
     <section className={styles.hero}>
-      <canvas ref={canvasRef} className={styles.canvas} />
+      <div className={styles.threeContainer}>
+        <ThreeScene />
+      </div>
 
       <motion.div
         className={styles.content}
@@ -131,6 +90,7 @@ export default function Hero() {
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 1, type: 'spring', stiffness: 100 }}
+          whileHover={{ rotate: 360, scale: 1.1 }}
         >
           <span className={styles.symbolText}>{'{ }'}</span>
         </motion.div>
@@ -147,10 +107,13 @@ export default function Hero() {
         <motion.div
           className={styles.titleContainer}
           initial={{ opacity: 0 }}
-          animate={{ opacity: showTitle ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <span className={styles.title}>{titles[titleIndex]}</span>
+          <span className={styles.title}>
+            {displayedText}
+            <span className={`${styles.cursor} ${cursorVisible ? styles.cursorVisible : ''}`}>|</span>
+          </span>
         </motion.div>
 
         <motion.div
@@ -201,13 +164,17 @@ export default function Hero() {
               <path d="M7 17L17 7M17 7H7M17 7V17"/>
             </svg>
           </motion.a>
+
           <motion.a
-            href="/contact"
+            href="/projects"
             className={styles.ctaSecondary}
-            whileHover={{ scale: 1.05 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.4 }}
+            whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
             whileTap={{ scale: 0.95 }}
           >
-            联系我
+            <span>查看项目</span>
           </motion.a>
         </motion.div>
       </motion.div>
@@ -220,10 +187,10 @@ export default function Hero() {
       >
         <motion.div
           className={styles.scrollLine}
-          animate={{ y: [0, 20, 0] }}
+          animate={{ scaleY: [1, 0.5, 1], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         />
-        <span className={styles.scrollText}>scroll</span>
+        <span className={styles.scrollText}>向下滚动</span>
       </motion.div>
     </section>
   );
