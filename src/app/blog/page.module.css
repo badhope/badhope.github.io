@@ -250,6 +250,10 @@
   border-radius: 12px;
 }
 
+.commentsSection {
+  padding: 4rem 0;
+}
+
 @media (max-width: 900px) {
   .statsGrid,
   .chartsGrid,

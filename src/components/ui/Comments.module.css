@@ -1,0 +1,38 @@
+.container {
+  background: rgba(18, 18, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.5rem;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+}
+
+.giscus {
+  min-height: 200px;
+}
+
+.giscus-frame {
+  filter: invert(1) hue-rotate(180deg);
+}

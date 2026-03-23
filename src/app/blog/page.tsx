@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import Navigation from '@/components/ui/Navigation';
 import Footer from '@/components/sections/Footer';
+import Comments from '@/components/ui/Comments';
 import styles from './page.module.css';
 
 const platformStats = [
@@ -68,6 +69,7 @@ const navItems = [
   { label: '关于', href: '/#about' },
   { label: '项目', href: '/#projects' },
   { label: '博客', href: '/blog' },
+  { label: 'AI助手', href: '/ai' },
   { label: '工具', href: '/tools' },
   { label: '简历', href: '/resume' },
   { label: '联系', href: '/contact' },
@@ -263,6 +265,12 @@ export default function BlogPage() {
                 </motion.a>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className={styles.commentsSection}>
+          <div className={styles.container}>
+            <Comments />
           </div>
         </section>
       </main>

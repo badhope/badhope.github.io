@@ -19,6 +19,7 @@ const defaultNavItems: NavItem[] = [
   { label: '关于', href: '/#about' },
   { label: '项目', href: '/#projects' },
   { label: '博客', href: '/blog' },
+  { label: 'AI助手', href: '/ai' },
   { label: '工具', href: '/tools' },
   { label: '简历', href: '/resume' },
   { label: '联系', href: '/contact' },

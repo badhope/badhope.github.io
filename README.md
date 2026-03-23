@@ -51,6 +51,11 @@ src/
 │   ├── 3d/                       # 3D场景
 │   │   └── ThreeScene.tsx       # Three.js场景（动态网格 + 粒子）
 │   │
+│   ├── ai/                       # AI助手系统
+│   │   ├── AIChat.tsx           # AI聊天主组件
+│   │   ├── AISettings.tsx       # AI设置面板
+│   │   └── SkillBook.tsx        # 技能书可视化
+│   │
 │   ├── animations/               # 动画组件
 │   │   ├── Loader.tsx            # 叙事性加载器
 │   │   └── PageTransition.tsx    # 页面过渡
@@ -65,7 +70,12 @@ src/
 │   └── ui/                       # UI组件
 │       ├── Navigation.tsx        # 响应式导航
 │       ├── BackToTop.tsx         # 返回顶部 + 进度环
+│       ├── Comments.tsx          # Giscus评论区
 │       └── InteractiveButton.tsx # 交互动画按钮
+│
+├── lib/                          # 工具库
+│   ├── knowledge-base.ts        # AI知识库 + 关键词匹配
+│   └── ai-api.ts                # 模块化AI API接口
 │
 ├── hooks/                        # 自定义Hooks
 │   └── useInteractions.ts        # 微交互系统
@@ -262,6 +272,124 @@ function Custom3DObject() {
 - **决定**: `dynamic(() => import(...), { ssr: false })`
 - **原因**: 3D库依赖大量客户端API，SSR会导致水合不匹配
 - **优化**: 配合loading状态避免布局抖动
+
+---
+
+## 🤖 AI助手系统
+
+### 系统架构
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                      AI 聊天界面                         │
+│                  (AIChat Component)                      │
+├─────────────────────────────────────────────────────────┤
+│                    知识库引擎                            │
+│              (Knowledge Base + 关键词匹配)               │
+├─────────────────────────────────────────────────────────┤
+│                   AI API 网关                            │
+│           (src/lib/ai-api.ts - 模块化接口)               │
+├─────────────────────────────────────────────────────────┤
+│  OpenAI  │  Claude  │  智谱AI  │  文心一言  │  通义千问  │
+└─────────────────────────────────────────────────────────┘
+```
+
+### 核心文件
+
+| 文件路径 | 功能说明 |
+|---------|---------|
+| `src/lib/knowledge-base.ts` | 知识库（FAQ问答 + 关键词匹配算法） |
+| `src/lib/ai-api.ts` | 模块化AI API接口（支持多种模型） |
+| `src/components/ai/AIChat.tsx` | AI聊天主组件 |
+| `src/components/ai/AISettings.tsx` | AI配置设置面板 |
+| `src/components/ai/SkillBook.tsx` | 技能书可视化组件 |
+
+### 知识库工作流程
+
+```
+用户输入 → 关键词提取 → 知识库匹配 → 置信度计算 → 返回答案
+                ↓ (无匹配)
+         AI API 调用 (如已配置)
+                ↓ (AI不可用)
+         友好提示 + 备选建议
+```
+
+### 支持的AI模型
+
+| 提供商 | 模型 | 状态 | 备注 |
+|-------|------|------|------|
+| OpenAI | GPT-4o, GPT-4, GPT-3.5 | 可用 | 需配置API Key |
+| Claude | Claude 3.5, Claude 3 | 可用 | 需配置API Key |
+| 智谱AI | GLM-4, GLM-3 | 可用 | 需配置API Key + BaseURL |
+| 文心一言 | ERNIE-4, ERNIE-3.5 | 可用 | 需配置API Key + BaseURL |
+| 通义千问 | Qwen-Max, Qwen-Plus | 可用 | 需配置API Key + BaseURL |
+
+### 配置AI API
+
+1. 访问 `/ai` 页面
+2. 点击右上角「配置AI」按钮
+3. 选择AI提供商（如 智谱AI）
+4. 输入API密钥
+5. 点击「测试连接」验证
+6. 保存设置
+
+### 添加新的AI提供商
+
+在 `src/lib/ai-api.ts` 中添加：
+
+```typescript
+// 1. 在 AI_PROVIDERS 中添加配置
+zhipu: {
+  name: 'Zhipu AI',
+  nameCN: '智谱AI',
+  models: ['glm-4-plus', 'glm-4', 'glm-4-air'],
+  defaultModel: 'glm-4-air',
+  needsBaseUrl: true,
+  description: '智谱AI国产大模型',
+},
+
+// 2. 添加调用函数
+async function callZhipu(messages: AIMessage[], config: AIConfig): Promise<AIResponse> {
+  // 实现调用逻辑
+}
+
+// 3. 在 generateAIResponse 中添加 case
+switch (activeConfig.provider) {
+  // ...
+  case 'zhipu':
+    return callZhipu(messages, activeConfig);
+}
+```
+
+### 添加知识库问答
+
+编辑 `src/lib/knowledge-base.ts` 中的 `knowledgeBase` 数组：
+
+```typescript
+{
+  id: 'unique-id',           // 唯一标识
+  keywords: ['关键词1', '关键词2'],  // 匹配关键词
+  question: '标准问题',      // 参考问题
+  answer: '标准答案',        // 返回答案
+  category: 'about',         // 分类
+}
+```
+
+---
+
+## 💬 评论区系统
+
+### Giscus 集成
+
+基于 GitHub Discussions 的评论系统，无需独立后端。
+
+**配置说明**：
+- 仓库：`badhope/github.io`
+- 类别：`Announcements`
+- 主题：`pathname`
+- 主题：`dark`
+
+**文件位置**：`src/components/ui/Comments.tsx`
 
 ---
 

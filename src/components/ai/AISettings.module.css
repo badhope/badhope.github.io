@@ -1,0 +1,304 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.modal {
+  background: #12121a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.closeBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #888;
+}
+
+.providerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.providerBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.8rem;
+}
+
+.providerBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.providerBtn.active {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: #00d4ff;
+  color: #00d4ff;
+}
+
+.providerIcon {
+  font-size: 1.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #00d4ff;
+}
+
+.input::placeholder {
+  color: #555;
+}
+
+.select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #00d4ff;
+}
+
+.slider {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #00d4ff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #555;
+  margin-top: 0.25rem;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #00d4ff;
+}
+
+.textarea::placeholder {
+  color: #555;
+}
+
+.testResult {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.testResult.testing {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
+}
+
+.testResult.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.testResult.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.testBtn {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+  color: #00d4ff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.testBtn:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.2);
+}
+
+.testBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.info {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info p {
+  margin: 0;
+}
+
+.footer {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cancelBtn,
+.saveBtn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #888;
+}
+
+.cancelBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.saveBtn {
+  background: linear-gradient(135deg, #00d4ff, #bf5af2);
+  border: none;
+  color: #fff;
+}
+
+.saveBtn:hover {
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+  .providerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
