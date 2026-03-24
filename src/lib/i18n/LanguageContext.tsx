@@ -16,20 +16,23 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const STORAGE_KEY = 'badhope-language';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
+      if (stored && (stored === 'en' || stored === 'zh')) {
+        return stored;
+      }
+      const browserLang = navigator.language.toLowerCase();
+      if (browserLang.startsWith('zh')) {
+        return 'zh';
+      }
+    }
+    return 'en';
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
-    if (stored && (stored === 'en' || stored === 'zh')) {
-      setLanguageState(stored);
-    } else {
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('zh')) {
-        setLanguageState('zh');
-      }
-    }
   }, []);
 
   const setLanguage = (lang: Language) => {

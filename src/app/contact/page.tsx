@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/ui/Navigation';
 import Footer from '@/components/sections/Footer';
@@ -10,23 +10,45 @@ import styles from './page.module.css';
 const socialsData = [
   { platform: 'GitHub', url: 'https://github.com/badhope', icon: '🐙' },
   { platform: 'CSDN', url: 'https://blog.csdn.net/weixin_56622231', icon: '📚' },
-  { platform: '稀土掘金', url: 'https://juejin.cn/user/2350111542479753', icon: '💎' },
+  { platform: 'Juejin', url: 'https://juejin.cn/user/2350111542479753', icon: '💎' },
   { platform: 'Email', url: 'mailto:x18825407105@outlook.com', icon: '📧' },
 ];
 
-const socialsDescEn = ['Open source projects', 'Tech blog articles', 'Development insights', 'Business cooperation'];
-const socialsDescZh = ['开源项目与代码', '技术博客文章', '开发心得分享', '商务合作联系'];
-
 export default function ContactPage() {
   const { t, language } = useLanguage();
-  const isZh = language === 'zh';
+  const contact = t.contact;
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || submitted) return;
+
+    setIsSubmitting(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setSubmitted(true);
+    setIsSubmitting(false);
   };
+
+  if (!mounted) {
+    return (
+      <div className={styles.page}>
+        <Navigation />
+        <main className={styles.main}>
+          <div className={styles.loading}>Loading...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  const isZh = language === 'zh';
 
   return (
     <div className={styles.page}>
@@ -39,11 +61,11 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>{t.contact.label}</span>
+            <span className={styles.label}>{contact.label}</span>
             <h1 className={styles.title}>
               <span className="gradient-text">{isZh ? '保持' : 'Get in'}</span>{isZh ? '联系' : ' Touch'}
             </h1>
-            <p className={styles.subtitle}>{t.contact.subtitle}</p>
+            <p className={styles.subtitle}>{contact.subtitle}</p>
           </motion.div>
         </section>
 
@@ -56,7 +78,7 @@ export default function ContactPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className={styles.sectionTitle}>{t.contact.socialsTitle}</h2>
+                <h2 className={styles.sectionTitle}>{contact.socialsTitle}</h2>
                 <div className={styles.socialGrid}>
                   {socialsData.map((social, i) => (
                     <motion.a
@@ -73,7 +95,7 @@ export default function ContactPage() {
                       <span className={styles.socialIcon}>{social.icon}</span>
                       <div className={styles.socialInfo}>
                         <h3>{social.platform}</h3>
-                        <p>{isZh ? socialsDescZh[i] : socialsDescEn[i]}</p>
+                        <p>{contact.socialsDesc[i]}</p>
                       </div>
                       <svg className={styles.socialArrow} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -89,7 +111,7 @@ export default function ContactPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h2 className={styles.sectionTitle}>{isZh ? '发送消息' : 'Send Message'}</h2>
+                <h2 className={styles.sectionTitle}>{contact.formTitle}</h2>
                 {submitted ? (
                   <motion.div
                     className={styles.successMessage}
@@ -97,40 +119,40 @@ export default function ContactPage() {
                     animate={{ opacity: 1, scale: 1 }}
                   >
                     <span className={styles.successIcon}>✨</span>
-                    <h3>{t.contact.successTitle}</h3>
-                    <p>{t.contact.successDesc}</p>
+                    <h3>{contact.successTitle}</h3>
+                    <p>{contact.successDesc}</p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className={styles.form}>
                     <div className={styles.inputGroup}>
-                      <label htmlFor="name">{isZh ? '姓名' : 'Name'}</label>
+                      <label htmlFor="name">{contact.nameLabel}</label>
                       <input
                         type="text"
                         id="name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder={t.contact.namePlaceholder}
+                        placeholder={contact.namePlaceholder}
                         required
                       />
                     </div>
                     <div className={styles.inputGroup}>
-                      <label htmlFor="email">{t.contact.email}</label>
+                      <label htmlFor="email">{contact.email}</label>
                       <input
                         type="email"
                         id="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder={t.contact.emailPlaceholder}
+                        placeholder={contact.emailPlaceholder}
                         required
                       />
                     </div>
                     <div className={styles.inputGroup}>
-                      <label htmlFor="message">{t.contact.message}</label>
+                      <label htmlFor="message">{contact.message}</label>
                       <textarea
                         id="message"
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder={t.contact.messagePlaceholder}
+                        placeholder={contact.messagePlaceholder}
                         rows={5}
                         required
                       />
@@ -138,10 +160,11 @@ export default function ContactPage() {
                     <motion.button
                       type="submit"
                       className={styles.submitBtn}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      disabled={isSubmitting}
+                      whileHover={isSubmitting ? {} : { scale: 1.02 }}
+                      whileTap={isSubmitting ? {} : { scale: 0.98 }}
                     >
-                      <span>{t.contact.send}</span>
+                      <span>{isSubmitting ? (isZh ? '发送中...' : 'Sending...') : contact.send}</span>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
                       </svg>

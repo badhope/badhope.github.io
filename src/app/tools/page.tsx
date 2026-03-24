@@ -1,38 +1,54 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/ui/Navigation';
-import ToolCard from '@/components/cards/ToolCard';
 import ParticleBackground from '@/components/animations/ParticleBackground';
-import type { Tool } from '@/types';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './page.module.css';
 
-const tools: Tool[] = [
-  { id: '1', name: 'VS Code', description: 'The best code editor for web development', icon: '💻', category: 'editor', url: 'https://code.visualstudio.com/' },
-  { id: '2', name: 'Figma', description: 'Collaborative design and prototyping', icon: '🎨', category: 'design', url: 'https://figma.com/' },
-  { id: '3', name: 'GitHub', description: 'Code hosting and version control', icon: '🐙', category: 'devops', url: 'https://github.com/' },
-  { id: '4', name: 'Vercel', description: 'Fast and easy deployments', icon: '▲', category: 'deploy', url: 'https://vercel.com/' },
-  { id: '5', name: 'Docker', description: 'Container platform for developers', icon: '🐳', category: 'devops', url: 'https://docker.com/' },
-  { id: '6', name: 'Postman', description: 'API testing and development', icon: '📮', category: 'devops', url: 'https://postman.com/' },
-  { id: '7', name: 'Notion', description: 'All-in-one workspace for notes', icon: '📝', category: 'other', url: 'https://notion.so/' },
-  { id: '8', name: 'Linear', description: 'Issue tracking for software teams', icon: '📊', category: 'other', url: 'https://linear.app/' },
-];
+const iconMap: Record<string, string> = {
+  'VS Code': '💻',
+  'Figma': '🎨',
+  'GitHub': '🐙',
+  'Vercel': '▲',
+  'Docker': '🐳',
+  'Postman': '📮',
+  'Notion': '📝',
+  'Linear': '📊',
+};
 
-const categories = [
-  { id: 'all', label: 'All Tools' },
-  { id: 'editor', label: 'Editors' },
-  { id: 'design', label: 'Design' },
-  { id: 'deploy', label: 'Deploy' },
-  { id: 'devops', label: 'DevOps' },
-];
+const categoryIds = ['all', 'editor', 'design', 'deploy', 'devops', 'other'] as const;
+type CategoryId = typeof categoryIds[number];
 
 export default function ToolsPage() {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<CategoryId>('all');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <main className={styles.main}>
+        <ParticleBackground />
+        <Navigation />
+        <div className={styles.loading}>Loading...</div>
+      </main>
+    );
+  }
+
+  const tools = t.tools;
+  const categoryKey = activeCategory === 'all' ? 'all' : activeCategory;
 
   const filteredTools = activeCategory === 'all'
-    ? tools
-    : tools.filter((t) => t.category === activeCategory);
+    ? tools.tools
+    : tools.tools.filter((_, i) => {
+        const originalCategories = ['editor', 'design', 'devops', 'deploy', 'devops', 'other'];
+        return originalCategories[i] === activeCategory;
+      });
 
   return (
     <main className={styles.main}>
@@ -46,7 +62,7 @@ export default function ToolsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className={styles.gradientText}>Recommended</span> Tools
+          <span className={styles.gradientText}>{tools.title}</span>
         </motion.h1>
         <motion.p
           className={styles.subtitle}
@@ -54,21 +70,21 @@ export default function ToolsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          My favorite tools that boost productivity
+          {tools.subtitle}
         </motion.p>
       </section>
 
       <section id="tools" className={styles.section}>
         <div className={styles.categories}>
-          {categories.map((cat) => (
+          {categoryIds.map((cat) => (
             <motion.button
-              key={cat.id}
-              className={`${styles.categoryBtn} ${activeCategory === cat.id ? styles.active : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
+              key={cat}
+              className={`${styles.categoryBtn} ${activeCategory === cat ? styles.active : ''}`}
+              onClick={() => setActiveCategory(cat)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {cat.label}
+              {tools.categories[cat]}
             </motion.button>
           ))}
         </div>
@@ -78,13 +94,31 @@ export default function ToolsPage() {
           layout
         >
           {filteredTools.map((tool, i) => (
-            <ToolCard key={tool.id} tool={tool} index={i} />
+            <motion.a
+              key={tool.name}
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.toolCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              whileHover={{ y: -5, borderColor: 'rgba(0, 212, 255, 0.5)' }}
+            >
+              <span className={styles.toolIcon}>{iconMap[tool.name] || '🔧'}</span>
+              <h3 className={styles.toolName}>{tool.name}</h3>
+              <p className={styles.toolDescription}>{tool.description}</p>
+              <span className={styles.toolLink}>
+                {tools.tryIt} →
+              </span>
+            </motion.a>
           ))}
         </motion.div>
       </section>
 
       <footer className={styles.footer}>
-        <p>© 2026 Anonymous Portfolio. All rights reserved.</p>
+        <p>© 2026 badhope. {language === 'zh' ? '版权所有' : 'All rights reserved.'}</p>
       </footer>
     </main>
   );

@@ -95,8 +95,8 @@ export function getAIConfig(): AIConfig {
     if (stored) {
       return { ...DEFAULT_AI_CONFIG, ...JSON.parse(stored) };
     }
-  } catch {
-    console.warn('Failed to load AI config');
+  } catch (err) {
+    console.warn('Failed to load AI config:', err);
   }
   return DEFAULT_AI_CONFIG;
 }
@@ -106,8 +106,8 @@ export function saveAIConfig(config: AIConfig): void {
 
   try {
     localStorage.setItem(AI_CONFIG_KEY, JSON.stringify(config));
-  } catch {
-    console.warn('Failed to save AI config');
+  } catch (err) {
+    console.warn('Failed to save AI config:', err);
   }
 }
 

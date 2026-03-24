@@ -32,39 +32,46 @@ export default function Hero() {
 
   useEffect(() => {
     const titles = t.hero.titles;
-    const currentText = titles[titleIndex];
-    setDisplayedText('');
+    if (titleIndex >= titles.length) return;
 
     let charIndex = 0;
+    let timeoutId: NodeJS.Timeout;
+
     const typeSpeed = language === 'zh' ? 100 : 80;
     const eraseSpeed = language === 'zh' ? 50 : 40;
     const pauseDuration = 2000;
 
+    const getCurrentText = () => titles[titleIndex] || '';
+
     const type = () => {
-      if (charIndex < currentText.length) {
-        setDisplayedText(currentText.substring(0, charIndex + 1));
+      const current = getCurrentText();
+      if (charIndex < current.length) {
+        setDisplayedText(current.substring(0, charIndex + 1));
         charIndex++;
-        setTimeout(type, typeSpeed);
+        timeoutId = setTimeout(type, typeSpeed);
       } else {
-        setTimeout(() => {
-          erase();
-        }, pauseDuration);
+        timeoutId = setTimeout(erase, pauseDuration);
       }
     };
 
     const erase = () => {
+      const current = getCurrentText();
       if (charIndex > 0) {
-        setDisplayedText(currentText.substring(0, charIndex - 1));
+        setDisplayedText(current.substring(0, charIndex - 1));
         charIndex--;
-        setTimeout(erase, eraseSpeed);
+        timeoutId = setTimeout(erase, eraseSpeed);
       } else {
         setTitleIndex((prev) => (prev + 1) % titles.length);
       }
     };
 
-    const timeout = setTimeout(type, 500);
-    return () => clearTimeout(timeout);
-  }, [titleIndex, t.hero.titles, language]);
+    setDisplayedText('');
+    timeoutId = setTimeout(type, 500);
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [titleIndex, language, t.hero.titles]);
 
   return (
     <section className={styles.hero}>

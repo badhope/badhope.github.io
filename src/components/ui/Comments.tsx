@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './Comments.module.css';
 
@@ -13,18 +13,23 @@ export default function Comments({ className }: CommentsProps) {
   const commentsRef = useRef<HTMLDivElement>(null);
   const [loadError, setLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [giscusLoaded, setGiscusLoaded] = useState(false);
 
   const isZh = language === 'zh';
 
   useEffect(() => {
-    if (!commentsRef.current || commentsRef.current.hasAttribute('data-giscus')) return;
+    if (!commentsRef.current || commentsRef.current.hasAttribute('data-giscus-loaded')) return;
 
-    const timeout = setTimeout(() => {
-      if (isLoading) {
-        setLoadError(true);
-        setIsLoading(false);
-      }
-    }, 10000);
+    let timeout: NodeJS.Timeout;
+
+    const checkLoadingTimeout = () => {
+      timeout = setTimeout(() => {
+        if (isLoading) {
+          setLoadError(true);
+          setIsLoading(false);
+        }
+      }, 10000);
+    };
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
@@ -46,6 +51,10 @@ export default function Comments({ className }: CommentsProps) {
     script.onload = () => {
       clearTimeout(timeout);
       setIsLoading(false);
+      setGiscusLoaded(true);
+      if (commentsRef.current) {
+        commentsRef.current.setAttribute('data-giscus-loaded', 'true');
+      }
     };
 
     script.onerror = () => {
@@ -55,11 +64,31 @@ export default function Comments({ className }: CommentsProps) {
     };
 
     commentsRef.current.appendChild(script);
+    checkLoadingTimeout();
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [isLoading, isZh]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isZh]);
+
+  useEffect(() => {
+    if (giscusLoaded && commentsRef.current) {
+      const iframe = commentsRef.current.querySelector('iframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage(
+          {
+            giscus: {
+              setConfig: {
+                lang: isZh ? 'zh-CN' : 'en',
+              },
+            },
+          },
+          'https://giscus.app'
+        );
+      }
+    }
+  }, [language, giscusLoaded, isZh]);
 
   return (
     <div className={`${styles.container} ${className || ''}`}>

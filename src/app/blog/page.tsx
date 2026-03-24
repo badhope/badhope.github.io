@@ -1,16 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import Navigation from '@/components/ui/Navigation';
 import Footer from '@/components/sections/Footer';
 import Comments from '@/components/ui/Comments';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './page.module.css';
-
-const platformStats = [
-  { platform: 'CSDN', articles: 45, views: 125000, likes: 3200 },
-  { platform: '掘金', articles: 38, views: 89000, likes: 2100 },
-];
 
 const categoryData = [
   { name: 'Python', value: 35, color: '#00d4ff' },
@@ -20,7 +17,16 @@ const categoryData = [
   { name: '其他', value: 5, color: '#ff9500' },
 ];
 
-const monthlyViews = [
+const monthlyViewsEn = [
+  { month: 'Jan', views: 8500 },
+  { month: 'Feb', views: 12000 },
+  { month: 'Mar', views: 9800 },
+  { month: 'Apr', views: 15000 },
+  { month: 'May', views: 18500 },
+  { month: 'Jun', views: 22000 },
+];
+
+const monthlyViewsZh = [
   { month: '1月', views: 8500 },
   { month: '2月', views: 12000 },
   { month: '3月', views: 9800 },
@@ -29,42 +35,43 @@ const monthlyViews = [
   { month: '6月', views: 22000 },
 ];
 
-const featuredArticles = [
-  {
-    title: 'Python爬虫实战：如何优雅地抓取百万级数据',
-    platform: 'CSDN',
-    views: 25600,
-    likes: 890,
-    date: '2024-03-15',
-    tags: ['Python', '爬虫', '数据采集'],
-  },
-  {
-    title: 'Next.js 15 App Router 完全指南',
-    platform: '掘金',
-    views: 18900,
-    likes: 720,
-    date: '2024-02-28',
-    tags: ['Next.js', 'React', '前端'],
-  },
-  {
-    title: 'AI辅助开发：我的效率提升10倍的秘密',
-    platform: 'CSDN',
-    views: 34200,
-    likes: 1500,
-    date: '2024-01-20',
-    tags: ['AI', '效率', '开发工具'],
-  },
-  {
-    title: 'Docker容器化部署全栈应用',
-    platform: '掘金',
-    views: 12300,
-    likes: 450,
-    date: '2024-03-01',
-    tags: ['Docker', 'DevOps', '部署'],
-  },
+const platformStats = [
+  { platform: 'CSDN', articles: 45, views: 125000, likes: 3200, icon: '📚', url: 'https://blog.csdn.net/weixin_56622231' },
+  { platform: 'Juejin', articles: 38, views: 89000, likes: 2100, icon: '💎', url: 'https://juejin.cn/user/2350111542479753' },
 ];
 
 export default function BlogPage() {
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className={styles.page}>
+        <Navigation />
+        <main className={styles.main}>
+          <div className={styles.loading}>Loading...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  const blog = t.blog;
+  const monthlyViews = language === 'zh' ? monthlyViewsZh : monthlyViewsEn;
+  const categoryDataLocalized = language === 'zh'
+    ? categoryData
+    : [
+        { name: 'Python', value: 35, color: '#00d4ff' },
+        { name: 'Web Dev', value: 28, color: '#bf5af2' },
+        { name: 'AI/ML', value: 20, color: '#ff375f' },
+        { name: 'Tools', value: 12, color: '#30d158' },
+        { name: 'Other', value: 5, color: '#ff9500' },
+      ];
+
   return (
     <div className={styles.page}>
       <Navigation />
@@ -76,13 +83,11 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>博客中心</span>
+            <span className={styles.label}>{blog.label}</span>
             <h1 className={styles.title}>
-              <span className="gradient-text">技术</span>分享
+              <span className="gradient-text">{blog.title.split('').slice(0, 2).join('')}</span>{blog.title.split('').slice(2).join('')}
             </h1>
-            <p className={styles.subtitle}>
-              在CSDN和掘金分享技术见解，记录成长足迹
-            </p>
+            <p className={styles.subtitle}>{blog.subtitle}</p>
           </motion.div>
         </section>
 
@@ -92,7 +97,7 @@ export default function BlogPage() {
               {platformStats.map((stat, i) => (
                 <motion.a
                   key={stat.platform}
-                  href={stat.platform === 'CSDN' ? 'https://blog.csdn.net/weixin_56622231' : 'https://juejin.cn/user/2350111542479753'}
+                  href={stat.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.platformCard}
@@ -103,27 +108,25 @@ export default function BlogPage() {
                   whileHover={{ scale: 1.02, borderColor: 'rgba(0, 212, 255, 0.5)' }}
                 >
                   <div className={styles.platformHeader}>
-                    <span className={styles.platformName}>{stat.platform}</span>
-                    <span className={styles.platformIcon}>
-                      {stat.platform === 'CSDN' ? '📚' : '💎'}
-                    </span>
+                    <span className={styles.platformName}>{stat.platform === 'CSDN' ? (language === 'zh' ? 'CSDN' : 'CSDN') : (language === 'zh' ? '掘金' : 'Juejin')}</span>
+                    <span className={styles.platformIcon}>{stat.icon}</span>
                   </div>
                   <div className={styles.platformStats}>
                     <div className={styles.statItem}>
                       <span className={styles.statValue}>{stat.articles}</span>
-                      <span className={styles.statLabel}>文章</span>
+                      <span className={styles.statLabel}>{blog.platformStats.articles}</span>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statValue}>{(stat.views / 1000).toFixed(1)}k</span>
-                      <span className={styles.statLabel}>阅读</span>
+                      <span className={styles.statLabel}>{blog.platformStats.views}</span>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statValue}>{(stat.likes / 1000).toFixed(1)}k</span>
-                      <span className={styles.statLabel}>获赞</span>
+                      <span className={styles.statLabel}>{blog.platformStats.likes}</span>
                     </div>
                   </div>
                   <div className={styles.platformLink}>
-                    访问主页 →
+                    {blog.visitProfile} →
                   </div>
                 </motion.a>
               ))}
@@ -141,7 +144,7 @@ export default function BlogPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h3 className={styles.chartTitle}>月度阅读趋势</h3>
+                <h3 className={styles.chartTitle}>{blog.monthlyViews}</h3>
                 <div className={styles.chartContainer}>
                   <ResponsiveContainer width="100%" height={250}>
                     <BarChart data={monthlyViews}>
@@ -174,12 +177,12 @@ export default function BlogPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <h3 className={styles.chartTitle}>内容分类分布</h3>
+                <h3 className={styles.chartTitle}>{blog.categoryDistribution}</h3>
                 <div className={styles.chartContainer}>
                   <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                       <Pie
-                        data={categoryData}
+                        data={categoryDataLocalized}
                         cx="50%"
                         cy="50%"
                         innerRadius={50}
@@ -187,7 +190,7 @@ export default function BlogPage() {
                         paddingAngle={5}
                         dataKey="value"
                       >
-                        {categoryData.map((entry, index) => (
+                        {categoryDataLocalized.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
@@ -202,7 +205,7 @@ export default function BlogPage() {
                     </PieChart>
                   </ResponsiveContainer>
                   <div className={styles.pieLegend}>
-                    {categoryData.map((item) => (
+                    {categoryDataLocalized.map((item) => (
                       <div key={item.name} className={styles.legendItem}>
                         <span className={styles.legendDot} style={{ background: item.color }} />
                         <span className={styles.legendLabel}>{item.name}</span>
@@ -219,12 +222,12 @@ export default function BlogPage() {
         <section className={styles.articles}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>
-              <span className="gradient-text">精选</span>文章
+              <span className="gradient-text">{blog.featured}</span> {blog.articles}
             </h2>
             <div className={styles.articlesGrid}>
-              {featuredArticles.map((article, i) => (
+              {blog.articlesData.map((article, i) => (
                 <motion.a
-                  key={article.title}
+                  key={i}
                   href={article.platform === 'CSDN' ? 'https://blog.csdn.net/weixin_56622231' : 'https://juejin.cn/user/2350111542479753'}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -237,13 +240,13 @@ export default function BlogPage() {
                 >
                   <div className={styles.articleHeader}>
                     <span className={styles.articlePlatform}>
-                      {article.platform === 'CSDN' ? '📚 CSDN' : '💎 掘金'}
+                      {article.platform === 'CSDN' ? `📚 ${language === 'zh' ? 'CSDN' : 'CSDN'}` : `💎 ${language === 'zh' ? '掘金' : 'Juejin'}`}
                     </span>
                     <span className={styles.articleDate}>{article.date}</span>
                   </div>
                   <h3 className={styles.articleTitle}>{article.title}</h3>
                   <div className={styles.articleStats}>
-                    <span>👁 {article.views.toLocaleString()}</span>
+                    <span>👁 {article.views}</span>
                     <span>❤️ {article.likes}</span>
                   </div>
                   <div className={styles.articleTags}>

@@ -10,6 +10,7 @@ import {
   isAIEnabled,
   AIProvider,
 } from '@/lib/ai-api';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './AISettings.module.css';
 
 interface AISettingsProps {
@@ -19,6 +20,8 @@ interface AISettingsProps {
 }
 
 export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISettingsProps) {
+  const { t, language } = useLanguage();
+  const aiSettings = t.aiSettings;
   const [config, setConfig] = useState<AIConfig>(getAIConfig());
   const [testStatus, setTestStatus] = useState<'idle' | 'testing' | 'success' | 'error'>('idle');
   const [testMessage, setTestMessage] = useState('');
@@ -40,12 +43,12 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
   const handleTest = async () => {
     if (!config.apiKey) {
       setTestStatus('error');
-      setTestMessage('请先输入API密钥');
+      setTestMessage(aiSettings.testMessage.noApiKey);
       return;
     }
 
     setTestStatus('testing');
-    setTestMessage('正在测试连接...');
+    setTestMessage(aiSettings.testMessage.testing);
 
     try {
       let testUrl = '';
@@ -78,7 +81,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
           break;
         default:
           setTestStatus('error');
-          setTestMessage('请先选择AI提供商');
+          setTestMessage(aiSettings.testMessage.selectProvider);
           return;
       }
 
@@ -89,7 +92,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
 
       if (response.ok || response.status === 405) {
         setTestStatus('success');
-        setTestMessage('连接成功！AI功能已启用。');
+        setTestMessage(aiSettings.testMessage.success);
       } else {
         const errorData = await response.json().catch(() => ({}));
         setTestStatus('error');
@@ -97,7 +100,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
       }
     } catch (err) {
       setTestStatus('error');
-      setTestMessage('连接失败，请检查网络和API配置');
+      setTestMessage(aiSettings.testMessage.failed);
     }
 
     setTimeout(() => setTestStatus('idle'), 5000);
@@ -123,7 +126,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
             onClick={e => e.stopPropagation()}
           >
             <div className={styles.header}>
-              <h2 className={styles.title}>AI 设置</h2>
+              <h2 className={styles.title}>{aiSettings.title}</h2>
               <button className={styles.closeBtn} onClick={onClose}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M18 6L6 18M6 6l12 12" />
@@ -133,14 +136,14 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
 
             <div className={styles.content}>
               <div className={styles.section}>
-                <label className={styles.label}>AI 提供商</label>
+                <label className={styles.label}>{aiSettings.provider}</label>
                 <div className={styles.providerGrid}>
                   <button
                     className={`${styles.providerBtn} ${config.provider === 'none' ? styles.active : ''}`}
                     onClick={() => setConfig({ ...config, provider: 'none' })}
                   >
                     <span className={styles.providerIcon}>🚫</span>
-                    <span>不使用AI</span>
+                    <span>{language === 'zh' ? '不使用AI' : 'No AI'}</span>
                   </button>
                   {(Object.keys(AI_PROVIDERS) as Exclude<AIProvider, 'none'>[]).map(key => (
                     <button
@@ -160,7 +163,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
               {config.provider !== 'none' && (
                 <>
                   <div className={styles.section}>
-                    <label className={styles.label}>API 密钥</label>
+                    <label className={styles.label}>{aiSettings.apiKey}</label>
                     <input
                       type="password"
                       className={styles.input}
@@ -172,7 +175,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
                       <input
                         type="text"
                         className={styles.input}
-                        placeholder="自定义API地址（可选）"
+                        placeholder={aiSettings.baseUrl}
                         value={config.baseUrl || ''}
                         onChange={e => setConfig({ ...config, baseUrl: e.target.value })}
                       />
@@ -180,7 +183,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
                   </div>
 
                   <div className={styles.section}>
-                    <label className={styles.label}>模型选择</label>
+                    <label className={styles.label}>{aiSettings.model}</label>
                     <select
                       className={styles.select}
                       value={config.model || currentProvider?.defaultModel}
@@ -194,7 +197,7 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
 
                   <div className={styles.section}>
                     <label className={styles.label}>
-                      温度 (Temperature): {config.temperature || 0.7}
+                      {aiSettings.temperature}: {config.temperature || 0.7}
                     </label>
                     <input
                       type="range"
@@ -206,17 +209,17 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
                       onChange={e => setConfig({ ...config, temperature: parseFloat(e.target.value) })}
                     />
                     <div className={styles.sliderLabels}>
-                      <span>精确</span>
-                      <span>创意</span>
+                      <span>{language === 'zh' ? '精确' : 'Precise'}</span>
+                      <span>{language === 'zh' ? '创意' : 'Creative'}</span>
                     </div>
                   </div>
 
                   <div className={styles.section}>
-                    <label className={styles.label}>系统提示词</label>
+                    <label className={styles.label}>{language === 'zh' ? '系统提示词' : 'System Prompt'}</label>
                     <textarea
                       className={styles.textarea}
                       rows={3}
-                      placeholder="定义AI助手的角色和行为..."
+                      placeholder={language === 'zh' ? '定义AI助手的角色和行为...' : 'Define AI assistant role and behavior...'}
                       value={config.systemPrompt || ''}
                       onChange={e => setConfig({ ...config, systemPrompt: e.target.value })}
                     />
@@ -233,21 +236,15 @@ export default function AISettings({ isOpen, onClose, onAIEnabledChange }: AISet
                     onClick={handleTest}
                     disabled={!config.apiKey || testStatus === 'testing'}
                   >
-                    {testStatus === 'testing' ? '测试中...' : '测试连接'}
+                    {testStatus === 'testing' ? aiSettings.testButton.testing : aiSettings.testButton.test}
                   </button>
                 </>
               )}
-
-              <div className={styles.info}>
-                <p>💡 AI功能仅在配置API密钥后启用</p>
-                <p>🔒 密钥仅存储在本地浏览器中</p>
-                <p>🇨🇳 优先支持国产大模型（智谱、文心、通义）</p>
-              </div>
             </div>
 
             <div className={styles.footer}>
-              <button className={styles.cancelBtn} onClick={onClose}>取消</button>
-              <button className={styles.saveBtn} onClick={handleSave}>保存设置</button>
+              <button className={styles.cancelBtn} onClick={onClose}>{t.common.cancel}</button>
+              <button className={styles.saveBtn} onClick={handleSave}>{t.common.save}</button>
             </div>
           </motion.div>
         </motion.div>

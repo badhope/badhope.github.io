@@ -37,9 +37,9 @@ export default class ErrorBoundary extends Component<Props, State> {
 }
 
 function ErrorFallback({ error }: { error?: Error }) {
-  const { language } = useLanguage();
-
+  const { language, t } = useLanguage();
   const isZh = language === 'zh';
+  const eb = t.errorBoundary;
 
   return (
     <div style={{
@@ -65,7 +65,7 @@ function ErrorFallback({ error }: { error?: Error }) {
         marginBottom: '1rem',
         textAlign: 'center',
       }}>
-        {isZh ? '糟糕！出了点问题' : 'Oops! Something went wrong'}
+        {eb.title}
       </h1>
       <p style={{
         color: '#888888',
@@ -73,9 +73,7 @@ function ErrorFallback({ error }: { error?: Error }) {
         textAlign: 'center',
         maxWidth: '400px',
       }}>
-        {isZh
-          ? '抱歉给您带来不便。请尝试刷新页面或返回首页。'
-          : 'We apologize for the inconvenience. Please try refreshing the page or return to the home page.'}
+        {eb.message}
       </p>
       {error && process.env.NODE_ENV === 'development' && (
         <pre style={{
@@ -108,7 +106,7 @@ function ErrorFallback({ error }: { error?: Error }) {
           onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-          {isZh ? '刷新页面' : 'Refresh Page'}
+          {eb.reset}
         </button>
         <button
           onClick={() => window.location.href = '/'}
@@ -131,7 +129,7 @@ function ErrorFallback({ error }: { error?: Error }) {
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
-          {isZh ? '返回首页' : 'Go Home'}
+          {eb.goHome}
         </button>
       </div>
     </div>

@@ -13,10 +13,12 @@ export default function NetworkStatus() {
   const isZh = language === 'zh';
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const handleOnline = () => {
       setIsOnline(true);
       setShowBanner(true);
-      setTimeout(() => setShowBanner(false), 3000);
+      timeoutId = setTimeout(() => setShowBanner(false), 3000);
     };
 
     const handleOffline = () => {
@@ -32,6 +34,7 @@ export default function NetworkStatus() {
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, []);
 

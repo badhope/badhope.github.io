@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { searchKnowledgeBase, getRandomGreeting, skillCategories, FAQItem } from '@/lib/knowledge-base';
 import { isAIEnabled, generateAIResponse, AIMessage } from '@/lib/ai-api';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './AIChat.module.css';
 
 interface ChatMessage {
@@ -19,6 +20,8 @@ interface AIChatProps {
 }
 
 export default function AIChat({ className }: AIChatProps) {
+  const { t } = useLanguage();
+  const aiChat = t.aiChat;
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -86,8 +89,8 @@ export default function AIChat({ className }: AIChatProps) {
           };
           setMessages(prev => [...prev, aiMessage]);
           return;
-        } catch {
-          console.warn('AI调用失败，回退到知识库');
+        } catch (err) {
+          console.warn('AI调用失败，回退到知识库:', err);
         }
       }
 
@@ -104,17 +107,18 @@ export default function AIChat({ className }: AIChatProps) {
         const fallbackMessage: ChatMessage = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: '抱歉，我无法找到关于这个问题的高匹配答案。你可以尝试：\n• 换一种方式描述你的问题\n• 访问 /contact 页面联系 badhope\n• 查看 /projects 页面了解更多信息',
+          content: aiChat.errorMessages.noMatch,
           timestamp: new Date(),
           source: 'system',
         };
         setMessages(prev => [...prev, fallbackMessage]);
       }
-    } catch {
+    } catch (err) {
+      console.error('Chat error:', err);
       const errorMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: '发生了一些问题，请稍后再试。',
+        content: aiChat.errorMessages.general,
         timestamp: new Date(),
         source: 'system',
       };
@@ -131,12 +135,7 @@ export default function AIChat({ className }: AIChatProps) {
     }
   };
 
-  const quickQuestions: { q: string; icon: string }[] = [
-    { q: 'badhope是谁？', icon: '👤' },
-    { q: '擅长什么技术？', icon: '💻' },
-    { q: '有哪些项目？', icon: '📂' },
-    { q: '如何联系？', icon: '📧' },
-  ];
+  const quickQuestions = aiChat.quickQuestions;
 
   return (
     <div className={`${styles.container} ${className || ''}`}>
@@ -159,7 +158,7 @@ export default function AIChat({ className }: AIChatProps) {
                 <p>{msg.content}</p>
                 {msg.source && (
                   <span className={styles.sourceTag}>
-                    {msg.source === 'ai' ? 'AI生成' : msg.source === 'knowledge' ? '知识库' : '系统'}
+                    {msg.source === 'ai' ? aiChat.sources.ai : msg.source === 'knowledge' ? aiChat.sources.knowledge : aiChat.sources.system}
                   </span>
                 )}
               </div>

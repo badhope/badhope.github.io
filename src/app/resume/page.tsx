@@ -1,35 +1,39 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/ui/Navigation';
 import Footer from '@/components/sections/Footer';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './page.module.css';
 
-const experience = [
-  {
-    title: '全栈开发工程师',
-    company: '个人项目 / 自由职业',
-    period: '2022 - Present',
-    description: '独立完成多个全栈项目，涵盖电商、数据可视化、社交应用等领域。熟练运用AI工具提升开发效率。',
-  },
-];
-
-const education = [
-  {
-    degree: '数据科学与大数据技术',
-    school: '大学 · 深圳',
-    period: '2020 - 2024',
-    description: '主修数据分析、机器学习、后端开发。 GPA: 3.8/4.0',
-  },
-];
-
-const skills = [
-  { category: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'] },
-  { category: 'Backend', items: ['Node.js', 'Python', 'FastAPI', 'PostgreSQL', 'MongoDB'] },
-  { category: 'AI & Tools', items: ['TensorFlow', 'PyTorch', 'Docker', 'Git', 'Linux'] },
-];
-
 export default function ResumePage() {
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  if (!mounted) {
+    return (
+      <div className={styles.page}>
+        <Navigation />
+        <main className={styles.main}>
+          <div className={styles.loading}>Loading...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  const resume = t.resume;
+  const currentLocation = language === 'zh' ? resume.location.zh : resume.location.en;
+
   return (
     <div className={styles.page}>
       <Navigation />
@@ -41,19 +45,19 @@ export default function ResumePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.label}>简历</span>
+            <span className={styles.label}>{resume.label}</span>
             <h1 className={styles.title}>
               <span className="gradient-text">bad</span>hope
             </h1>
-            <p className={styles.subtitle}>全栈开发者 · AI时代探索者 · 开源贡献者</p>
+            <p className={styles.subtitle}>{resume.subtitle}</p>
             <div className={styles.contact}>
-              <span>📍 深圳 · 广东 · 中国</span>
+              <span>📍 {currentLocation}</span>
               <span>📧 x18825407105@outlook.com</span>
             </div>
           </motion.div>
 
-          <motion.a
-            href="#"
+          <motion.button
+            onClick={handlePrint}
             className={styles.downloadBtn}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,10 +66,10 @@ export default function ResumePage() {
             whileTap={{ scale: 0.95 }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+              <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/>
             </svg>
-            <span>下载PDF简历</span>
-          </motion.a>
+            <span>{resume.print}</span>
+          </motion.button>
         </section>
 
         <section className={styles.section}>
@@ -77,7 +81,7 @@ export default function ResumePage() {
               viewport={{ once: true }}
             >
               <span className={styles.sectionNumber}>01</span>
-              个人简介
+              {resume.sections.summary}
             </motion.h2>
             <motion.div
               className={styles.summary}
@@ -85,19 +89,9 @@ export default function ResumePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p>
-                我是一名来自深圳的全栈开发者，毕业于数据科学与大数据技术专业。
-                对新技术充满热情，热衷于用代码创造价值。
-              </p>
-              <p>
-                作为<strong>AI时代的探索者</strong>，我积极拥抱AI工具，
-                善用AI辅助开发，大幅提升生产效率。我相信AI不是取代者，
-                而是强大的增效器。
-              </p>
-              <p>
-                同时，我也是活跃的<strong>开源贡献者</strong>，
-                相信代码的价值在于分享和改进。
-              </p>
+              <p>{resume.summary.p1}</p>
+              <p>{resume.summary.p2}</p>
+              <p>{resume.summary.p3}</p>
             </motion.div>
           </div>
         </section>
@@ -111,26 +105,51 @@ export default function ResumePage() {
               viewport={{ once: true }}
             >
               <span className={styles.sectionNumber}>02</span>
-              技术栈
+              {resume.sections.skills}
             </motion.h2>
             <div className={styles.skillsGrid}>
-              {skills.map((skillGroup, i) => (
-                <motion.div
-                  key={skillGroup.category}
-                  className={styles.skillCard}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <h3 className={styles.skillCategory}>{skillGroup.category}</h3>
-                  <div className={styles.skillTags}>
-                    {skillGroup.items.map((skill) => (
-                      <span key={skill} className={styles.skillTag}>{skill}</span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
+              <motion.div
+                className={styles.skillCard}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0 }}
+              >
+                <h3 className={styles.skillCategory}>{resume.skills.frontend}</h3>
+                <div className={styles.skillTags}>
+                  {['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'].map((skill) => (
+                    <span key={skill} className={styles.skillTag}>{skill}</span>
+                  ))}
+                </div>
+              </motion.div>
+              <motion.div
+                className={styles.skillCard}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <h3 className={styles.skillCategory}>{resume.skills.backend}</h3>
+                <div className={styles.skillTags}>
+                  {['Node.js', 'Python', 'FastAPI', 'PostgreSQL', 'MongoDB'].map((skill) => (
+                    <span key={skill} className={styles.skillTag}>{skill}</span>
+                  ))}
+                </div>
+              </motion.div>
+              <motion.div
+                className={styles.skillCard}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <h3 className={styles.skillCategory}>{resume.skills.aiTools}</h3>
+                <div className={styles.skillTags}>
+                  {['TensorFlow', 'PyTorch', 'Docker', 'Git', 'Linux'].map((skill) => (
+                    <span key={skill} className={styles.skillTag}>{skill}</span>
+                  ))}
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -144,9 +163,9 @@ export default function ResumePage() {
               viewport={{ once: true }}
             >
               <span className={styles.sectionNumber}>03</span>
-              经验
+              {resume.sections.experience}
             </motion.h2>
-            {experience.map((exp, i) => (
+            {resume.experience.map((exp, i) => (
               <motion.div
                 key={i}
                 className={styles.expCard}
@@ -177,9 +196,9 @@ export default function ResumePage() {
               viewport={{ once: true }}
             >
               <span className={styles.sectionNumber}>04</span>
-              教育
+              {resume.sections.education}
             </motion.h2>
-            {education.map((edu, i) => (
+            {resume.education.map((edu, i) => (
               <motion.div
                 key={i}
                 className={styles.eduCard}
@@ -209,15 +228,15 @@ export default function ResumePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className={styles.ctaTitle}>对我感兴趣？</h2>
-              <p className={styles.ctaDesc}>期待与志同道合的朋友交流合作</p>
+              <h2 className={styles.ctaTitle}>{language === 'zh' ? '对我感兴趣？' : 'Interested?'}</h2>
+              <p className={styles.ctaDesc}>{language === 'zh' ? '期待与志同道合的朋友交流合作' : 'Looking forward to connecting with like-minded friends'}</p>
               <motion.a
                 href="/contact/"
                 className={styles.ctaBtn}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                联系我
+                {t.nav.contact}
               </motion.a>
             </motion.div>
           </div>

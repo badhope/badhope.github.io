@@ -2,19 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './Loader.module.css';
 
 interface LoaderProps {
   onComplete: () => void;
 }
 
-const taglines = [
-  '全栈开发者',
-  'AI时代探索者',
-  '代码创造者',
-];
-
 export default function Loader({ onComplete }: LoaderProps) {
+  const { t } = useLanguage();
+  const taglines = t.loader.taglines;
   const [phase, setPhase] = useState(0);
   const [currentTagline, setCurrentTagline] = useState(0);
 
@@ -35,7 +32,7 @@ export default function Loader({ onComplete }: LoaderProps) {
       clearInterval(taglineInterval);
       clearTimeout(complete);
     };
-  }, [onComplete]);
+  }, [onComplete, taglines.length]);
 
   return (
     <motion.div

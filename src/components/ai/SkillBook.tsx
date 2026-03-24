@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { skillCategories } from '@/lib/knowledge-base';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './SkillBook.module.css';
 
 interface SkillBookProps {
@@ -10,6 +11,8 @@ interface SkillBookProps {
 }
 
 export default function SkillBook({ className }: SkillBookProps) {
+  const { t } = useLanguage();
+  const skillBook = t.skillBook;
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
@@ -18,8 +21,8 @@ export default function SkillBook({ className }: SkillBookProps) {
   return (
     <div className={`${styles.container} ${className || ''}`}>
       <div className={styles.header}>
-        <h3 className={styles.title}>技能书</h3>
-        <p className={styles.subtitle}>badhope 的技能树</p>
+        <h3 className={styles.title}>{skillBook.title}</h3>
+        <p className={styles.subtitle}>{skillBook.description}</p>
       </div>
 
       <div className={styles.grid}>
