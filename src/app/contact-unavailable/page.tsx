@@ -1,6 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
@@ -76,9 +77,9 @@ function ContactUnavailableContent() {
             </span>
           </div>
 
-          <a href="/" className={styles.backBtn}>
+          <Link href="/" className={styles.backBtn}>
             ← {isZh ? '返回首页' : 'Back to Home'}
-          </a>
+          </Link>
         </motion.div>
       </div>
     </div>

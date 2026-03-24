@@ -282,7 +282,7 @@ export default function WarpLoader({ onComplete }: WarpLoaderProps) {
               animate={{ opacity: 0.5 }}
               transition={{ delay: 1.5, duration: 1 }}
             >
-              <span className={styles.hintText}>// Initializing starbase systems...</span>
+              <span className={styles.hintText}>{'// Initializing starbase systems...'}</span>
             </motion.div>
           </motion.div>
         )}

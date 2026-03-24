@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import StarNavigation from '@/components/ui/StarNavigation';
 import styles from './not-found.module.css';
@@ -78,9 +79,9 @@ export default function NotFound() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1 }}
           >
-            <a href="/" className={styles.btnPrimary}>
+            <Link href="/" className={styles.btnPrimary}>
               ⭐ {isZh ? '返回空间站' : 'Return to Starbase'}
-            </a>
+            </Link>
             <a
               href="https://github.com/badhope/badhope.github.io/issues/new"
               target="_blank"

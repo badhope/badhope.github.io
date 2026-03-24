@@ -119,7 +119,7 @@ export default function ToolsPage() {
                   cat.tools.map((tool) => (
                     <ToolCard
                       key={tool.name}
-                      tool={{ ...tool, categoryId: cat.id, categoryName: cat.nameEn }}
+                      tool={tool}
                       isZh={isZh}
                       isExpanded={expandedTool === tool.name}
                       onToggle={() => setExpandedTool(expandedTool === tool.name ? null : tool.name)}
