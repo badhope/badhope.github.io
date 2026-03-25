@@ -1,50 +1,55 @@
-# Contributing to badhope Portfolio
+# 🤝 Contributing Guide
 
-We welcome contributions! This document provides guidelines and instructions for contributing to the badhope personal portfolio project.
+First off, thank you for considering contributing to badhope's Starbase! It's people like you that make this project better.
 
----
-
-## Table of Contents
+## 📋 Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
+- [How Can I Contribute?](#how-can-i-contribute)
 - [Development Setup](#development-setup)
-- [Contribution Process](#contribution-process)
-- [Pull Request Guidelines](#pull-request-guidelines)
-- [Code Review Standards](#code-review-standards)
-- [Commit Message Convention](#commit-message-convention)
-- [Contribution Types](#contribution-types)
-- [Recognition](#recognition)
-- [Questions?](#questions)
+- [Project Structure](#project-structure)
+- [Coding Standards](#coding-standards)
+- [Commit Guidelines](#commit-guidelines)
+- [Pull Request Process](#pull-request-process)
 
 ---
 
 ## Code of Conduct
 
-This project adheres to a Code of Conduct that all contributors are expected to follow. Please be respectful, constructive, and inclusive in all interactions.
+This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ---
 
-## Getting Started
+## How Can I Contribute?
 
-### Repository Structure
+### Report Bugs
 
-```
-src/
-├── app/                    # Next.js 15 App Router pages
-├── components/             # React components
-│   ├── 3d/                # Three.js 3D components
-│   ├── ai/                # AI assistant components
-│   ├── animations/        # Animation components
-│   ├── cards/             # Card components
-│   ├── effects/           # Visual effect components
-│   ├── sections/          # Page section components
-│   └── ui/                # UI components
-├── hooks/                 # Custom React hooks
-├── lib/                   # Utility libraries
-│   └── i18n/             # Internationalization
-└── types/                 # TypeScript type definitions
-```
+Before creating bug reports, please check the issue list as you might find out that you don't need to create one. When you are creating a bug report, please include as many details as possible:
+
+- **Use a clear and descriptive title**
+- **Describe the exact steps to reproduce the problem**
+- **Provide specific examples to demonstrate the steps**
+- **Describe the behavior you observed and what you expected**
+- **Include screenshots or animated GIFs if possible**
+- **Include your browser and OS information**
+
+### Suggest Enhancements
+
+Enhancement suggestions are tracked as GitHub issues. When creating an enhancement suggestion, include:
+
+- **Use a clear and descriptive title**
+- **Provide a step-by-step description of the suggested enhancement**
+- **Provide specific examples to demonstrate the steps**
+- **Describe the current behavior and explain the expected behavior**
+- **Explain why this enhancement would be useful**
+
+### Pull Requests
+
+- Fill in the required template
+- Do not include issue numbers in the PR title
+- Follow the coding standards
+- Include screenshots and animated GIFs in your pull request whenever possible
+- Follow the commit guidelines
 
 ---
 
@@ -52,283 +57,165 @@ src/
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- Node.js >= 18.0.0
+- npm >= 9.0.0 or yarn >= 1.22.0
 - Git
 
 ### Setup Steps
 
 ```bash
-# 1. Fork the repository on GitHub
-
-# 2. Clone your fork
+# Fork and clone the repository
 git clone https://github.com/YOUR_USERNAME/badhope.github.io.git
-
-# 3. Navigate to project directory
 cd badhope.github.io
 
-# 4. Install dependencies
-npm install --legacy-peer-deps
+# Install dependencies
+npm install
 
-# 5. Create a feature branch
+# Create a branch for your changes
 git checkout -b feature/your-feature-name
 
-# 6. Start development server
+# Start development server
 npm run dev
+```
 
-# 7. Make your changes
+### Available Scripts
 
-# 8. Run linting
-npm run lint
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 
-# 9. Build to verify
-npm run build
+---
+
+## Project Structure
+
+```
+src/
+├── app/              # Next.js App Router pages
+├── components/       # React components
+│   ├── 3d/          # 3D components
+│   ├── animations/  # Animation components
+│   ├── effects/     # Effect components
+│   ├── sections/    # Page sections
+│   ├── ui/          # UI components
+│   └── settings/    # Settings panel
+├── config/          # Configuration files
+├── lib/             # Utility libraries
+├── hooks/           # Custom React hooks
+├── styles/          # Global styles
+└── types/           # TypeScript types
 ```
 
 ---
 
-## Contribution Process
+## Coding Standards
 
-### 1. Issue Creation
+### TypeScript
 
-Before starting work on a contribution:
+- Use TypeScript for all new files
+- Define proper types and interfaces
+- Avoid `any` type when possible
+- Use meaningful variable and function names
 
-- Search existing issues to avoid duplicates
-- Create a new issue with:
-  - Clear description of the feature/bug
-  - Expected behavior
-  - Steps to reproduce (for bugs)
-  - Screenshot/mockup (for UI changes)
-
-### 2. Branch Naming Convention
-
-Use descriptive branch names:
-
-| Prefix | Purpose |
-|--------|---------|
-| `feature/` | New features |
-| `fix/` | Bug fixes |
-| `refactor/` | Code refactoring |
-| `docs/` | Documentation updates |
-| `i18n/` | Internationalization |
-| `style/` | Visual/style changes |
-| `test/` | Test additions |
-
-**Example:** `feature/add-dark-mode`, `fix/navbar-mobile-scroll`
-
-### 3. Development Guidelines
-
-#### Component Guidelines
+### React
 
 - Use functional components with hooks
-- Place component files in appropriate directories
-- Use CSS Modules for component styling (`.module.css`)
-- Export components as default
-- Add TypeScript types for props
+- Follow the [React Hooks rules](https://reactjs.org/docs/hooks-rules.html)
+- Keep components small and focused
+- Use CSS Modules for styling
 
-```tsx
-// src/components/ui/Example.tsx
-'use client';
+### CSS
 
-import { motion } from 'framer-motion';
-import styles from './Example.module.css';
+- Use CSS Modules for component styles
+- Follow the existing naming conventions
+- Use CSS variables for theming
+- Ensure responsive design
 
-interface ExampleProps {
-  title: string;
-  onClick?: () => void;
-}
+### Code Style
 
-export default function Example({ title, onClick }: ExampleProps) {
-  return (
-    <motion.button onClick={onClick} className={styles.button}>
-      {title}
-    </motion.button>
-  );
-}
+- Use 2 spaces for indentation
+- Use semicolons
+- Use single quotes for strings
+- Add trailing commas in multiline objects/arrays
+
+### Linting
+
+Run ESLint before submitting:
+
+```bash
+npm run lint
 ```
 
-#### i18n Guidelines
-
-- All user-facing text must use the i18n system
-- Add translations in `src/lib/i18n/translations.ts`
-- Use the `useLanguage` hook for translations
-
-```tsx
-import { useLanguage } from '@/lib/i18n/LanguageContext';
-
-export default function MyComponent() {
-  const { t } = useLanguage();
-  return <h1>{t.hero.greeting}</h1>;
-}
-```
+Fix any issues before committing.
 
 ---
 
-## Pull Request Guidelines
+## Commit Guidelines
 
-### PR Requirements
+We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification.
 
-Before submitting a PR:
-
-- [ ] Code follows project style guidelines
-- [ ] No linting errors (`npm run lint`)
-- [ ] Build succeeds (`npm run build`)
-- [ ] Tests pass (if applicable)
-- [ ] Documentation updated
-- [ ] Commit messages follow convention
-
-### PR Template
-
-```markdown
-## Description
-Brief description of changes
-
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation update
-- [ ] Refactoring
-- [ ] Other (please specify)
-
-## Related Issues
-Fixes #issue-number
-
-## Screenshots (if applicable)
-Before/After screenshots for UI changes
-
-## Checklist
-- [ ] Code follows project conventions
-- [ ] Self-reviewed code
-- [ ] Comments added for complex logic
-- [ ] Documentation updated
-- [ ] No console errors/warnings
-```
-
-### PR Review Process
-
-1. **Automated Checks:** CI/CD runs lint, build, and deployment
-2. **Review:** Maintainer reviews code for quality and style
-3. **Feedback:** Address any requested changes
-4. **Merge:** PR approved and merged to main branch
-
----
-
-## Code Review Standards
-
-### What We Look For
-
-**Functionality**
-- Code works as intended
-- Edge cases handled
-- No breaking changes
-
-**Code Quality**
-- Clear, readable code
-- Appropriate abstractions
-- No code duplication
-
-**Performance**
-- No unnecessary re-renders
-- Optimized bundle size
-- Efficient data handling
-
-**Style**
-- Follows project conventions
-- Consistent naming
-- Proper formatting
-
-### Review Response Time
-
-We aim to review PRs within 48 hours. Thank you for your patience!
-
----
-
-## Commit Message Convention
-
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+### Commit Message Format
 
 ```
-<type>(<scope>): <description>
+<type>(<scope>): <subject>
 
-[optional body]
+<body>
 
-[optional footer]
+<footer>
 ```
 
 ### Types
 
 | Type | Description |
 |------|-------------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `docs` | Documentation |
-| `style` | Formatting |
-| `refactor` | Code restructuring |
-| `perf` | Performance improvement |
-| `test` | Adding tests |
-| `chore` | Maintenance |
+| `feat` | A new feature |
+| `fix` | A bug fix |
+| `docs` | Documentation only changes |
+| `style` | Changes that do not affect the code meaning |
+| `refactor` | A code change that neither fixes a bug nor adds a feature |
+| `perf` | A code change that improves performance |
+| `test` | Adding missing tests or correcting existing tests |
+| `chore` | Changes to the build process or auxiliary tools |
 
 ### Examples
 
-```
-feat(i18n): add Chinese language support
-fix(navigation): resolve mobile menu scroll issue
+```bash
+feat(ai): add support for Claude AI model
+fix(navigation): resolve mobile menu close issue
 docs(readme): update installation instructions
-style(hero): adjust typography spacing
-refactor(components): extract shared button logic
+style(hero): improve animation timing
+refactor(components): extract common button styles
 ```
 
 ---
 
-## Contribution Types
+## Pull Request Process
 
-### Bug Reports
+1. **Fork** the repository and create your branch from `main`
+2. **Make** your changes following the coding standards
+3. **Test** your changes thoroughly
+4. **Commit** your changes with a clear commit message
+5. **Push** to your fork and submit a pull request
+6. **Wait** for review and address any feedback
 
-- Include steps to reproduce
-- Specify expected vs actual behavior
-- Note browser/OS environment
+### PR Checklist
 
-### Feature Requests
-
-- Describe the feature and its benefits
-- Provide use cases
-- Consider backwards compatibility
-
-### Documentation
-
-- Fix typos or unclear explanations
-- Add missing information
-- Improve code examples
-
-### Code Contributions
-
-- Follow all guidelines in this document
-- Test thoroughly before submitting
-- Keep changes focused and atomic
+- [ ] Code follows the project's coding standards
+- [ ] All tests pass
+- [ ] No linting errors
+- [ ] Documentation updated if necessary
+- [ ] Commit messages follow the guidelines
+- [ ] PR description is clear and complete
 
 ---
 
-## Recognition
+## Getting Help
 
-Contributors will be recognized in the following ways:
-
-1. **GitHub Contributors Graph** - Automatically displayed on the repository
-2. **Release Notes** - Mentioned in project changelogs
-3. **Social Media** - Mentioned in project announcements (with permission)
+- Open a [Discussion](https://github.com/badhope/badhope.github.io/discussions) for questions
+- Join our community for updates and discussions
 
 ---
 
-## Questions?
-
-- **GitHub Issues** - For bug reports and feature requests
-- **Email** - x18825407105@outlook.com
-
----
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the same license as the project.
-
----
-
-Thank you for contributing to badhope Portfolio! 🚀
+Thank you for contributing! 🎉

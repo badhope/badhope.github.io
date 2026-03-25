@@ -1,12 +1,45 @@
 {
-  "name": "badhope-portfolio",
+  "name": "badhope-starbase",
   "version": "1.0.0",
+  "description": "🚀 A cosmic-themed personal portfolio website with 3D animations, AI assistant, developer toolbox, and more",
+  "author": {
+    "name": "badhope",
+    "url": "https://github.com/badhope"
+  },
+  "license": "MIT",
   "private": true,
+  "keywords": [
+    "portfolio",
+    "personal-website",
+    "nextjs",
+    "react",
+    "typescript",
+    "threejs",
+    "framer-motion",
+    "tailwindcss",
+    "3d-animations",
+    "ai-assistant",
+    "cosmic-theme",
+    "developer-portfolio",
+    "responsive-design",
+    "dark-mode",
+    "i18n"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/badhope/badhope.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/badhope/badhope.github.io/issues"
+  },
+  "homepage": "https://badhope.github.io",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d out"
   },
@@ -42,5 +75,13 @@
     "gh-pages": "^6.3.0",
     "typescript": "5.7.2"
   },
-  "homepage": "https://badhope.github.io"
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "browserslist": [
+    ">0.3%",
+    "not dead",
+    "not op_mini all"
+  ]
 }
