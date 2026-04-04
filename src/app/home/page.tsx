@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import StarNavigation from '@/components/ui/StarNavigation';
 import SettingsPanel from '@/components/settings/SettingsPanel';
@@ -15,17 +15,29 @@ import styles from './home.module.css';
 
 const MouseTrail = dynamic(() => import('@/components/animations/MouseTrail'), { ssr: false });
 const CosmicOrbit = dynamic(() => import('@/components/animations/CosmicOrbit'), { ssr: false });
+const CosmicEntry = dynamic(() => import('@/components/animations/CosmicEntry'), { ssr: false });
 
 export default function HomePage() {
-  // /home 路径：同样跳过 WarpLoader，与根页面保持一致
+  const [showEntry, setShowEntry] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('starbase-entered');
+    }
+    return true;
+  });
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const handleEntryComplete = useCallback(() => {
+    setShowEntry(false);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('starbase-entered', '1');
+    }
+  }, []);
 
   return (
     <div className={styles.page}>
+      {showEntry && <CosmicEntry onComplete={handleEntryComplete} />}
       <MouseTrail />
       <StarNavigation />
-
-      {/* SettingsPanel 必须在 main 外部，防止 z-index 被父容器限制 */}
       <SettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
 
       <main className={styles.main}>
@@ -66,20 +78,13 @@ function CosmicOrbitSection() {
       observer.observe(node);
     }
   };
-
   return (
     <section
       ref={sectionRef}
       style={{ padding: '60px 24px', textAlign: 'center' }}
     >
-      <div style={{
-        fontFamily: 'JetBrains Mono, monospace',
-        fontSize: '0.85rem',
-        color: '#d4af37',
-        letterSpacing: '1px',
-        marginBottom: '24px'
-      }}>
-        {'// ' + 'Cosmic Tech Orbit'}
+      <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.85rem', color: '#d4af37', letterSpacing: '1px', marginBottom: '24px' }}>
+        {'// Cosmic Tech Orbit'}
       </div>
       {visible && <CosmicOrbit size={360} />}
     </section>

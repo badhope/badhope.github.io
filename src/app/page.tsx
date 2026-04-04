@@ -16,16 +16,34 @@ const GitHubStats = dynamic(() => import('@/components/animations/GitHubStats'),
 const DynamicStatus = dynamic(() => import('@/components/sections/DynamicStatus'), { ssr: false });
 const FunZone = dynamic(() => import('@/components/sections/FunZone'), { ssr: false });
 
+// ⭐ 穿越星空入场动画 - sessionStorage 防止重复
+const CosmicEntry = dynamic(() => import('@/components/animations/CosmicEntry'), { ssr: false });
+
 export default function RootPage() {
-  // 根页面：跳过 WarpLoader，直接显示内容（sessionStorage 防止重复弹窗）
+  // 首次访问显示星空入场动画（sessionStorage 记忆，同一会话不重复）
+  const [showEntry, setShowEntry] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('starbase-entered');
+    }
+    return true;
+  });
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const handleEntryComplete = useCallback(() => {
+    setShowEntry(false);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('starbase-entered', '1');
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
+      {/* ⭐ 穿越星空入场动画 */}
+      {showEntry && <CosmicEntry onComplete={handleEntryComplete} />}
+
+      {/* 全局效果层 */}
       <MouseTrail />
       <StarNavigation />
-
-      {/* SettingsPanel 必须在这里（不在 main 内），否则 z-index 受父容器限制 */}
       <SettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
 
       <main className={styles.main}>

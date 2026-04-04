@@ -1,0 +1,360 @@
+.entry {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #04071a;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== INTRO PHASE ===== */
+.introContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 24px;
+}
+
+/* Logo */
+.logoWrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoStar {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 0 20px rgba(240, 208, 96, 0.6));
+  position: relative;
+  z-index: 2;
+}
+
+.logoRing1,
+.logoRing2,
+.logoRing3 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+.logoRing1 {
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.logoRing2 {
+  width: 105px;
+  height: 105px;
+  animation-delay: 0.5s;
+  border-color: rgba(26, 115, 232, 0.25);
+}
+
+.logoRing3 {
+  width: 130px;
+  height: 130px;
+  animation-delay: 1s;
+  border-color: rgba(124, 58, 237, 0.2);
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+/* Title */
+.titleBlock {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.titleMain {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 8px;
+  color: #f0d060;
+  text-shadow:
+    0 0 20px rgba(212, 175, 55, 0.4),
+    0 0 60px rgba(212, 175, 55, 0.2),
+    0 0 100px rgba(212, 175, 55, 0.1);
+  margin: 0;
+  line-height: 1;
+}
+
+.titleSub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  color: #6b6b80;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Divider */
+.divider {
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+  transform-origin: center;
+}
+
+/* Tagline */
+.tagline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: #a0a0b8;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* Countdown */
+.countdownWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.countdownNum {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #d4af37;
+  line-height: 1;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.countdownText {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #6b6b80;
+  margin: 0;
+}
+
+/* Buttons */
+.btnRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.enterBtn {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 50px;
+  padding: 14px 36px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all 0.3s ease;
+}
+
+.enterBtnZh {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f0d060;
+  line-height: 1.2;
+}
+
+.enterBtnEn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: #6b6b80;
+  letter-spacing: 1px;
+}
+
+.enterBtn:hover {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.1));
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+}
+
+.skipBtn {
+  background: transparent;
+  border: 1px solid rgba(107, 107, 128, 0.2);
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #6b6b80;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.skipBtn:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+  color: #a0a0b8;
+}
+
+/* Intro progress bar */
+.introProgress {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+}
+
+.introProgressTrack {
+  height: 2px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.introProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37, #f0d060);
+  border-radius: 1px;
+}
+
+/* ===== WARP PHASE ===== */
+.warpContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 32px;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.warpBadge {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(4, 7, 26, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 50px;
+  padding: 8px 24px;
+  backdrop-filter: blur(10px);
+}
+
+.warpBadge span {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #f0d060;
+  letter-spacing: 3px;
+}
+
+.warpStats {
+  display: flex;
+  gap: 32px;
+  background: rgba(4, 7, 26, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 12px;
+  padding: 12px 28px;
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+}
+
+.warpStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.warpStatLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: #6b6b80;
+  letter-spacing: 2px;
+}
+
+.warpStatValue {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f0d060;
+  font-variant-numeric: tabular-nums;
+}
+
+.warpProgress {
+  width: 280px;
+  pointer-events: auto;
+}
+
+.warpProgressTrack {
+  height: 3px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.warpProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37, #f0d060, #4d9fff);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+.warpSkip {
+  background: transparent;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(107, 107, 128, 0.6);
+  cursor: pointer;
+  padding: 8px;
+  pointer-events: auto;
+  transition: color 0.2s;
+}
+
+.warpSkip:hover { color: #a0a0b8; }
+
+/* ===== DONE FLASH ===== */
+.doneFlash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(240, 208, 96, 0.15) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doneText {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: #f0d060;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+  letter-spacing: 4px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .btnRow { gap: 10px; }
+  .enterBtn { padding: 12px 28px; }
+  .skipBtn { padding: 12px 20px; font-size: 0.75rem; }
+  .logoStar { font-size: 2.5rem; }
+  .logoRing3 { width: 100px; height: 100px; }
+  .titleMain { letter-spacing: 4px; }
+}
