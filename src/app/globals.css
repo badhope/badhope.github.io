@@ -4,9 +4,9 @@
 :root {
   /* ===== badhope's Starbase - Color System ===== */
   /* Primary: Deep Blue + Gold Cosmic Theme */
-  --color-bg-primary: #020510;
-  --color-bg-secondary: #0a0e27;
-  --color-bg-tertiary: #0f1535;
+  --color-bg-primary: #04071a;
+  --color-bg-secondary: #070d30;
+  --color-bg-tertiary: #0c1440;
   --color-bg-card: rgba(15, 21, 53, 0.8);
   --color-bg-card-hover: rgba(20, 28, 70, 0.9);
   --color-bg-glass: rgba(10, 14, 39, 0.6);
@@ -44,7 +44,7 @@
   --color-border-hover: rgba(212, 175, 55, 0.4);
   
   /* Gradients */
-  --gradient-cosmic: linear-gradient(135deg, #020510 0%, #0a0e27 30%, #1a0a3e 60%, #020510 100%);
+  --gradient-cosmic: linear-gradient(135deg, #04071a 0%, #070d30 25%, #0c1440 50%, #1a0a3e 75%, #04071a 100%);
   --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d060 50%, #d4af37 100%);
   --gradient-blue-gold: linear-gradient(135deg, #1a73e8 0%, #d4af37 100%);
   --gradient-cosmic-border: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(26,115,232,0.3), rgba(124,58,237,0.3));
@@ -257,3 +257,68 @@ a:hover {
     --section-gap: 100px;
   }
 }
+
+
+/* ===== Cosmic Star Background ===== */
+.bg-cosmic {
+  background: radial-gradient(ellipse at 20% 50%, rgba(26, 115, 232, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 40%),
+              var(--gradient-cosmic);
+}
+
+/* ===== Enhanced glowing cards ===== */
+.card-glow {
+  position: relative;
+  overflow: hidden;
+}
+.card-glow::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(212, 175, 55, 0.03), transparent 30%);
+  animation: rotateGlow 8s linear infinite;
+  z-index: 0;
+}
+.card-glow > * { position: relative; z-index: 1; }
+@keyframes rotateGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Text shimmer animation ===== */
+.text-shimmer {
+  background: linear-gradient(90deg, #d4af37, #f0d060, #fff, #f0d060, #d4af37);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+
+/* ===== Floating particles ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.floating { animation: float 4s ease-in-out infinite; }
+.floating-delay-1 { animation: float 4s ease-in-out 1s infinite; }
+.floating-delay-2 { animation: float 4s ease-in-out 2s infinite; }
+
+/* ===== Pulse glow ===== */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.5), 0 0 50px rgba(212, 175, 55, 0.2); }
+}
+.glow-pulse { animation: pulseGlow 3s ease-in-out infinite; }
+
+/* ===== Better text contrast ===== */
+.text-bright { color: #f5f5ff !important; }
+.text-medium { color: #c8c8e0 !important; }

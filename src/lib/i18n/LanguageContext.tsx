@@ -1,94 +1,72 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { Language, Translations, en, zh } from './translations';
 
-export type { Language } from './translations';
+export type { Language, Translations };
+export { en, zh };
 
 interface LanguageContextType {
   language: Language;
-  translations: Translations;
   setLanguage: (lang: Language) => void;
-  t: Translations;
   mounted: boolean;
+  /** Full translations object */
+  translations: Translations;
+  /** Alias for translations - same object */
+  t: Translations;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'badhope-language';
 
-function getInitialLanguage(): Language {
-  // First check localStorage
-  if (typeof window !== 'undefined') {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
-      if (stored === 'zh' || stored === 'en') return stored;
-    } catch (e) {}
-
-    // Then check the pre-set data-lang attribute (from our pre-hydration script)
-    try {
-      const dataLang = document.documentElement.getAttribute('data-lang');
-      if (dataLang === 'zh' || dataLang === 'en') return dataLang as Language;
-    } catch (e) {}
-
-    // Fallback to browser language
-    try {
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('zh')) return 'zh';
-    } catch (e) {}
-  }
-  return 'en';
-}
-
 function getTranslations(lang: Language): Translations {
   return lang === 'zh' ? zh : en;
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
+  // Always start with 'zh' on server to match SSR
+  // useEffect syncs with localStorage after hydration
   const [language, setLanguageState] = useState<Language>('zh');
   const [mounted, setMounted] = useState(false);
+  const translations = getTranslations(language);
 
   useEffect(() => {
-    // Get the correct initial language after mount
-    const initialLang = getInitialLanguage();
-    setLanguageState(initialLang);
+    const saved = localStorage.getItem(STORAGE_KEY) as Language | null;
+    const resolvedLang: Language = (saved === 'zh' || saved === 'en') ? saved :
+      (navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en');
+    setLanguageState(resolvedLang);
+    document.documentElement.setAttribute('data-lang', resolvedLang);
+    document.documentElement.classList.add('lang-' + resolvedLang);
     setMounted(true);
-
-    // Sync data-lang attribute when language changes
-    document.documentElement.setAttribute('data-lang', initialLang);
-    document.documentElement.classList.remove('lang-en', 'lang-zh');
-    document.documentElement.classList.add('lang-' + initialLang);
   }, []);
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
-    try {
-      localStorage.setItem(STORAGE_KEY, lang);
-    } catch (e) {}
+    localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.setAttribute('data-lang', lang);
     document.documentElement.classList.remove('lang-en', 'lang-zh');
     document.documentElement.classList.add('lang-' + lang);
-  };
-
-  const translations = getTranslations(language);
+  }, []);
 
   return (
-    <LanguageContext.Provider value={{ language, translations, setLanguage, t: translations, mounted }}>
+    <LanguageContext.Provider value={{ language, translations, t: translations, setLanguage, mounted }}>
       {children}
     </LanguageContext.Provider>
   );
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext);
-  if (!context) {
+  const ctx = useContext(LanguageContext);
+  if (!ctx) {
+    // SSR fallback - return zh translations
     return {
-      language: 'en' as Language,
-      translations: en,
-      setLanguage: () => {},
-      t: en,
+      language: 'zh' as Language,
+      translations: zh,
+      t: zh,
+      setLanguage: (_: Language) => {},
       mounted: false,
     };
   }
-  return context;
+  return ctx;
 }

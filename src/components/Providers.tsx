@@ -10,12 +10,18 @@ const ParticleRain = dynamic(
   { ssr: false }
 );
 
+const FloatingParticles = dynamic(
+  () => import('./effects/FloatingParticles'),
+  { ssr: false }
+);
+
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <SettingsProvider>
       <LanguageProvider>
         <NetworkStatus />
-        <ParticleRain color="rgba(212, 175, 55, 0.15)" count={60} />
+        <ParticleRain color="rgba(212, 175, 55, 0.12)" count={40} />
+        <FloatingParticles />
         {children}
       </LanguageProvider>
     </SettingsProvider>
