@@ -54,7 +54,6 @@ export default function LoginPage() {
           throw new Error(data.detail || "注册失败");
         }
 
-        // Auto login after register
         const formData = new URLSearchParams();
         formData.append("username", email);
         formData.append("password", password);
@@ -81,21 +80,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-md">
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">
+    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50 flex items-center justify-center py-12 px-4">
+      <Card className="w-full max-w-md border border-gray-200 dark:border-gray-700/50 overflow-hidden">
+        <CardHeader className="text-center p-8 pb-4">
+          <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
             {isLogin ? "登录" : "注册"}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="mt-2">
             {isLogin ? "欢迎回来！" : "创建你的账户"}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="p-8 pt-0">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
               <div>
-                <label className="block text-sm font-medium mb-1 text-text-secondary">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   昵称
                 </label>
                 <Input
@@ -103,11 +102,12 @@ export default function LoginPage() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="输入你的昵称"
                   required={!isLogin}
+                  className="h-11"
                 />
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium mb-1 text-text-secondary">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 邮箱
               </label>
               <Input
@@ -116,10 +116,11 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="输入你的邮箱"
                 required
+                className="h-11"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1 text-text-secondary">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 密码
               </label>
               <Input
@@ -128,20 +129,23 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="输入你的密码"
                 required
+                className="h-11"
               />
             </div>
 
             {error && (
-              <p className="text-red-500 text-sm text-center">{error}</p>
+              <p className="text-red-500 text-sm text-center py-2 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                {error}
+              </p>
             )}
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full h-11 text-base" disabled={loading}>
               {loading ? "处理中..." : (isLogin ? "登录" : "注册")}
             </Button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-text-secondary text-sm">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {isLogin ? "还没有账户？" : "已有账户？"}
               <button
                 type="button"
@@ -149,7 +153,7 @@ export default function LoginPage() {
                   setIsLogin(!isLogin);
                   setError("");
                 }}
-                className="text-primary hover:underline ml-1"
+                className="text-orange-500 hover:text-orange-600 font-medium ml-1"
               >
                 {isLogin ? "立即注册" : "立即登录"}
               </button>
