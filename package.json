@@ -55,6 +55,7 @@
     "locomotive-scroll": "5.0.0",
     "lucide-react": "0.468.0",
     "next": "15.1.0",
+    "playwright": "^1.59.1",
     "postcss": "^8.4.49",
     "react": "19.0.0",
     "react-dom": "19.0.0",
