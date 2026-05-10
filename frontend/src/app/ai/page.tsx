@@ -9,8 +9,8 @@ const aiTools = [
 
 export default function AIPage() {
   return (
-    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50">
-      <div className="container mx-auto px-3 sm:px-4 py-8 md:py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="text-center mb-8 md:mb-12">
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
             <span>🤖</span>
@@ -19,12 +19,12 @@ export default function AIPage() {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">
             AI 工具集
           </h1>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto px-4">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
             集成多种 AI 模型，提供智能服务
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-3xl mx-auto mb-8 md:mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mb-8 md:mb-12">
           {aiTools.map((tool) => (
             <Link key={tool.href} href={tool.href}>
               <Card className={`h-full transition-all duration-200 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative ${tool.status === 'coming' ? 'opacity-75' : ''}`}>

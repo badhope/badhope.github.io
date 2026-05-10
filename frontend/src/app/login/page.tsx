@@ -80,18 +80,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50 flex items-center justify-center py-12 px-4">
-      <Card className="w-full max-w-md border border-gray-200 dark:border-gray-700/50 overflow-hidden">
-        <CardHeader className="text-center p-8 pb-4">
-          <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-8 px-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center p-6 sm:p-8 pb-4">
+          <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
             {isLogin ? "登录" : "注册"}
           </CardTitle>
-          <CardDescription className="mt-2">
+          <CardDescription className="mt-2 text-sm sm:text-base">
             {isLogin ? "欢迎回来！" : "创建你的账户"}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-8 pt-0">
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <CardContent className="p-6 sm:p-8 pt-0">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {!isLogin && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -139,7 +139,7 @@ export default function LoginPage() {
               </p>
             )}
 
-            <Button type="submit" className="w-full h-11 text-base" disabled={loading}>
+            <Button type="submit" className="w-full h-11 text-sm sm:text-base" disabled={loading}>
               {loading ? "处理中..." : (isLogin ? "登录" : "注册")}
             </Button>
           </form>

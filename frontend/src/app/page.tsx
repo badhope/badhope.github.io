@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const features = [
-  { icon: "🛠️", title: "在线工具", description: "二维码生成、JSON格式化等实用工具", href: "/tools", gradient: "from-orange-500 to-amber-500" },
+  { icon: "🛠️", title: "在线工具", description: "二维码、JSON、密码等工具", href: "/tools", gradient: "from-orange-500 to-amber-500" },
   { icon: "📦", title: "资源导航", description: "精选网站与工具收藏", href: "/resources", gradient: "from-teal-500 to-cyan-500" },
   { icon: "🤖", title: "AI 助手", description: "多模型智能对话", href: "/ai", gradient: "from-violet-500 to-purple-500" },
 ];
@@ -58,7 +58,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 md:py-20 bg-gray-50/50 dark:bg-gray-900/50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container px-4">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-12">
             核心功能

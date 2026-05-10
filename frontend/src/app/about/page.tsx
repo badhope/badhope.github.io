@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const socialLinks = [
   { name: "GitHub", icon: "🐙", url: "https://github.com/badhope" },
@@ -24,8 +23,8 @@ const techStack = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50">
-      <div className="container mx-auto px-3 sm:px-4 py-8 md:py-12 max-w-2xl lg:max-w-3xl">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 py-8 md:py-12 max-w-2xl">
         <div className="text-center mb-8 md:mb-12">
           <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-orange-500 via-amber-500 to-teal-500 flex items-center justify-center text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6 mx-auto shadow-xl">
             🚀

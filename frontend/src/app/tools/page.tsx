@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const tools = [
   { slug: "qr-generator", name: "二维码生成", description: "生成任意内容的二维码", icon: "📱", category: "工具" },
@@ -25,13 +26,13 @@ const categoryColors: Record<string, string> = {
 
 export default function ToolsPage() {
   return (
-    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50">
-      <div className="container mx-auto px-3 sm:px-4 py-8 md:py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="text-center mb-8 md:mb-12">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900 dark:text-white">
             在线工具
           </h1>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto px-4">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
             实用的在线工具，无需下载安装
           </p>
         </div>
@@ -51,7 +52,7 @@ export default function ToolsPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {tools.map((tool) => (
             <Link key={tool.slug} href={`/tools/${tool.slug}`} className="group">
               <Card className="h-full hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer overflow-hidden">
